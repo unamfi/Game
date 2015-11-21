@@ -85,7 +85,6 @@
 		432C0F151C00F3670077C06B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		432C0F201C00F6B30077C06B /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		43DA68DC1BFE795A00BED1B0 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
-		43DA68E31BFE795A00BED1B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43DA68ED1BFE795A00BED1B0 /* GameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		43DA68F11BFE795A00BED1B0 /* GameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTests.swift; sourceTree = "<group>"; };
 		43DA68F31BFE795A00BED1B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -239,7 +238,6 @@
 			isa = PBXGroup;
 			children = (
 				43DA68DC1BFE795A00BED1B0 /* art.scnassets */,
-				43DA68E31BFE795A00BED1B0 /* Assets.xcassets */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -899,6 +897,7 @@
 				432C0EE31C00F1F20077C06B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		432C0EE91C00F1F20077C06B /* Build configuration list for PBXNativeTarget "OSXGameTests" */ = {
 			isa = XCConfigurationList;
@@ -907,6 +906,7 @@
 				432C0EE51C00F1F20077C06B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		432C0EEA1C00F1F20077C06B /* Build configuration list for PBXNativeTarget "OSXGameUITests" */ = {
 			isa = XCConfigurationList;
@@ -915,6 +915,7 @@
 				432C0EE71C00F1F20077C06B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		432C0F161C00F3670077C06B /* Build configuration list for PBXNativeTarget "iOSGame" */ = {
 			isa = XCConfigurationList;
@@ -923,6 +924,7 @@
 				432C0F181C00F3670077C06B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		432C0F191C00F3670077C06B /* Build configuration list for PBXNativeTarget "iOSGameTests" */ = {
 			isa = XCConfigurationList;
@@ -931,6 +933,7 @@
 				432C0F1B1C00F3670077C06B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		432C0F1C1C00F3670077C06B /* Build configuration list for PBXNativeTarget "iOSGameUITests" */ = {
 			isa = XCConfigurationList;
@@ -939,6 +942,7 @@
 				432C0F1E1C00F3670077C06B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		43DA68D21BFE795A00BED1B0 /* Build configuration list for PBXProject "Game" */ = {
 			isa = XCConfigurationList;
