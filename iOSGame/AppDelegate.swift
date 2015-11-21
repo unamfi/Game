@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  Game
+//  iOSGame
 //
-//  Created by Julio César Guzman on 11/19/15.
+//  Created by Julio César Guzman on 11/21/15.
 //  Copyright © 2015 Julio. All rights reserved.
 //
 

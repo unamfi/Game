@@ -24,15 +24,31 @@ class TextFieldDelegate : NSObject, UITextFieldDelegate, Controller
     }
 }
 
+class SceneRenderer: NSObject, SCNSceneRendererDelegate {
+    
+    var scene : SCNScene
+    
+    init(scene: SCNScene) {
+        self.scene = scene
+    }
+    
+    func renderer(renderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval) {
+
+    }
+    
+}
+
 class GameViewController: UIViewController {
 
     @IBOutlet var scnView: SCNView!
     
-    @IBOutlet var textField: UITextField!
+    @IBOutlet var textField: UITextField?
     
     var smiley : SCNNode?
     
     let textFieldDelegate = TextFieldDelegate()
+    
+    var sceneRenderer : SceneRenderer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,8 +59,11 @@ class GameViewController: UIViewController {
         // set the scene to the view
         scnView.scene = scene
         
+        self.sceneRenderer = SceneRenderer(scene: scene)
+        scnView.delegate = self.sceneRenderer
+        
         // allows the user to manipulate the camera
-        scnView.allowsCameraControl = true
+        scnView.allowsCameraControl = false
         
         // show statistics such as fps and timing information
         scnView.showsStatistics = true
@@ -58,7 +77,7 @@ class GameViewController: UIViewController {
             self.smiley?.physicsBody?.applyForce(SCNVector3Make(0.0, 10, 0.0), impulse: true)
         }
     
-        self.textField.delegate = textFieldDelegate
+        self.textField?.delegate = textFieldDelegate
         
         //Player
         self.smiley = self.scnView.scene?.rootNode.childNodeWithName("smiley", recursively: false)
