@@ -10,7 +10,21 @@ import UIKit
 import QuartzCore
 import SceneKit
 
-class GameViewController: UIViewController , UITextFieldDelegate {
+protocol Controller {
+    var performOnKeyboardStroke : (() -> ())? { get set }
+}
+
+class TextFieldDelegate : NSObject, UITextFieldDelegate, Controller
+{
+    var performOnKeyboardStroke : (() -> ())?
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        self.performOnKeyboardStroke!()
+        return false;
+    }
+}
+
+class GameViewController: UIViewController {
 
     @IBOutlet var scnView: SCNView!
     
@@ -18,19 +32,13 @@ class GameViewController: UIViewController , UITextFieldDelegate {
     
     var smiley : SCNNode?
     
+    let textFieldDelegate = TextFieldDelegate()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // create a new scene
         let scene = SCNScene(named: "art.scnassets/scene.scn")!
-        
-        // create and add a camera to the scene
-        let cameraNode = SCNNode()
-        cameraNode.camera = SCNCamera()
-        scene.rootNode.addChildNode(cameraNode)
-        
-        // place the camera
-        cameraNode.position = SCNVector3(x: 0, y: 3, z: 0)
         
         // set the scene to the view
         scnView.scene = scene
@@ -42,10 +50,15 @@ class GameViewController: UIViewController , UITextFieldDelegate {
         scnView.showsStatistics = true
         
         // configure the view
+        
         scnView.backgroundColor = UIColor.blackColor()
         
         //Input
-        self.textField.delegate = self
+        textFieldDelegate.performOnKeyboardStroke = { () -> () in
+            self.smiley?.physicsBody?.applyForce(SCNVector3Make(0.0, 10, 0.0), impulse: true)
+        }
+    
+        self.textField.delegate = textFieldDelegate
         
         //Player
         self.smiley = self.scnView.scene?.rootNode.childNodeWithName("smiley", recursively: false)
@@ -74,11 +87,6 @@ class GameViewController: UIViewController , UITextFieldDelegate {
         // Release any cached data, images, etc that aren't in use.
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
-        
-        self.smiley?.physicsBody?.applyForce(SCNVector3Make(0.0, 10, 0.0), impulse: true)
-        
-        return false;
-    }
+  
 
 }
