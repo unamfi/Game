@@ -5,6 +5,22 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "432C0EBB1C00F1F10077C06B"
+               BuildableName = "OSXGame.app"
+               BlueprintName = "OSXGame"
+               ReferencedContainer = "container:Game.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
@@ -12,13 +28,33 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "432C0ECF1C00F1F20077C06B"
+               BuildableName = "OSXGameTests.xctest"
+               BlueprintName = "OSXGameTests"
+               ReferencedContainer = "container:Game.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "432C0EDA1C00F1F20077C06B"
+               BuildableName = "OSXGameUITests.xctest"
+               BlueprintName = "OSXGameUITests"
+               ReferencedContainer = "container:Game.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "43DA68D61BFE795A00BED1B0"
-            BuildableName = "Game.app"
-            BlueprintName = "Game"
+            BlueprintIdentifier = "432C0EBB1C00F1F10077C06B"
+            BuildableName = "OSXGame.app"
+            BlueprintName = "OSXGame"
             ReferencedContainer = "container:Game.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -39,9 +75,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "43DA68D61BFE795A00BED1B0"
-            BuildableName = "Game.app"
-            BlueprintName = "Game"
+            BlueprintIdentifier = "432C0EBB1C00F1F10077C06B"
+            BuildableName = "OSXGame.app"
+            BlueprintName = "OSXGame"
             ReferencedContainer = "container:Game.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -54,15 +90,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "43DA68D61BFE795A00BED1B0"
-            BuildableName = "Game.app"
-            BlueprintName = "Game"
+            BlueprintIdentifier = "432C0EBB1C00F1F10077C06B"
+            BuildableName = "OSXGame.app"
+            BlueprintName = "OSXGame"
             ReferencedContainer = "container:Game.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

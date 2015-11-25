@@ -4,7 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Game.xcscheme</key>
+		<key>OSXGame.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>iOSGame.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,6 +17,36 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>432C0EBB1C00F1F10077C06B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>432C0ECF1C00F1F20077C06B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>432C0EDA1C00F1F20077C06B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>432C0EEE1C00F3670077C06B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>432C0F031C00F3670077C06B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>432C0F0E1C00F3670077C06B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>43DA68D61BFE795A00BED1B0</key>
 		<dict>
 			<key>primary</key>

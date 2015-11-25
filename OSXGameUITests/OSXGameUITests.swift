@@ -1,14 +1,14 @@
 //
-//  GameUITests.swift
-//  GameUITests
+//  OSXGameUITests.swift
+//  OSXGameUITests
 //
-//  Created by Julio César Guzman on 11/19/15.
+//  Created by Julio César Guzman on 11/21/15.
 //  Copyright © 2015 Julio. All rights reserved.
 //
 
 import XCTest
 
-class GameUITests: XCTestCase {
+class OSXGameUITests: XCTestCase {
         
     override func setUp() {
         super.setUp()

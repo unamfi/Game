@@ -10,16 +10,25 @@ import UIKit
 import QuartzCore
 import SceneKit
 
+extension UIColor {
+    static func randomColor () -> (UIColor) {
+        let red = CGFloat(arc4random_uniform(UInt32(256)))/256.0 as CGFloat
+        let green = CGFloat(arc4random_uniform(UInt32(256)))/256.0 as CGFloat
+        let blue = CGFloat(arc4random_uniform(UInt32(256)))/256.0 as CGFloat
+        return UIColor(red: red , green: green , blue: blue , alpha: 1.0)
+    }
+}
+
 protocol Controller {
-    var performOnKeyboardStroke : (() -> ())? { get set }
+    var performOnKeyboardStroke : ((String) -> ())? { get set }
 }
 
 class TextFieldDelegate : NSObject, UITextFieldDelegate, Controller
 {
-    var performOnKeyboardStroke : (() -> ())?
+    var performOnKeyboardStroke : ((String) -> ())?
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        self.performOnKeyboardStroke!()
+        self.performOnKeyboardStroke!(string)
         return false;
     }
 }
@@ -28,11 +37,7 @@ class GameViewController: UIViewController {
 
     @IBOutlet var scnView: SCNView!
     
-    @IBOutlet var textField: UITextField!
-    
-    var smiley : SCNNode?
-    
-    let textFieldDelegate = TextFieldDelegate()
+    var renderer : SceneRenderer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +48,10 @@ class GameViewController: UIViewController {
         // set the scene to the view
         scnView.scene = scene
         
+        //Set renderer
+        self.renderer = PracticaSceneRenderer(scene: scene)
+        scnView.delegate = self.renderer
+        
         // allows the user to manipulate the camera
         scnView.allowsCameraControl = true
         
@@ -50,21 +59,12 @@ class GameViewController: UIViewController {
         scnView.showsStatistics = true
         
         // configure the view
-        
         scnView.backgroundColor = UIColor.blackColor()
         
-        //Input
-        textFieldDelegate.performOnKeyboardStroke = { () -> () in
-            self.smiley?.physicsBody?.applyForce(SCNVector3Make(0.0, 10, 0.0), impulse: true)
-        }
-    
-        self.textField.delegate = textFieldDelegate
-        
-        //Player
-        self.smiley = self.scnView.scene?.rootNode.childNodeWithName("smiley", recursively: false)
+        //continuously render
+        scnView.playing = true
         
     }
-    
     
     override func shouldAutorotate() -> Bool {
         return true
@@ -86,7 +86,5 @@ class GameViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
     }
-    
-  
 
 }
