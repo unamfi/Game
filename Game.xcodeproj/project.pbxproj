@@ -6,6 +6,19 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		43A7785D1C067F6300E02CE4 /* Game */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 43A778601C067F6300E02CE4 /* Build configuration list for PBXAggregateTarget "Game" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = Game;
+			productName = "Build everything";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		432C0EBF1C00F1F10077C06B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432C0EBE1C00F1F10077C06B /* AppDelegate.swift */; };
 		432C0EC11C00F1F10077C06B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432C0EC01C00F1F10077C06B /* GameView.swift */; };
@@ -56,6 +69,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 432C0EEE1C00F3670077C06B;
 			remoteInfo = iOSGame;
+		};
+		43A778611C06822100E02CE4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43DA68CF1BFE795A00BED1B0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 432C0EBB1C00F1F10077C06B;
+			remoteInfo = OSXGame;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -375,6 +395,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				43A778621C06822100E02CE4 /* PBXTargetDependency */,
 			);
 			name = GameTests;
 			productName = GameTests;
@@ -413,9 +434,12 @@
 						CreatedOnToolsVersion = 7.1;
 						TestTargetID = 432C0EEE1C00F3670077C06B;
 					};
+					43A7785D1C067F6300E02CE4 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
 					43DA68EC1BFE795A00BED1B0 = {
 						CreatedOnToolsVersion = 7.1;
-						TestTargetID = 43DA68D61BFE795A00BED1B0;
+						TestTargetID = 432C0EBB1C00F1F10077C06B;
 					};
 				};
 			};
@@ -432,6 +456,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				43A7785D1C067F6300E02CE4 /* Game */,
 				43DA68EC1BFE795A00BED1B0 /* GameTests */,
 				432C0EBB1C00F1F10077C06B /* OSXGame */,
 				432C0ECF1C00F1F20077C06B /* OSXGameTests */,
@@ -587,6 +612,11 @@
 			target = 432C0EEE1C00F3670077C06B /* iOSGame */;
 			targetProxy = 432C0F101C00F3670077C06B /* PBXContainerItemProxy */;
 		};
+		43A778621C06822100E02CE4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 432C0EBB1C00F1F10077C06B /* OSXGame */;
+			targetProxy = 43A778611C06822100E02CE4 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -621,7 +651,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = OSXGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -636,7 +665,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = OSXGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -785,6 +813,20 @@
 			};
 			name = Release;
 		};
+		43A7785E1C067F6300E02CE4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		43A7785F1C067F6300E02CE4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		43DA68FF1BFE795A00BED1B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -877,7 +919,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Julio.GameTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Game.app/Game";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OSXGame.app/Contents/MacOS/OSXGame";
 			};
 			name = Debug;
 		};
@@ -889,7 +931,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Julio.GameTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Game.app/Game";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OSXGame.app/Contents/MacOS/OSXGame";
 			};
 			name = Release;
 		};
@@ -949,6 +991,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		43A778601C067F6300E02CE4 /* Build configuration list for PBXAggregateTarget "Game" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43A7785E1C067F6300E02CE4 /* Debug */,
+				43A7785F1C067F6300E02CE4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		43DA68D21BFE795A00BED1B0 /* Build configuration list for PBXProject "Game" */ = {
 			isa = XCConfigurationList;
