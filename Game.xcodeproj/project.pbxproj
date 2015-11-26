@@ -6,19 +6,6 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		43A7785D1C067F6300E02CE4 /* Game */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 43A778601C067F6300E02CE4 /* Build configuration list for PBXAggregateTarget "Game" */;
-			buildPhases = (
-			);
-			dependencies = (
-			);
-			name = Game;
-			productName = "Build everything";
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		432C0EBF1C00F1F10077C06B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432C0EBE1C00F1F10077C06B /* AppDelegate.swift */; };
 		432C0EC11C00F1F10077C06B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432C0EC01C00F1F10077C06B /* GameView.swift */; };
@@ -434,9 +421,6 @@
 						CreatedOnToolsVersion = 7.1;
 						TestTargetID = 432C0EEE1C00F3670077C06B;
 					};
-					43A7785D1C067F6300E02CE4 = {
-						CreatedOnToolsVersion = 7.1.1;
-					};
 					43DA68EC1BFE795A00BED1B0 = {
 						CreatedOnToolsVersion = 7.1;
 						TestTargetID = 432C0EBB1C00F1F10077C06B;
@@ -456,7 +440,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				43A7785D1C067F6300E02CE4 /* Game */,
 				43DA68EC1BFE795A00BED1B0 /* GameTests */,
 				432C0EBB1C00F1F10077C06B /* OSXGame */,
 				432C0ECF1C00F1F20077C06B /* OSXGameTests */,
@@ -813,20 +796,6 @@
 			};
 			name = Release;
 		};
-		43A7785E1C067F6300E02CE4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		43A7785F1C067F6300E02CE4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		43DA68FF1BFE795A00BED1B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -991,14 +960,6 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
-		};
-		43A778601C067F6300E02CE4 /* Build configuration list for PBXAggregateTarget "Game" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				43A7785E1C067F6300E02CE4 /* Debug */,
-				43A7785F1C067F6300E02CE4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
 		};
 		43DA68D21BFE795A00BED1B0 /* Build configuration list for PBXProject "Game" */ = {
 			isa = XCConfigurationList;
