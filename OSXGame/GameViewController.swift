@@ -11,9 +11,9 @@ import QuartzCore
 
 extension NSColor {
     static func randomColor () -> (NSColor) {
-        let red = CGFloat(arc4random_uniform(UInt32(256)))/256.0 as CGFloat
-        let green = CGFloat(arc4random_uniform(UInt32(256)))/256.0 as CGFloat
-        let blue = CGFloat(arc4random_uniform(UInt32(256)))/256.0 as CGFloat
+        let red = CGFloat(random(256))/256 as CGFloat
+        let green = CGFloat(random(256))/256 as CGFloat
+        let blue = CGFloat(random(256))/256 as CGFloat
         return NSColor(red: red , green: green , blue: blue , alpha: 1.0)
     }
 }
@@ -32,11 +32,11 @@ class GameViewController: NSViewController {
         self.gameView!.scene = scene
         
         //Set renderer
-        self.renderer = PracticaSceneRenderer(scene: scene)
+        self.renderer = PracticaSceneRenderer(scene: scene, view: self.gameView)
         gameView.delegate = self.renderer
         
         // allows the user to manipulate the camera
-        self.gameView!.allowsCameraControl = true
+        self.gameView!.allowsCameraControl = false
         
         // show statistics such as fps and timing information
         self.gameView!.showsStatistics = true
@@ -47,7 +47,8 @@ class GameViewController: NSViewController {
         
         self.gameView!.playing = true
         self.gameView!.loops = true
-
+        self.gameView!.window?.acceptsMouseMovedEvents = true
+        
     }
 
 }

@@ -10,40 +10,42 @@ import SceneKit
 
 class GameView: SCNView {
     
-    override func mouseDown(theEvent: NSEvent) {
-        /* Called when a mouse click occurs */
-        
-        // check what nodes are clicked
-        let p = self.convertPoint(theEvent.locationInWindow, fromView: nil)
-        let hitResults = self.hitTest(p, options: nil)
-        // check that we clicked on at least one object
-        if hitResults.count > 0 {
-            // retrieved the first clicked object
-            let result: AnyObject = hitResults[0]
-            
-            // get its material
-            let material = result.node!.geometry!.firstMaterial!
-            
-            // highlight it
-            SCNTransaction.begin()
-            SCNTransaction.setAnimationDuration(0.5)
-            
-            // on completion - unhighlight
-            SCNTransaction.setCompletionBlock() {
-                SCNTransaction.begin()
-                SCNTransaction.setAnimationDuration(0.5)
-                
-                material.emission.contents = NSColor.blackColor()
-                
-                SCNTransaction.commit()
-            }
-            
-            material.emission.contents = NSColor.redColor()
-            
-            SCNTransaction.commit()
+    var keyboard = NSMutableDictionary()
+    
+    let relation : CGFloat = 1 / 1000
+    
+    var α = CGFloat(0)
+    var ß = CGFloat(0)
+    var s = CGFloat(0)
+    
+    func updateKeyboardState(character : String?, pressed:Bool) {
+        if (character != nil) {
+            keyboard.setObject(NSNumber(bool: pressed), forKey: character!)
         }
-        
-        super.mouseDown(theEvent)
+    }
+    
+    override func keyDown(theEvent: NSEvent) {
+        self.updateKeyboardState(theEvent.characters, pressed: true)
+    }
+    
+    override func keyUp(theEvent: NSEvent) {
+        self.updateKeyboardState(theEvent.characters, pressed: false)
+    }
+    
+    override func mouseMoved(theEvent: NSEvent) {
+        α += (theEvent.deltaX) * relation
+        ß += (theEvent.deltaY) * relation
     }
 
+    override func scrollWheel(theEvent: NSEvent) {
+        s += (theEvent.deltaY) 
+    }
+    
+    func handleKeyStroke (key : String, stuff : () -> ()) {
+        let keyIsPressed = self.keyboard[key] as? NSNumber
+        if keyIsPressed != nil && keyIsPressed!.boolValue {
+            stuff()
+        }
+    }
+    
 }
