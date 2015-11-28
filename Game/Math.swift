@@ -27,11 +27,10 @@ func -(left: SCNVector3, right: SCNVector3) -> SCNVector3 {
     return SCNVector3Make(left.x - right.x, left.y - right.y, left.z - right.z)
 }
 
-func *(left: SCNVector3, right: SCNVector3) -> CGFloat {
+func ·(left: SCNVector3, right: SCNVector3) -> CGFloat {
     return left.x * right.x + left.y * right.y + left.z * left.z
 }
 
 func +(left: SCNVector4, right: SCNVector4) -> SCNVector4 {
     return SCNVector4Make(left.x + right.x, left.y + right.y, left.z + right.z, left.w + right.w)
 }
-

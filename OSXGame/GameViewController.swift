@@ -23,6 +23,7 @@ class GameViewController: NSViewController {
     @IBOutlet weak var gameView: GameView!
     
     var renderer : SceneRenderer?
+    var contactDelegate : ContactDelegate?
     
     override func awakeFromNib(){
         // create a new scene
@@ -49,6 +50,16 @@ class GameViewController: NSViewController {
         self.gameView!.loops = true
         self.gameView!.window?.acceptsMouseMovedEvents = true
         
+        self.contactDelegate = ContactDelegate()
+        
+        self.gameView.scene?.physicsWorld.contactDelegate = self.contactDelegate
+        
+        let bullet = self.gameView.scene?.rootNode.childNodeWithName("bullet", recursively: true)!
+        bullet?.physicsBody?.categoryBitMask = 8
+        bullet!.physicsBody?.contactTestBitMask = 8
+        let sphere = self.gameView.scene?.rootNode.childNodeWithName("sphere", recursively: true)!
+        bullet?.physicsBody?.categoryBitMask = 8
+        sphere!.physicsBody?.contactTestBitMask = 8
     }
 
 }
