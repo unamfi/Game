@@ -9,15 +9,6 @@
 import SceneKit
 import QuartzCore
 
-extension NSColor {
-    static func randomColor () -> (NSColor) {
-        let red = CGFloat(random(256))/256 as CGFloat
-        let green = CGFloat(random(256))/256 as CGFloat
-        let blue = CGFloat(random(256))/256 as CGFloat
-        return NSColor(red: red , green: green , blue: blue , alpha: 1.0)
-    }
-}
-
 let commonBitMaskToEnableContactDelegate = 8
 
 class GameViewController: NSViewController {
