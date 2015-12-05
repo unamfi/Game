@@ -93,6 +93,7 @@
 		439372731C0266B900FECC64 /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 		43DA68DC1BFE795A00BED1B0 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		43DA68F11BFE795A00BED1B0 /* GameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTests.swift; sourceTree = "<group>"; };
+		43F49EF01C1362E0005247D7 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playground.playground; path = Game/Playground.playground; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +235,7 @@
 		43DA68D91BFE795A00BED1B0 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				43F49EF01C1362E0005247D7 /* Playground.playground */,
 				434CD4F01C09480000CC628F /* Math.swift */,
 				439372731C0266B900FECC64 /* Renderer.swift */,
 				43DA68DC1BFE795A00BED1B0 /* art.scnassets */,
