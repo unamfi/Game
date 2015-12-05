@@ -11,9 +11,11 @@ import SceneKit
 class DecalContactDelegate : NSObject, SCNPhysicsContactDelegate {
     
     var decalNode : SCNNode
+    var sceneRootNode : SCNNode
     
-    init(decalNode:SCNNode) {
+    init(decalNode:SCNNode, sceneRootNode : SCNNode) {
         self.decalNode = decalNode
+        self.sceneRootNode = sceneRootNode
         super.init()
     }
     

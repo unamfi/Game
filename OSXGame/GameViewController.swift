@@ -31,7 +31,7 @@ class GameViewController: NSViewController {
         self.gameView!.window?.acceptsMouseMovedEvents = true
         
         let decalNode = self.gameView.scene?.rootNode.childNodeWithName("plane", recursively: true)!
-        self.contactDelegate = DecalContactDelegate(decalNode: decalNode!)
+        self.contactDelegate = DecalContactDelegate(decalNode: decalNode!, sceneRootNode: self.gameView.scene!.rootNode)
         self.gameView.scene?.physicsWorld.contactDelegate = self.contactDelegate
         
         self.setupBitMasksForContact()
