@@ -18,6 +18,8 @@ extension NSColor {
     }
 }
 
+let commonBitMaskToEnableContactDelegate = 8
+
 class GameViewController: NSViewController {
     
     @IBOutlet weak var gameView: GameView!
@@ -41,12 +43,16 @@ class GameViewController: NSViewController {
         
         self.gameView.scene?.physicsWorld.contactDelegate = self.contactDelegate
         
+        self.setupBitMasksForContact()
+    }
+
+    func setupBitMasksForContact() {
         let bullet = self.gameView.scene?.rootNode.childNodeWithName("bullet", recursively: true)!
-        bullet?.physicsBody?.categoryBitMask = 8
-        bullet!.physicsBody?.contactTestBitMask = 8
-        let sphere = self.gameView.scene?.rootNode.childNodeWithName("sphere", recursively: true)!
-        bullet?.physicsBody?.categoryBitMask = 8
-        sphere!.physicsBody?.contactTestBitMask = 8
+        bullet?.physicsBody?.categoryBitMask = commonBitMaskToEnableContactDelegate
+        bullet!.physicsBody?.contactTestBitMask = commonBitMaskToEnableContactDelegate
+        let floor = self.gameView.scene?.rootNode.childNodeWithName("floor", recursively: true)!
+        floor!.physicsBody?.categoryBitMask = commonBitMaskToEnableContactDelegate
+        floor!.physicsBody?.contactTestBitMask = commonBitMaskToEnableContactDelegate
     }
 
 }
