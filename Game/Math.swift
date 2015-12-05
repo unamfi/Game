@@ -47,7 +47,11 @@ func +(left: SCNVector4, right: SCNVector4) -> SCNVector4 {
 }
 
 func normalize(vector: SCNVector3) -> SCNVector3 {
-    let magnitude = sqrt(vector.x * vector.x  + vector.y * vector.y + vector.z * vector.z)
+    let magnitude = magnitudeOf(vector)
     return SCNVector3Make(vector.x / magnitude, vector.y / magnitude, vector.z / magnitude)
+}
+
+func magnitudeOf(vector: SCNVector3) -> CGFloat {
+    return sqrt(vector.x * vector.x  + vector.y * vector.y + vector.z * vector.z);
 }
 
