@@ -9,8 +9,23 @@
 import SceneKit
 
 class ContactDelegate : NSObject, SCNPhysicsContactDelegate {
+    
+    var scene : SCNScene?
+    
     func physicsWorld(world: SCNPhysicsWorld, didBeginContact contact: SCNPhysicsContact) {
         
+        let nodeA = contact.nodeA
+        let nodeB = contact.nodeB
+        let nodesInCollission = [nodeA, nodeB]
+        
+        if nodeA.physicsBody?.categoryBitMask == commonBitMaskToEnableContactDelegate &&
+            nodeB.physicsBody?.categoryBitMask == commonBitMaskToEnableContactDelegate {
+                for node in nodesInCollission {
+                    if magnitudeOf(node.physicsBody!.velocity) == 0 {
+                        self.addDamageToNode(node, contact: contact)
+                    }
+                }
+        }
     }
     
     func physicsWorld(world: SCNPhysicsWorld, didUpdateContact contact: SCNPhysicsContact) {
@@ -19,6 +34,10 @@ class ContactDelegate : NSObject, SCNPhysicsContactDelegate {
     
     func physicsWorld(world: SCNPhysicsWorld, didEndContact contact: SCNPhysicsContact) {
         
+    }
+    
+    func addDamageToNode(node : SCNNode, contact: SCNPhysicsContact) {
+        //TODO: Add decal here
     }
 }
 

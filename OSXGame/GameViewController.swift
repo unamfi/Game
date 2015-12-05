@@ -40,7 +40,7 @@ class GameViewController: NSViewController {
         self.gameView!.window?.acceptsMouseMovedEvents = true
         
         self.contactDelegate = ContactDelegate()
-        
+        self.contactDelegate?.scene = scene
         self.gameView.scene?.physicsWorld.contactDelegate = self.contactDelegate
         
         self.setupBitMasksForContact()
