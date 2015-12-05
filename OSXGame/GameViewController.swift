@@ -30,20 +30,20 @@ class GameViewController: NSViewController {
         self.gameView!.loops = true
         self.gameView!.window?.acceptsMouseMovedEvents = true
         
-        let decalNode = self.gameView.scene?.rootNode.childNodeWithName("plane", recursively: true)!
-        self.contactDelegate = DecalContactDelegate(decalNode: decalNode!, sceneRootNode: self.gameView.scene!.rootNode)
+        let decalNode = self.gameView.loadNodeFromScene("plane")
+        self.contactDelegate = DecalContactDelegate(decalNode: decalNode, sceneRootNode: self.gameView.scene!.rootNode)
         self.gameView.scene?.physicsWorld.contactDelegate = self.contactDelegate
         
         self.setupBitMasksForContact()
     }
 
     func setupBitMasksForContact() {
-        let bullet = self.gameView.scene?.rootNode.childNodeWithName("bullet", recursively: true)!
-        bullet?.physicsBody?.categoryBitMask = commonBitMaskToEnableContactDelegate
-        bullet!.physicsBody?.contactTestBitMask = commonBitMaskToEnableContactDelegate
-        let floor = self.gameView.scene?.rootNode.childNodeWithName("floor", recursively: true)!
-        floor!.physicsBody?.categoryBitMask = commonBitMaskToEnableContactDelegate
-        floor!.physicsBody?.contactTestBitMask = commonBitMaskToEnableContactDelegate
+        let bullet = self.gameView.loadNodeFromScene("bullet")
+        bullet.physicsBody?.categoryBitMask = commonBitMaskToEnableContactDelegate
+        bullet.physicsBody?.contactTestBitMask = commonBitMaskToEnableContactDelegate
+        let floor = self.gameView.loadNodeFromScene("floor")
+        floor.physicsBody?.categoryBitMask = commonBitMaskToEnableContactDelegate
+        floor.physicsBody?.contactTestBitMask = commonBitMaskToEnableContactDelegate
     }
 
 }
