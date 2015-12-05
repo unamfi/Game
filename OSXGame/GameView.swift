@@ -115,6 +115,7 @@ class GameView: InputView {
         let forceVector = SCNVector3Make(directionalVector.x * force, directionalVector.y * force, directionalVector.z * force)
         
         bullet.physicsBody?.velocity = SCNVector3Zero
+        bullet.physicsBody?.angularVelocity = SCNVector4Zero;
         bullet.physicsBody?.affectedByGravity = false
         bullet.position = pointB
         bullet.physicsBody?.applyForce(forceVector, impulse: true)
