@@ -25,7 +25,7 @@ class GameViewController: NSViewController {
     @IBOutlet weak var gameView: GameView!
     
     var renderer : SceneRenderer?
-    var contactDelegate : ContactDelegate?
+    var contactDelegate : DecalContactDelegate?
     
     override func awakeFromNib(){
         let scene = SCNScene(named: "art.scnassets/scene.scn")!
@@ -39,8 +39,8 @@ class GameViewController: NSViewController {
         self.gameView!.loops = true
         self.gameView!.window?.acceptsMouseMovedEvents = true
         
-        self.contactDelegate = ContactDelegate()
-        self.contactDelegate?.scene = scene
+        let decalNode = self.gameView.scene?.rootNode.childNodeWithName("plane", recursively: true)!
+        self.contactDelegate = DecalContactDelegate(decalNode: decalNode!)
         self.gameView.scene?.physicsWorld.contactDelegate = self.contactDelegate
         
         self.setupBitMasksForContact()

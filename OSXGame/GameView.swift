@@ -8,9 +8,14 @@
 
 import SceneKit
 
-class ContactDelegate : NSObject, SCNPhysicsContactDelegate {
+class DecalContactDelegate : NSObject, SCNPhysicsContactDelegate {
     
-    var scene : SCNScene?
+    var decalNode : SCNNode
+    
+    init(decalNode:SCNNode) {
+        self.decalNode = decalNode
+        super.init()
+    }
     
     func physicsWorld(world: SCNPhysicsWorld, didBeginContact contact: SCNPhysicsContact) {
         
