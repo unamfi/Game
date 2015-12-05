@@ -135,34 +135,36 @@ class GameView: InputView {
     }
     
     func handleKeyStrokes () {
-        let θ : CGFloat = smiley.rotation.w
         let speed = CGFloat(0.5)
         let pi = CGFloat(π)
+        let smiley = self.smiley
+        let camera = self.camera
+        let θ : CGFloat = smiley.rotation.w
         
         self.handleKeyStroke("w") { () -> () in
-            self.smiley.position.x = self.smiley.position.x + sin(θ) * speed
-            self.smiley.position.z = self.smiley.position.z + cos(θ) * speed
+            smiley.position.x = smiley.position.x + sin(θ) * speed
+            smiley.position.z = smiley.position.z + cos(θ) * speed
         }
         self.handleKeyStroke("s") { () -> () in
-            self.smiley.position.x = self.smiley.position.x + sin(θ + pi) * speed
-            self.smiley.position.z = self.smiley.position.z + cos(θ + pi) * speed
+            smiley.position.x = smiley.position.x + sin(θ + pi) * speed
+            smiley.position.z = smiley.position.z + cos(θ + pi) * speed
         }
         self.handleKeyStroke("a") { () -> () in
-            self.smiley.position.x = self.smiley.position.x + sin(θ + pi / 2) * speed
-            self.smiley.position.z = self.smiley.position.z + cos(θ + pi / 2) * speed
+            smiley.position.x = smiley.position.x + sin(θ + pi / 2) * speed
+            smiley.position.z = smiley.position.z + cos(θ + pi / 2) * speed
         }
         self.handleKeyStroke("d") { () -> () in
-            self.smiley.position.x = self.smiley.position.x + sin(θ - pi / 2) * speed
-            self.smiley.position.z = self.smiley.position.z + cos(θ - pi / 2) * speed
+            smiley.position.x = smiley.position.x + sin(θ - pi / 2) * speed
+            smiley.position.z = smiley.position.z + cos(θ - pi / 2) * speed
         }
         
         self.handleKeyStroke("e") { () -> () in
-            self.camera.camera?.xFov++
-            self.camera.camera?.yFov++
+            camera.camera?.xFov++
+            camera.camera?.yFov++
         }
         self.handleKeyStroke("q") { () -> () in
-            self.camera.camera?.xFov--
-            self.camera.camera?.yFov--
+            camera.camera?.xFov--
+            camera.camera?.yFov--
         }
     }
     
