@@ -23,28 +23,29 @@ class DecalContactDelegate : NSObject, SCNPhysicsContactDelegate {
         
         let nodeA = contact.nodeA
         let nodeB = contact.nodeB
-        let nodesInCollission = [nodeA, nodeB]
         
         if nodeA.physicsBody?.categoryBitMask == commonBitMaskToEnableContactDelegate &&
             nodeB.physicsBody?.categoryBitMask == commonBitMaskToEnableContactDelegate {
-                for node in nodesInCollission {
-                    if magnitudeOf(node.physicsBody!.velocity) == 0 {
-                        self.addDamageToNode(node, contact: contact)
-                    }
-                }
+            if magnitudeOf(nodeA.physicsBody!.velocity) == 0 {
+                self.addDamageToNode(nodeA, bullet:nodeB, contact: contact)
+            }
+            if magnitudeOf(nodeB.physicsBody!.velocity) == 0 {
+                self.addDamageToNode(nodeB, bullet:nodeA, contact: contact)
+            }
         }
     }
     
-    func physicsWorld(world: SCNPhysicsWorld, didUpdateContact contact: SCNPhysicsContact) {
+    func addDamageToNode(damagedNode : SCNNode, bullet:SCNNode, contact: SCNPhysicsContact) {
+        let rootNode = self.sceneRootNode
+        let decal = rootNode.childNodeWithName("plane", recursively: true)!.clone()
+        decal.position = rootNode.convertPosition(contact.contactPoint, toNode: damagedNode)
         
-    }
-    
-    func physicsWorld(world: SCNPhysicsWorld, didEndContact contact: SCNPhysicsContact) {
+        let bulletVelocity = bullet.physicsBody!.velocity
+        let normalAlPlano = contact.contactNormal
+        let angulo = atan2(bulletVelocity.x, bulletVelocity.z)
+        decal.rotation = SCNVector4Make(normalAlPlano.x, normalAlPlano.y, normalAlPlano.z, angulo)
         
-    }
-    
-    func addDamageToNode(node : SCNNode, contact: SCNPhysicsContact) {
-        //TODO: Add decal here
+        damagedNode.addChildNode(decal)
     }
 }
 
