@@ -36,16 +36,37 @@ class DecalContactDelegate : NSObject, SCNPhysicsContactDelegate {
     }
     
     func addDamageToNode(damagedNode : SCNNode, bullet:SCNNode, contact: SCNPhysicsContact) {
+        
         let rootNode = self.sceneRootNode
         let decal = rootNode.childNodeWithName("plane", recursively: true)!.clone()
-        decal.position = rootNode.convertPosition(contact.contactPoint, toNode: damagedNode)
+        let gradoDeLibertadDePosicion = SCNNode()
+        let gradoDeLibertadDeRotacionRespectoALaNormal = SCNNode()
+        let gradoDeLibertadDeRotacionDeAnileacionConLaNormal = SCNNode()
+        
+        damagedNode.addChildNode(gradoDeLibertadDePosicion)
+        gradoDeLibertadDePosicion.addChildNode(gradoDeLibertadDeRotacionDeAnileacionConLaNormal)
+        gradoDeLibertadDeRotacionDeAnileacionConLaNormal.addChildNode(gradoDeLibertadDeRotacionRespectoALaNormal)
+        gradoDeLibertadDeRotacionRespectoALaNormal.addChildNode(decal)
+        
         
         let bulletVelocity = bullet.physicsBody!.velocity
-        let normalAlPlano = contact.contactNormal
+        let contactNormal = contact.contactNormal
         let angulo = atan2(bulletVelocity.x, bulletVelocity.z)
-        decal.rotation = SCNVector4Make(normalAlPlano.x, normalAlPlano.y, normalAlPlano.z, angulo)
+        let normalcruzvelocidad = contactNormal ^ normalize(bulletVelocity)
+        let ejeDeRotacion = normalcruzvelocidad
+        let vectorEnElPiso = contactNormal ^ ejeDeRotacion
+        let vectorArriba = contactNormal
+        let anguloDeAlineacionConLaNormal = angleBetween(vectorEnElPiso, vectorB: vectorArriba)
+
+        gradoDeLibertadDePosicion.position = rootNode.convertPosition(contact.contactPoint, toNode: damagedNode)
+        gradoDeLibertadDeRotacionRespectoALaNormal.rotation = SCNVector4Make(contactNormal.x, contactNormal.y, contactNormal.z, angulo)
+        gradoDeLibertadDeRotacionDeAnileacionConLaNormal.rotation = SCNVector4Make(ejeDeRotacion.x, ejeDeRotacion.y, ejeDeRotacion.z, anguloDeAlineacionConLaNormal)
         
-        damagedNode.addChildNode(decal)
+       
+        //add random height
+        let y = gradoDeLibertadDePosicion.position.y + CGFloat(Random.randomBounded(0.0, max: 1.0))
+        gradoDeLibertadDePosicion.position = SCNVector3Make(gradoDeLibertadDePosicion.position.x, y , gradoDeLibertadDePosicion.position.z)
+        
     }
 }
 

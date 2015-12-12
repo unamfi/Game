@@ -20,15 +20,15 @@ class GameViewController: NSViewController {
     
     override func awakeFromNib(){
         let scene = SCNScene(named: "art.scnassets/scene.scn")!
-        self.gameView!.scene = scene
+        self.gameView.scene = scene
         self.renderer = PracticaSceneRenderer(scene: scene, view: self.gameView)
-        gameView.delegate = self.renderer
-        self.gameView!.allowsCameraControl = false
-        self.gameView!.showsStatistics = true
-        self.gameView!.backgroundColor = NSColor.blackColor()
-        self.gameView!.playing = true
-        self.gameView!.loops = true
-        self.gameView!.window?.acceptsMouseMovedEvents = true
+        self.gameView.delegate = self.renderer
+        self.gameView.allowsCameraControl = true
+        self.gameView.showsStatistics = true
+        self.gameView.backgroundColor = NSColor.blackColor()
+        self.gameView.playing = true
+        self.gameView.loops = true
+        self.gameView.window?.acceptsMouseMovedEvents = true
         
         let decalNode = self.gameView.loadNodeFromScene("plane")
         self.contactDelegate = DecalContactDelegate(decalNode: decalNode, sceneRootNode: self.gameView.scene!.rootNode)

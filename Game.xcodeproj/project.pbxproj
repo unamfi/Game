@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		430C9FB91C1CADF600DF5028 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430C9FB81C1CADF600DF5028 /* Random.swift */; };
+		430C9FBA1C1CADF600DF5028 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430C9FB81C1CADF600DF5028 /* Random.swift */; };
 		431597E91C0781F100549F94 /* GameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DA68F11BFE795A00BED1B0 /* GameTests.swift */; };
 		431597EE1C07834800549F94 /* GameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DA68F11BFE795A00BED1B0 /* GameTests.swift */; };
 		432C0EBF1C00F1F10077C06B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432C0EBE1C00F1F10077C06B /* AppDelegate.swift */; };
@@ -64,6 +66,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		430C9FB81C1CADF600DF5028 /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
 		432C0EBC1C00F1F10077C06B /* OSXGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OSXGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		432C0EBE1C00F1F10077C06B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		432C0EC01C00F1F10077C06B /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -240,6 +243,7 @@
 			children = (
 				43F49EF01C1362E0005247D7 /* Playground.playground */,
 				434CD4F01C09480000CC628F /* Math.swift */,
+				430C9FB81C1CADF600DF5028 /* Random.swift */,
 				439372731C0266B900FECC64 /* Renderer.swift */,
 				43DA68DC1BFE795A00BED1B0 /* art.scnassets */,
 			);
@@ -483,6 +487,7 @@
 				439372741C0266B900FECC64 /* Renderer.swift in Sources */,
 				432C0EC31C00F1F10077C06B /* GameViewController.swift in Sources */,
 				432C0EBF1C00F1F10077C06B /* AppDelegate.swift in Sources */,
+				430C9FB91C1CADF600DF5028 /* Random.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,6 +514,7 @@
 			files = (
 				439372721C0260BD00FECC64 /* GameViewController.swift in Sources */,
 				434CD4F21C09480000CC628F /* Math.swift in Sources */,
+				430C9FBA1C1CADF600DF5028 /* Random.swift in Sources */,
 				439372751C0266B900FECC64 /* Renderer.swift in Sources */,
 				432C0EF21C00F3670077C06B /* AppDelegate.swift in Sources */,
 			);
