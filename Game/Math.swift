@@ -28,7 +28,7 @@ func -(left: SCNVector3, right: SCNVector3) -> SCNVector3 {
 }
 
 func *(left: SCNVector3, right: SCNVector3) -> CGFloat {
-    return left.x * right.x + left.y * right.y + left.z * left.z
+    return left.x * right.x + left.y * right.y + left.z * right.z
 }
 
 func *(left: Float, right: SCNVector3) -> SCNVector3 {
@@ -53,5 +53,15 @@ func normalize(vector: SCNVector3) -> SCNVector3 {
 
 func magnitudeOf(vector: SCNVector3) -> CGFloat {
     return sqrt(vector.x * vector.x  + vector.y * vector.y + vector.z * vector.z);
+}
+
+func angleBetween(vectorA: SCNVector3, vectorB: SCNVector3) -> CGFloat {
+    let ab = vectorA * vectorB
+    let abmodules = magnitudeOf(vectorA) * magnitudeOf(vectorB)
+    let result = acos(ab/abmodules)
+    if result.isNaN {
+        return CGFloat(π)/2
+    }
+    return result
 }
 
