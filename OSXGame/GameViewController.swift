@@ -21,7 +21,7 @@ class GameViewController: NSViewController {
     override func awakeFromNib(){
         let scene = SCNScene(named: "art.scnassets/scene.scn")!
         self.gameView.scene = scene
-        self.renderer = PracticaSceneRenderer(scene: scene, view: self.gameView)
+        self.renderer = OSXSceneRenderer(scene: scene, view: self.gameView)
         self.gameView.delegate = self.renderer
         self.gameView.allowsCameraControl = true
         self.gameView.showsStatistics = true

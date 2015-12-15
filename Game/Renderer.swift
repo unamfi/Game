@@ -9,21 +9,15 @@
 import Foundation
 import SceneKit
 
-class SceneRenderer: NSObject, SCNSceneRendererDelegate {
-    
+class SceneRenderer : NSObject, SCNSceneRendererDelegate {
     var scene : SCNScene
-    var view : GameView
-    
-    init(scene: SCNScene, view: GameView) {
-        self.scene = scene
-        self.view = view
-    }
-}
 
-class UpdateSceneRenderer : SceneRenderer {
-    
     var lastTime : NSTimeInterval = NSTimeInterval()
     var currentTime : NSTimeInterval = NSTimeInterval()
+    
+    init(scene: SCNScene) {
+        self.scene = scene
+    }
     
     func renderer(renderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval) {
         
@@ -35,9 +29,3 @@ class UpdateSceneRenderer : SceneRenderer {
     }
 }
 
-class PracticaSceneRenderer : SceneRenderer
-{
-    func renderer(renderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval) {
-        self.view.performOnUpdate()
-    }
-}
