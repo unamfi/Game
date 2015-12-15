@@ -11,9 +11,9 @@ import QuartzCore
 
 extension NSColor {
     static func randomColor () -> (NSColor) {
-        let red = CGFloat(arc4random_uniform(UInt32(256)))/256.0 as CGFloat
-        let green = CGFloat(arc4random_uniform(UInt32(256)))/256.0 as CGFloat
-        let blue = CGFloat(arc4random_uniform(UInt32(256)))/256.0 as CGFloat
+        let red = Random.numberFromZeroToOne() as CGFloat
+        let green = Random.numberFromZeroToOne() as CGFloat
+        let blue = Random.numberFromZeroToOne()as CGFloat
         return NSColor(red: red , green: green , blue: blue , alpha: 1.0)
     }
 }
