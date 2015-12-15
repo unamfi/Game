@@ -11,6 +11,20 @@ import SceneKit
 
 let π = M_PI
 
+struct Vector3 {
+    var x : Float
+    var y : Float
+    var z : Float
+}
+
+func convertSCNVector3ToVector3(scnVector : SCNVector3) -> Vector3 {
+    return Vector3(scnVector.x, scnVector.y, scnVector.z)
+}
+
+func convertVector3VorSCNVector3(vector : Vector3) -> SCNVector3 {
+    return SCNVector3Make(vector.x, vector.y, vector.z)
+}
+
 func ==(left: SCNVector3, right: SCNVector3) -> Bool {
     return SCNVector3EqualToVector3(left , right)
 }
