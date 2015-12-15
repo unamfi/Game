@@ -49,7 +49,7 @@ class GameViewController: UIViewController {
         scnView.scene = scene
         
         //Set renderer
-        self.renderer = PracticaSceneRenderer(scene: scene)
+        self.renderer = SceneRenderer(scene: scene)
         scnView.delegate = self.renderer
         
         // allows the user to manipulate the camera

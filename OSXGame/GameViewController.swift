@@ -32,7 +32,7 @@ class GameViewController: NSViewController {
         self.gameView!.scene = scene
         
         //Set renderer
-        self.renderer = PracticaSceneRenderer(scene: scene)
+        self.renderer = SceneRenderer(scene: scene)
         gameView.delegate = self.renderer
         
         // allows the user to manipulate the camera
