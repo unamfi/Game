@@ -25,7 +25,6 @@
 		432C0F1F1C00F48A0077C06B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 43DA68DC1BFE795A00BED1B0 /* art.scnassets */; };
 		432C0F221C00F6EC0077C06B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 43DA68DC1BFE795A00BED1B0 /* art.scnassets */; };
 		437A2AC01C20904700ED6EEC /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437A2ABF1C20904700ED6EEC /* Math.swift */; };
-		437A2AC11C20904700ED6EEC /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437A2ABF1C20904700ED6EEC /* Math.swift */; };
 		437A2AC31C20907700ED6EEC /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437A2AC21C20907700ED6EEC /* Random.swift */; };
 		437A2AC41C20907700ED6EEC /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437A2AC21C20907700ED6EEC /* Random.swift */; };
 		439372721C0260BD00FECC64 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439372711C0260BD00FECC64 /* GameViewController.swift */; };
@@ -90,7 +89,7 @@
 		432C0F0F1C00F3670077C06B /* iOSGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		432C0F131C00F3670077C06B /* iOSGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSGameUITests.swift; sourceTree = "<group>"; };
 		432C0F151C00F3670077C06B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		437A2ABF1C20904700ED6EEC /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		437A2ABF1C20904700ED6EEC /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Math.swift; path = ../Game/Math.swift; sourceTree = "<group>"; };
 		437A2AC21C20907700ED6EEC /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
 		439372711C0260BD00FECC64 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		439372731C0266B900FECC64 /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
@@ -147,6 +146,7 @@
 		432C0EBD1C00F1F10077C06B /* OSXGame */ = {
 			isa = PBXGroup;
 			children = (
+				437A2ABF1C20904700ED6EEC /* Math.swift */,
 				432C0EBE1C00F1F10077C06B /* AppDelegate.swift */,
 				432C0EC01C00F1F10077C06B /* GameView.swift */,
 				432C0EC21C00F1F10077C06B /* GameViewController.swift */,
@@ -237,7 +237,6 @@
 		43DA68D91BFE795A00BED1B0 /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				437A2ABF1C20904700ED6EEC /* Math.swift */,
 				439372731C0266B900FECC64 /* Renderer.swift */,
 				437A2AC21C20907700ED6EEC /* Random.swift */,
 				43DA68DC1BFE795A00BED1B0 /* art.scnassets */,
@@ -510,7 +509,6 @@
 				439372751C0266B900FECC64 /* Renderer.swift in Sources */,
 				437A2AC41C20907700ED6EEC /* Random.swift in Sources */,
 				432C0EF21C00F3670077C06B /* AppDelegate.swift in Sources */,
-				437A2AC11C20904700ED6EEC /* Math.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
