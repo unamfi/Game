@@ -11,10 +11,6 @@ import SceneKit
 
 let π = M_PI
 
-func random(range:UInt32) -> UInt32 {
-    return arc4random_uniform(UInt32(range))
-}
-
 func ==(left: SCNVector3, right: SCNVector3) -> Bool {
     return SCNVector3EqualToVector3(left , right)
 }
