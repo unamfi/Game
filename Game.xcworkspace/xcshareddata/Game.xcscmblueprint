@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "768D68AE5CC632D7976FCBD87BF475D54498096A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C3C8A59A40CAC27DF23729E3355F5C87E3B52DD2" : 0,
+    "768D68AE5CC632D7976FCBD87BF475D54498096A" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "BA4BA137-9953-4D74-81F2-F797D323BF3A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C3C8A59A40CAC27DF23729E3355F5C87E3B52DD2" : "Game\/Submodules\/VectorMath\/",
+    "768D68AE5CC632D7976FCBD87BF475D54498096A" : "Game\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Game",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Game.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/JuIioCesar\/Game.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "768D68AE5CC632D7976FCBD87BF475D54498096A"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/JuIioCesar\/VectorMath",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C3C8A59A40CAC27DF23729E3355F5C87E3B52DD2"
+    }
+  ]
+}

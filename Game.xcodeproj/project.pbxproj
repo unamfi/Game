@@ -90,6 +90,7 @@
 		432C0F0F1C00F3670077C06B /* iOSGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		432C0F131C00F3670077C06B /* iOSGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSGameUITests.swift; sourceTree = "<group>"; };
 		432C0F151C00F3670077C06B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4379D82A1C24CB7D007EF2C0 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
 		437A2ABF1C20904700ED6EEC /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Math.swift; path = ../Game/Math.swift; sourceTree = "<group>"; };
 		437A2AC21C20907700ED6EEC /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
 		437A2ACD1C209D1000ED6EEC /* Vector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector.swift; sourceTree = "<group>"; };
@@ -181,6 +182,7 @@
 		432C0EF01C00F3670077C06B /* iOSGame */ = {
 			isa = PBXGroup;
 			children = (
+				4379D82A1C24CB7D007EF2C0 /* Playground.playground */,
 				432C0EF11C00F3670077C06B /* AppDelegate.swift */,
 				439372711C0260BD00FECC64 /* GameViewController.swift */,
 				432C0EF71C00F3670077C06B /* Main.storyboard */,
