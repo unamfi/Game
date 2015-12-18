@@ -7,9 +7,14 @@
 		<key>OSXGame.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>0</integer>
 		</dict>
 		<key>iOSGame.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>tvOSGame.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>2</integer>
@@ -43,6 +48,21 @@
 			<true/>
 		</dict>
 		<key>432C0F0E1C00F3670077C06B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4379D82F1C24CC91007EF2C0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4379D8411C24CC91007EF2C0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4379D84C1C24CC91007EF2C0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
