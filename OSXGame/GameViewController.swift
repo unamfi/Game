@@ -22,32 +22,14 @@ class GameViewController: NSViewController {
     
     @IBOutlet weak var gameView: GameView!
     
-    var renderer : SceneRenderer?
-    
     override func awakeFromNib(){
-        // create a new scene
         let scene = SCNScene(named: "art.scnassets/scene.scn")!
-       
-        // set the scene to the view
         self.gameView!.scene = scene
-        
-        //Set renderer
-        self.renderer = SceneRenderer(scene: scene)
-        gameView.delegate = self.renderer
-        
-        // allows the user to manipulate the camera
         self.gameView!.allowsCameraControl = true
-        
-        // show statistics such as fps and timing information
         self.gameView!.showsStatistics = true
-        
-        // configure the view
         self.gameView!.backgroundColor = NSColor.blackColor()
-        
-        
         self.gameView!.playing = true
         self.gameView!.loops = true
-
     }
 
 }

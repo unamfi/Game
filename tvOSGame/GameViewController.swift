@@ -11,5 +11,15 @@ import QuartzCore
 import SceneKit
 
 class GameViewController: UIViewController {
-
+    @IBOutlet var scnView: SCNView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let scene = SCNScene(named: "art.scnassets/scene.scn")!
+        scnView.scene = scene
+        scnView.allowsCameraControl = true
+        scnView.showsStatistics = true
+        scnView.backgroundColor = UIColor.blackColor()
+        scnView.playing = true
+    }
 }
