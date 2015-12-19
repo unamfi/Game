@@ -133,6 +133,7 @@
 		437A2ACD1C209D1000ED6EEC /* Vector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector.swift; sourceTree = "<group>"; };
 		439372711C0260BD00FECC64 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		439372731C0266B900FECC64 /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		43BA6CC01C24F9A900FB99E4 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
 		43DA68DC1BFE795A00BED1B0 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		43DA68F11BFE795A00BED1B0 /* GameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -273,6 +274,7 @@
 		4379D8311C24CC91007EF2C0 /* tvOSGame */ = {
 			isa = PBXGroup;
 			children = (
+				43BA6CC01C24F9A900FB99E4 /* Playground.playground */,
 				4379D8321C24CC91007EF2C0 /* AppDelegate.swift */,
 				4379D8361C24CC91007EF2C0 /* GameViewController.swift */,
 				4379D8381C24CC91007EF2C0 /* Main.storyboard */,
@@ -1221,6 +1223,7 @@
 				4379D8561C24CC91007EF2C0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4379D8571C24CC91007EF2C0 /* Build configuration list for PBXNativeTarget "tvOSGameTests" */ = {
 			isa = XCConfigurationList;
@@ -1229,6 +1232,7 @@
 				4379D8591C24CC91007EF2C0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4379D85A1C24CC91007EF2C0 /* Build configuration list for PBXNativeTarget "tvOSGameUITests" */ = {
 			isa = XCConfigurationList;
@@ -1237,6 +1241,7 @@
 				4379D85C1C24CC91007EF2C0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		43DA68D21BFE795A00BED1B0 /* Build configuration list for PBXProject "Game" */ = {
 			isa = XCConfigurationList;
