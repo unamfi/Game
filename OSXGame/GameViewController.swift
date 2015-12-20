@@ -9,15 +9,6 @@
 import SceneKit
 import QuartzCore
 
-extension NSColor {
-    static func randomColor () -> (NSColor) {
-        let red = CGFloat(Random.numberFromZeroToOne())
-        let green = CGFloat(Random.numberFromZeroToOne())
-        let blue = CGFloat(Random.numberFromZeroToOne())
-        return NSColor(red: red , green: green , blue: blue , alpha: 1.0)
-    }
-}
-
 class GameViewController: NSViewController {
     
     @IBOutlet weak var gameView: GameView!
