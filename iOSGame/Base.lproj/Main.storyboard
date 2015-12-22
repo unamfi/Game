@@ -9,15 +9,16 @@
         <scene sceneID="tXr-a1-R10">
             <objects>
                 <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="iOSGame" customModuleProvider="target" sceneMemberID="viewController">
-                    <sceneKitView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ucc-3O-uNK"/>
+                        <viewControllerLayoutGuide type="bottom" id="yk9-Rc-tXo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tzj-wS-sLg" customClass="GameView" customModule="iOSGame" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <animations/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </sceneKitView>
-                    <connections>
-                        <outlet property="scnView" destination="3se-qz-xqx" id="fc3-pq-6lX"/>
-                    </connections>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
