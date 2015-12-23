@@ -9,24 +9,6 @@
 import Foundation
 import SceneKit
 
-struct TridimensionalVector {
-    var x : Float
-    var y : Float
-    var z : Float
-    
-    init(_ x: CGFloat,_ y: CGFloat,_ z: CGFloat) {
-        self.x = Float(x)
-        self.y = Float(y)
-        self.z = Float(z)
-    }
-    
-    init(_ x: Float,_ y: Float,_ z: Float) {
-        self.x = x
-        self.y = y
-        self.z = z
-    }
-}
-
 func ==(left: SCNVector3, right: SCNVector3) -> Bool {
     return SCNVector3EqualToVector3(left , right)
 }
@@ -39,12 +21,12 @@ func -(left: SCNVector3, right: SCNVector3) -> SCNVector3 {
     return SCNVector3Make(left.x - right.x, left.y - right.y, left.z - right.z)
 }
 
-func *(left: SCNVector3, right: SCNVector3) -> CGFloat {
+func *(left: SCNVector3, right: SCNVector3) -> SCNFloat {
     return left.x * right.x + left.y * right.y + left.z * right.z
 }
 
-func *(left: Float, right: SCNVector3) -> SCNVector3 {
-    return SCNVector3Make(CGFloat(left) * right.x , CGFloat(left) * right.y, CGFloat(left) * right.z)
+func *(left: SCNFloat, right: SCNVector3) -> SCNVector3 {
+    return SCNVector3Make(left * right.x , left * right.y, left * right.z)
 }
 
 func ^(left: SCNVector3, right: SCNVector3) -> SCNVector3 {
@@ -63,16 +45,16 @@ func normalize(vector: SCNVector3) -> SCNVector3 {
     return SCNVector3Make(vector.x / magnitude, vector.y / magnitude, vector.z / magnitude)
 }
 
-func magnitudeOf(vector: SCNVector3) -> CGFloat {
+func magnitudeOf(vector: SCNVector3) -> SCNFloat {
     return sqrt(vector.x * vector.x  + vector.y * vector.y + vector.z * vector.z);
 }
 
-func angleBetween(vectorA: SCNVector3, vectorB: SCNVector3) -> CGFloat {
+func angleBetween(vectorA: SCNVector3, vectorB: SCNVector3) -> SCNFloat {
     let ab = vectorA * vectorB
     let abmodules = magnitudeOf(vectorA) * magnitudeOf(vectorB)
     let result = acos(ab/abmodules)
     if result.isNaN {
-        return CGFloat(π)/2
+        return SCNFloat(π)/2
     }
     return result
 }
