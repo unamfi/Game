@@ -422,13 +422,13 @@
 		43DA68D91BFE795A00BED1B0 /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				437A2ABF1C20904700ED6EEC /* Math.swift */,
 				43BA6CC11C2691D000FB99E4 /* Gameplay.swift */,
 				43BA6D601C277C7800FB99E4 /* Character.swift */,
 				43BA6D611C277C7800FB99E4 /* GameControls.swift */,
 				43BA6D621C277C7800FB99E4 /* GameView.swift */,
 				43BA6D631C277C7800FB99E4 /* GameViewController.swift */,
 				43BA6D641C277C7800FB99E4 /* SceneKitExtensions.swift */,
+				437A2ABF1C20904700ED6EEC /* Math.swift */,
 				43BA6D651C277C7800FB99E4 /* SCNSIMDOverlay.swift */,
 				437A2ACD1C209D1000ED6EEC /* VectorialAlgebra.swift */,
 				43BA6D781C277FD700FB99E4 /* game.scnassets */,
