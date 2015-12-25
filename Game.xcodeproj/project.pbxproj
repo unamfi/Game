@@ -26,6 +26,9 @@
 		432C0F141C00F3670077C06B /* iOSGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432C0F131C00F3670077C06B /* iOSGameUITests.swift */; };
 		432C0F1F1C00F48A0077C06B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 43DA68DC1BFE795A00BED1B0 /* art.scnassets */; };
 		432C0F221C00F6EC0077C06B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 43DA68DC1BFE795A00BED1B0 /* art.scnassets */; };
+		435AC3AA1C2D9D1E006D0F0B /* SceneRendererDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435AC3A91C2D9D1E006D0F0B /* SceneRendererDelegate.swift */; };
+		435AC3AB1C2D9D1E006D0F0B /* SceneRendererDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435AC3A91C2D9D1E006D0F0B /* SceneRendererDelegate.swift */; };
+		435AC3AC1C2D9D1E006D0F0B /* SceneRendererDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435AC3A91C2D9D1E006D0F0B /* SceneRendererDelegate.swift */; };
 		4379D8331C24CC91007EF2C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4379D8321C24CC91007EF2C0 /* AppDelegate.swift */; };
 		4379D83A1C24CC91007EF2C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4379D8381C24CC91007EF2C0 /* Main.storyboard */; };
 		4379D83C1C24CC91007EF2C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4379D83B1C24CC91007EF2C0 /* Assets.xcassets */; };
@@ -163,6 +166,7 @@
 		432C0F0F1C00F3670077C06B /* iOSGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		432C0F131C00F3670077C06B /* iOSGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSGameUITests.swift; sourceTree = "<group>"; };
 		432C0F151C00F3670077C06B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		435AC3A91C2D9D1E006D0F0B /* SceneRendererDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneRendererDelegate.swift; sourceTree = "<group>"; };
 		4379D82A1C24CB7D007EF2C0 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
 		4379D82B1C24CBF7007EF2C0 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
 		4379D8301C24CC91007EF2C0 /* tvOSGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tvOSGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -427,6 +431,7 @@
 				43BA6D611C277C7800FB99E4 /* GameControls.swift */,
 				43BA6D621C277C7800FB99E4 /* GameView.swift */,
 				43BA6D631C277C7800FB99E4 /* GameViewController.swift */,
+				435AC3A91C2D9D1E006D0F0B /* SceneRendererDelegate.swift */,
 				43BA6D641C277C7800FB99E4 /* SceneKitExtensions.swift */,
 				437A2ABF1C20904700ED6EEC /* Math.swift */,
 				43BA6D651C277C7800FB99E4 /* SCNSIMDOverlay.swift */,
@@ -801,6 +806,7 @@
 				43BA6D751C277C7800FB99E4 /* SCNSIMDOverlay.swift in Sources */,
 				43BA6D721C277C7800FB99E4 /* SceneKitExtensions.swift in Sources */,
 				43BA6CC21C2691D000FB99E4 /* Gameplay.swift in Sources */,
+				435AC3AA1C2D9D1E006D0F0B /* SceneRendererDelegate.swift in Sources */,
 				43BA6D661C277C7800FB99E4 /* Character.swift in Sources */,
 				43BA6D691C277C7800FB99E4 /* GameControls.swift in Sources */,
 				43BA6D6C1C277C7800FB99E4 /* GameView.swift in Sources */,
@@ -835,6 +841,7 @@
 				43BA6D731C277C7800FB99E4 /* SceneKitExtensions.swift in Sources */,
 				4329AF551C2A5EAC00DB7E92 /* VectorialAlgebra.swift in Sources */,
 				4329AF531C2A5E5A00DB7E92 /* Math.swift in Sources */,
+				435AC3AB1C2D9D1E006D0F0B /* SceneRendererDelegate.swift in Sources */,
 				43BA6D6A1C277C7800FB99E4 /* GameControls.swift in Sources */,
 				43BA6CC31C2691D000FB99E4 /* Gameplay.swift in Sources */,
 				43BA6D761C277C7800FB99E4 /* SCNSIMDOverlay.swift in Sources */,
@@ -869,6 +876,7 @@
 				43BA6D741C277C7800FB99E4 /* SceneKitExtensions.swift in Sources */,
 				4329AF561C2A5EAD00DB7E92 /* VectorialAlgebra.swift in Sources */,
 				4329AF541C2A5E5B00DB7E92 /* Math.swift in Sources */,
+				435AC3AC1C2D9D1E006D0F0B /* SceneRendererDelegate.swift in Sources */,
 				43BA6D6B1C277C7800FB99E4 /* GameControls.swift in Sources */,
 				43BA6CC41C2691D000FB99E4 /* Gameplay.swift in Sources */,
 				43BA6D771C277C7800FB99E4 /* SCNSIMDOverlay.swift in Sources */,

@@ -10,7 +10,6 @@ import simd
 import SceneKit
 import SpriteKit
 import QuartzCore
-import AVFoundation
 import GameController
 
 // Collision bit masks
@@ -26,7 +25,7 @@ let BitmaskWater            = 1 << 6
     typealias ViewController = NSViewController
 #endif
 
-class GameViewController: ViewController, SCNSceneRendererDelegate, SCNPhysicsContactDelegate {
+class GameViewController: ViewController, SCNPhysicsContactDelegate {
    
     // Game view
     var gameView: GameView {
@@ -74,6 +73,8 @@ class GameViewController: ViewController, SCNSceneRendererDelegate, SCNPhysicsCo
     internal var padTouch: UITouch?
     internal var panningTouch: UITouch?
     #endif
+    
+    private var sceneRendererDelegate : SceneRendererDelegate!
     
     // MARK: Initialization
     
@@ -130,7 +131,20 @@ class GameViewController: ViewController, SCNSceneRendererDelegate, SCNPhysicsCo
         
         // Setup delegates
         scene.physicsWorld.contactDelegate = self
-        gameView.delegate = self
+        self.sceneRendererDelegate = SceneRendererDelegate( grassArea: grassArea,
+                                                            waterArea: waterArea,
+                                                  replacementPosition: nil,
+                                               maxPenetrationDistance: 0,
+                                                             gameView: gameView,
+                                                   characterDirection: characterDirection,
+                                                            character: character,
+                                        updateCameraWithCurrentGround: updateCameraWithCurrentGround,
+                                                               flames: flames,
+                                                              enemies: enemies,
+                                                       gameIsComplete: gameIsComplete,
+                                                    flameThrowerSound: flameThrowerSound)
+        
+        gameView.delegate = self.sceneRendererDelegate
         
         setupAutomaticCameraPositions()
         setupGameControllers()
@@ -220,67 +234,6 @@ class GameViewController: ViewController, SCNSceneRendererDelegate, SCNPhysicsCo
         return direction
     }
     
-    // MARK: SCNSceneRendererDelegate Conformance (Game Loop)
-    
-    // SceneKit calls this method exactly once per frame, so long as the SCNView object (or other SCNSceneRenderer object) displaying the scene is not paused.
-    // Implement this method to add game logic to the rendering loop. Any changes you make to the scene graph during this method are immediately reflected in the displayed scene.
-    
-    func groundTypeFromMaterial(material: SCNMaterial) -> GroundType {
-        if material == grassArea {
-            return .Grass
-        }
-        if material == waterArea {
-            return .Water
-        }
-        else {
-            return .Rock
-        }
-    }
-    
-    func renderer(renderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval) {
-        // Reset some states every frame
-        replacementPosition = nil
-        maxPenetrationDistance = 0
-        
-        let scene = gameView.scene!
-        let direction = characterDirection()
-        
-        let groundNode = character.walkInDirection(direction, time: time, scene: scene, groundTypeFromMaterial:groundTypeFromMaterial)
-        if let groundNode = groundNode {
-            updateCameraWithCurrentGround(groundNode)
-        }
-        
-        // Flames are static physics bodies, but they are moved by an action - So we need to tell the physics engine that the transforms did change.
-        for flame in flames {
-            flame.physicsBody!.resetTransform()
-        }
-        
-        // Adjust the volume of the enemy based on the distance to the character.
-        var distanceToClosestEnemy = Float.infinity
-        let characterPosition = float3(character.node.position)
-        for enemy in enemies {
-            //distance to enemy
-            let enemyTransform = float4x4(enemy.worldTransform)
-            let enemyPosition = float3(enemyTransform[3].x, enemyTransform[3].y, enemyTransform[3].z)
-            let distance = simd.distance(characterPosition, enemyPosition)
-            distanceToClosestEnemy = min(distanceToClosestEnemy, distance)
-        }
-        
-        // Adjust sounds volumes based on distance with the enemy.
-        if !gameIsComplete {
-            if let mixer = flameThrowerSound!.audioNode as? AVAudioMixerNode {
-                mixer.volume = 0.3 * max(0, min(1, 1 - ((distanceToClosestEnemy - 1.2) / 1.6)))
-            }
-        }
-    }
-    
-    func renderer(renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: NSTimeInterval) {
-        // If we hit a wall, position needs to be adjusted
-        if let position = replacementPosition {
-            character.node.position = position
-        }
-    }
-    
     // MARK: SCNPhysicsContactDelegate Conformance
     
     // To receive contact messages, you set the contactDelegate property of an SCNPhysicsWorld object.
@@ -307,26 +260,23 @@ class GameViewController: ViewController, SCNSceneRendererDelegate, SCNPhysicsCo
         }
     }
     
-    private var maxPenetrationDistance = CGFloat(0.0)
-    private var replacementPosition: SCNVector3?
-    
     private func characterNode(characterNode: SCNNode, hitWall wall: SCNNode, withContact contact: SCNPhysicsContact) {
         if characterNode.parentNode != character.node {
             return
         }
         
-        if maxPenetrationDistance > contact.penetrationDistance {
+        if self.sceneRendererDelegate.maxPenetrationDistance > contact.penetrationDistance {
             return
         }
         
-        maxPenetrationDistance = contact.penetrationDistance
+        self.sceneRendererDelegate.maxPenetrationDistance = contact.penetrationDistance
         
         var characterPosition = float3(character.node.position)
         var positionOffset = float3(contact.contactNormal) * Float(contact.penetrationDistance)
         positionOffset.y = 0
         characterPosition += positionOffset
         
-        replacementPosition = SCNVector3(characterPosition)
+        self.sceneRendererDelegate.replacementPosition = SCNVector3(characterPosition)
     }
     
     // MARK: Scene Setup
