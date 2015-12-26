@@ -12,20 +12,17 @@ import AVFoundation
 
 class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
 
-    private var scene : SCNScene
     private var controllerDirection : () -> float2
     private var character : Character
     private var updateCameraWithCurrentGround : SCNNode -> ()
     private var game : Game
     private var gameView : GameView
     
-    init(                scene : SCNScene,
-                     character : Character,
+    init(            character : Character,
  updateCameraWithCurrentGround : SCNNode -> (),
                           game : Game,
                       gameView : GameView,
            controllerDirection : () -> float2) {
-        self.scene = scene
         self.controllerDirection = controllerDirection
         self.character = character
         self.updateCameraWithCurrentGround = updateCameraWithCurrentGround
@@ -54,7 +51,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
         self.character.replacementPosition = nil
         self.character.maxPenetrationDistance = 0
         
-        let scene = self.scene
+        let scene = self.game.scene
         let direction = characterDirection()
         
         let groundNode = character.walkInDirection(direction, time: time, scene: scene, groundTypeFromMaterial:groundTypeFromMaterial)

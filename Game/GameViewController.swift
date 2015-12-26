@@ -40,7 +40,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     private let character = Character()
     
     // Game states
-    private var game = Game()
+    private var game : Game!
     private var gameIsComplete : Bool {
         get {
             return self.game.isComplete
@@ -54,11 +54,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     // Particles
     private var confettiParticleSystem: SCNParticleSystem!
     private var collectFlowerParticleSystem: SCNParticleSystem!
-    
-    // For automatic camera animation
-    private var currentGround: SCNNode!
-    private var mainGround: SCNNode!
-    private var groundToCameraPosition = [SCNNode: SCNVector3]()
     
     // Game controls
     internal var controllerDPad: GCControllerDirectionPad?
@@ -89,6 +84,9 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         self.gameView.scene = scene
         self.gameView.playing = true
         self.gameView.loops = true
+        
+        // Set the game component
+        self.game = Game(scene: scene)
         
         // Various setup
         setupCamera()
@@ -128,16 +126,14 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         
         // Setup delegates
         scene.physicsWorld.contactDelegate = self
-        self.sceneRendererDelegate = SceneRendererDelegate(     scene: gameView.scene!, 
-                                                            character: character,
-                                        updateCameraWithCurrentGround: updateCameraWithCurrentGround,
-                                                                 game: self.game,
-                                                             gameView: self.gameView,
-                                                  controllerDirection: self.controllerDirection)
-        
+        self.sceneRendererDelegate = SceneRendererDelegate( character: character,
+            updateCameraWithCurrentGround: updateCameraWithCurrentGround,
+            game: self.game,
+            gameView: self.gameView,
+            controllerDirection: self.controllerDirection)
         gameView.delegate = self.sceneRendererDelegate
         
-        setupAutomaticCameraPositions()
+       
         setupGameControllers()
     }
     
@@ -180,17 +176,17 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
             return
         }
         
-        if currentGround == nil {
-            currentGround = node
+        if self.game.currentGround == nil {
+            self.game.currentGround = node
             return
         }
         
         // Automatically update the position of the camera when we move to another block.
-        if node != currentGround {
-            currentGround = node
+        if node != self.game.currentGround {
+            self.game.currentGround = node
             
-            if var position = groundToCameraPosition[node] {
-                if node == mainGround && character.node.position.x < 2.5 {
+            if var position = self.game.groundToCameraPosition[node] {
+                if node == self.game.mainGround && character.node.position.x < 2.5 {
                     position = SCNVector3(-0.098175, 3.926991, 0.0)
                 }
                 
@@ -296,20 +292,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
             cameraXAnimation.fromValue = -SCNFloat(M_PI_2) + self.cameraXHandle.rotation.w
             self.cameraXHandle.addAnimation(cameraXAnimation, forKey: nil)
         }
-    }
-    
-    private func setupAutomaticCameraPositions() {
-        let rootNode = gameView.scene!.rootNode
-        
-        mainGround = rootNode.childNodeWithName("bloc05_collisionMesh_02", recursively: true)
-        
-        groundToCameraPosition[rootNode.childNodeWithName("bloc04_collisionMesh_02", recursively: true)!] = SCNVector3(-0.188683, 4.719608, 0.0)
-        groundToCameraPosition[rootNode.childNodeWithName("bloc03_collisionMesh", recursively: true)!] = SCNVector3(-0.435909, 6.297167, 0.0)
-        groundToCameraPosition[rootNode.childNodeWithName("bloc07_collisionMesh", recursively: true)!] = SCNVector3( -0.333663, 7.868592, 0.0)
-        groundToCameraPosition[rootNode.childNodeWithName("bloc08_collisionMesh", recursively: true)!] = SCNVector3(-0.575011, 8.739003, 0.0)
-        groundToCameraPosition[rootNode.childNodeWithName("bloc06_collisionMesh", recursively: true)!] = SCNVector3( -1.095519, 9.425292, 0.0)
-        groundToCameraPosition[rootNode.childNodeWithName("bloc05_collisionMesh_02", recursively: true)!] = SCNVector3(-0.072051, 8.202264, 0.0)
-        groundToCameraPosition[rootNode.childNodeWithName("bloc05_collisionMesh_01", recursively: true)!] = SCNVector3(-0.072051, 8.202264, 0.0)
     }
     
     private func setupCollisionNode(node: SCNNode) {
