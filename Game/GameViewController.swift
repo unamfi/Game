@@ -32,9 +32,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         return view as! GameView
     }
     
-    // The character
-    private let character = Character()
-    
     // Game states
     private var game : Game!
     private var lockCamera = false
@@ -86,10 +83,10 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         confettiParticleSystem = SCNParticleSystem(named: "confetti.scnp", inDirectory: nil)
         
         // Add the character to the scene.
-        scene.rootNode.addChildNode(character.node)
+        scene.rootNode.addChildNode(game.character.node)
         
         let startPosition = scene.rootNode.childNodeWithName("startingPoint", recursively: true)!
-        character.node.transform = startPosition.transform
+        game.character.node.transform = startPosition.transform
         
         // Retrieve various game elements in one traversal
         var collisionNodes = [SCNNode]()
@@ -114,7 +111,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         
         // Setup delegates
         scene.physicsWorld.contactDelegate = self
-        self.sceneRendererDelegate = SceneRendererDelegate( character: character,
+        self.sceneRendererDelegate = SceneRendererDelegate( character: game.character,
                                                                  game: game,
                                                              gameView: gameView,
                                                   controllerDirection: controllerDirection)
@@ -175,7 +172,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
             self.collectFlower(matching)
         }
         contact.match(category: BitmaskEnemy) { (_, _) in
-            self.character.catchFire()
+            self.game.character.catchFire()
         }
     }
     
@@ -186,22 +183,22 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     }
     
     private func characterNode(characterNode: SCNNode, hitWall wall: SCNNode, withContact contact: SCNPhysicsContact) {
-        if characterNode.parentNode != character.node {
+        if characterNode.parentNode != game.character.node {
             return
         }
         
-        if self.character.maxPenetrationDistance > contact.penetrationDistance {
+        if self.game.character.maxPenetrationDistance > contact.penetrationDistance {
             return
         }
         
-        self.character.maxPenetrationDistance = contact.penetrationDistance
+        self.game.character.maxPenetrationDistance = contact.penetrationDistance
         
-        var characterPosition = float3(character.node.position)
+        var characterPosition = float3(game.character.node.position)
         var positionOffset = float3(contact.contactNormal) * Float(contact.penetrationDistance)
         positionOffset.y = 0
         characterPosition += positionOffset
         
-        self.character.replacementPosition = SCNVector3(characterPosition)
+        self.game.character.replacementPosition = SCNVector3(characterPosition)
     }
     
     // MARK: Scene Setup

@@ -53,7 +53,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
         
         let groundNode = character.walkInDirection(direction, time: time, scene: scene, groundTypeFromMaterial:groundTypeFromMaterial)
         if let groundNode = groundNode {
-            updateCameraWithCurrentGround(groundNode)
+            game.updateCameraWithCurrentGround(groundNode)
         }
         
         // Flames are static physics bodies, but they are moved by an action - So we need to tell the physics engine that the transforms did change.
@@ -106,36 +106,5 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
         return direction
     }
     
-    // MARK: Update camera
-    
-    func updateCameraWithCurrentGround(node: SCNNode) {
-        if game.isComplete {
-            return
-        }
-        
-        if game.currentGround == nil {
-            game.currentGround = node
-            return
-        }
-        
-        // Automatically update the position of the camera when we move to another block.
-        if node != game.currentGround {
-            game.currentGround = node
-            
-            if var position = game.groundToCameraPosition[node] {
-                if node == game.mainGround && character.node.position.x < 2.5 {
-                    position = SCNVector3(-0.098175, 3.926991, 0.0)
-                }
-                
-                let actionY = SCNAction.rotateToX(0, y: CGFloat(position.y), z: 0, duration: 3.0, shortestUnitArc: true)
-                actionY.timingMode = SCNActionTimingMode.EaseInEaseOut
-                
-                let actionX = SCNAction.rotateToX(CGFloat(position.x), y: 0, z: 0, duration: 3.0, shortestUnitArc: true)
-                actionX.timingMode = SCNActionTimingMode.EaseInEaseOut
-                
-                game.cameraYHandle.runAction(actionY)
-                game.cameraXHandle.runAction(actionX)
-            }
-        }
-    }
+
 }

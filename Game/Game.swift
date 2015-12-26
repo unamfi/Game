@@ -33,6 +33,8 @@ class Game: NSObject {
     let cameraYHandle = SCNNode()
     let cameraXHandle = SCNNode()
     
+    let character = Character()
+    
     init(scene: SCNScene) {
         super.init()
         self.scene = scene
@@ -51,5 +53,37 @@ class Game: NSObject {
         groundToCameraPosition[rootNode.childNodeWithName("bloc06_collisionMesh", recursively: true)!] = SCNVector3( -1.095519, 9.425292, 0.0)
         groundToCameraPosition[rootNode.childNodeWithName("bloc05_collisionMesh_02", recursively: true)!] = SCNVector3(-0.072051, 8.202264, 0.0)
         groundToCameraPosition[rootNode.childNodeWithName("bloc05_collisionMesh_01", recursively: true)!] = SCNVector3(-0.072051, 8.202264, 0.0)
+    }
+    
+    
+    func updateCameraWithCurrentGround(node: SCNNode) {
+        if isComplete {
+            return
+        }
+        
+        if currentGround == nil {
+            currentGround = node
+            return
+        }
+        
+        // Automatically update the position of the camera when we move to another block.
+        if node != currentGround {
+            currentGround = node
+            
+            if var position = groundToCameraPosition[node] {
+                if node == mainGround && character.node.position.x < 2.5 {
+                    position = SCNVector3(-0.098175, 3.926991, 0.0)
+                }
+                
+                let actionY = SCNAction.rotateToX(0, y: CGFloat(position.y), z: 0, duration: 3.0, shortestUnitArc: true)
+                actionY.timingMode = SCNActionTimingMode.EaseInEaseOut
+                
+                let actionX = SCNAction.rotateToX(CGFloat(position.x), y: 0, z: 0, duration: 3.0, shortestUnitArc: true)
+                actionX.timingMode = SCNActionTimingMode.EaseInEaseOut
+                
+                cameraYHandle.runAction(actionY)
+                cameraXHandle.runAction(actionX)
+            }
+        }
     }
 }
