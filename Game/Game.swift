@@ -29,6 +29,10 @@ class Game: NSObject {
     var mainGround: SCNNode!
     var groundToCameraPosition = [SCNNode: SCNVector3]()
     
+    // Nodes to manipulate the camera
+    let cameraYHandle = SCNNode()
+    let cameraXHandle = SCNNode()
+    
     init(scene: SCNScene) {
         super.init()
         self.scene = scene

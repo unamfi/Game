@@ -32,10 +32,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         return view as! GameView
     }
     
-    // Nodes to manipulate the camera
-    private let cameraYHandle = SCNNode()
-    private let cameraXHandle = SCNNode()
-    
     // The character
     private let character = Character()
     
@@ -119,7 +115,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         // Setup delegates
         scene.physicsWorld.contactDelegate = self
         self.sceneRendererDelegate = SceneRendererDelegate( character: character,
-                                        updateCameraWithCurrentGround: updateCameraWithCurrentGround,
                                                                  game: game,
                                                              gameView: gameView,
                                                   controllerDirection: controllerDirection)
@@ -145,53 +140,22 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         
         // Make sure the camera handles are correctly reset (because automatic camera animations may have put the "rotation" in a weird state.
         SCNTransaction.animateWithDuration(0.0) {
-            self.cameraYHandle.removeAllActions()
-            self.cameraXHandle.removeAllActions()
+            self.game.cameraYHandle.removeAllActions()
+            self.game.cameraXHandle.removeAllActions()
             
-            if self.cameraYHandle.rotation.y < 0 {
-                self.cameraYHandle.rotation = SCNVector4(0, 1, 0, -self.cameraYHandle.rotation.w)
+            if self.game.cameraYHandle.rotation.y < 0 {
+                self.game.cameraYHandle.rotation = SCNVector4(0, 1, 0, -self.game.cameraYHandle.rotation.w)
             }
             
-            if self.cameraXHandle.rotation.x < 0 {
-                self.cameraXHandle.rotation = SCNVector4(1, 0, 0, -self.cameraXHandle.rotation.w)
+            if self.game.cameraXHandle.rotation.x < 0 {
+                self.game.cameraXHandle.rotation = SCNVector4(1, 0, 0, -self.game.cameraXHandle.rotation.w)
             }
         }
         
         // Update the camera position with some inertia.
         SCNTransaction.animateWithDuration(0.5, timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)) {
-            self.cameraYHandle.rotation = SCNVector4(0, 1, 0, self.cameraYHandle.rotation.y * (self.cameraYHandle.rotation.w - SCNFloat(direction.x) * F))
-            self.cameraXHandle.rotation = SCNVector4(1, 0, 0, (max(SCNFloat(-M_PI_2), min(0.13, self.cameraXHandle.rotation.w + SCNFloat(direction.y) * F))))
-        }
-    }
-    
-    func updateCameraWithCurrentGround(node: SCNNode) {
-        if game.isComplete {
-            return
-        }
-        
-        if game.currentGround == nil {
-            game.currentGround = node
-            return
-        }
-        
-        // Automatically update the position of the camera when we move to another block.
-        if node != game.currentGround {
-            game.currentGround = node
-            
-            if var position = game.groundToCameraPosition[node] {
-                if node == game.mainGround && character.node.position.x < 2.5 {
-                    position = SCNVector3(-0.098175, 3.926991, 0.0)
-                }
-                
-                let actionY = SCNAction.rotateToX(0, y: CGFloat(position.y), z: 0, duration: 3.0, shortestUnitArc: true)
-                actionY.timingMode = SCNActionTimingMode.EaseInEaseOut
-                
-                let actionX = SCNAction.rotateToX(CGFloat(position.x), y: 0, z: 0, duration: 3.0, shortestUnitArc: true)
-                actionX.timingMode = SCNActionTimingMode.EaseInEaseOut
-                
-                cameraYHandle.runAction(actionY)
-                cameraXHandle.runAction(actionX)
-            }
+            self.game.cameraYHandle.rotation = SCNVector4(0, 1, 0, self.game.cameraYHandle.rotation.y * (self.game.cameraYHandle.rotation.w - SCNFloat(direction.x) * F))
+            self.game.cameraXHandle.rotation = SCNVector4(1, 0, 0, (max(SCNFloat(-M_PI_2), min(0.13, self.game.cameraXHandle.rotation.w + SCNFloat(direction.y) * F))))
         }
     }
     
@@ -256,14 +220,14 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         pov.eulerAngles = SCNVector3Zero
         pov.position = SCNVector3(0.0, 0.0, DISTANCE)
         
-        cameraXHandle.rotation = SCNVector4(1.0, 0.0, 0.0, -M_PI_4 * 0.125)
-        cameraXHandle.addChildNode(pov)
+        game.cameraXHandle.rotation = SCNVector4(1.0, 0.0, 0.0, -M_PI_4 * 0.125)
+        game.cameraXHandle.addChildNode(pov)
         
-        cameraYHandle.position = SCNVector3(0.0, ALTITUDE, 0.0)
-        cameraYHandle.rotation = SCNVector4(0.0, 1.0, 0.0, M_PI_2 + M_PI_4 * 3.0)
-        cameraYHandle.addChildNode(cameraXHandle)
+        game.cameraYHandle.position = SCNVector3(0.0, ALTITUDE, 0.0)
+        game.cameraYHandle.rotation = SCNVector4(0.0, 1.0, 0.0, M_PI_2 + M_PI_4 * 3.0)
+        game.cameraYHandle.addChildNode(game.cameraXHandle)
         
-        gameView.scene?.rootNode.addChildNode(cameraYHandle)
+        gameView.scene?.rootNode.addChildNode(game.cameraYHandle)
         
         // Animate camera on launch and prevent the user from manipulating the camera until the end of the animation.
         SCNTransaction.animateWithDuration(completionBlock: { self.lockCamera = false }) {
@@ -272,18 +236,18 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
             // Create 2 additive animations that converge to 0
             // That way at the end of the animation, the camera will be at its default position.
             let cameraYAnimation = CABasicAnimation(keyPath: "rotation.w")
-            cameraYAnimation.fromValue = SCNFloat(M_PI) * 2.0 - self.cameraYHandle.rotation.w
+            cameraYAnimation.fromValue = SCNFloat(M_PI) * 2.0 - self.game.cameraYHandle.rotation.w
             cameraYAnimation.toValue = 0.0
             cameraYAnimation.additive = true
             cameraYAnimation.beginTime = CACurrentMediaTime() + 3.0 // wait a little bit before stating
             cameraYAnimation.fillMode = kCAFillModeBoth
             cameraYAnimation.duration = 5.0
             cameraYAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-            self.cameraYHandle.addAnimation(cameraYAnimation, forKey: nil)
+            self.game.cameraYHandle.addAnimation(cameraYAnimation, forKey: nil)
             
             let cameraXAnimation = cameraYAnimation.copy() as! CABasicAnimation
-            cameraXAnimation.fromValue = -SCNFloat(M_PI_2) + self.cameraXHandle.rotation.w
-            self.cameraXHandle.addAnimation(cameraXAnimation, forKey: nil)
+            cameraXAnimation.fromValue = -SCNFloat(M_PI_2) + self.game.cameraXHandle.rotation.w
+            self.game.cameraXHandle.addAnimation(cameraXAnimation, forKey: nil)
         }
     }
     
@@ -410,8 +374,8 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         
         // Animate the camera forever
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
-            self.cameraYHandle.runAction(SCNAction.repeatActionForever(SCNAction.rotateByX(0, y:-1, z: 0, duration: 3)))
-            self.cameraXHandle.runAction(SCNAction.rotateToX(CGFloat(-M_PI_4), y: 0, z: 0, duration: 5.0))
+            self.game.cameraYHandle.runAction(SCNAction.repeatActionForever(SCNAction.rotateByX(0, y:-1, z: 0, duration: 3)))
+            self.game.cameraXHandle.runAction(SCNAction.rotateToX(CGFloat(-M_PI_4), y: 0, z: 0, duration: 5.0))
         }
         
         gameView.showEndScreen();
