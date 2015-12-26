@@ -24,7 +24,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
     private var game : Game
     private var flameThrowerSound : SCNAudioPlayer!
     
-    init(                scene : SCNScene, // Game candidate
+    init(                scene : SCNScene, 
             characterDirection : () -> float3,
                      character : Character,
  updateCameraWithCurrentGround : SCNNode -> (),
