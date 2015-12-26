@@ -41,14 +41,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     
     // Game states
     private var game : Game!
-    private var gameIsComplete : Bool {
-        get {
-            return self.game.isComplete
-        }
-        set (newValue){
-            self.game.isComplete = newValue
-        }
-    }
     private var lockCamera = false
     
     // Particles
@@ -127,11 +119,12 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         // Setup delegates
         scene.physicsWorld.contactDelegate = self
         self.sceneRendererDelegate = SceneRendererDelegate( character: character,
-            updateCameraWithCurrentGround: updateCameraWithCurrentGround,
-            game: self.game,
-            gameView: self.gameView,
-            controllerDirection: self.controllerDirection)
-        gameView.delegate = self.sceneRendererDelegate
+                                        updateCameraWithCurrentGround: updateCameraWithCurrentGround,
+                                                                 game: game,
+                                                             gameView: gameView,
+                                                  controllerDirection: controllerDirection)
+        
+        gameView.delegate = sceneRendererDelegate
         
        
         setupGameControllers()
@@ -172,21 +165,21 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     }
     
     func updateCameraWithCurrentGround(node: SCNNode) {
-        if gameIsComplete {
+        if game.isComplete {
             return
         }
         
-        if self.game.currentGround == nil {
-            self.game.currentGround = node
+        if game.currentGround == nil {
+            game.currentGround = node
             return
         }
         
         // Automatically update the position of the camera when we move to another block.
-        if node != self.game.currentGround {
+        if node != game.currentGround {
             self.game.currentGround = node
             
-            if var position = self.game.groundToCameraPosition[node] {
-                if node == self.game.mainGround && character.node.position.x < 2.5 {
+            if var position = game.groundToCameraPosition[node] {
+                if node == game.mainGround && character.node.position.x < 2.5 {
                     position = SCNVector3(-0.098175, 3.926991, 0.0)
                 }
                 
@@ -337,16 +330,16 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     
     private func setupSounds() {
         // Get an arbitrary node to attach the sounds to.
-        let node = self.gameView.scene!.rootNode
+        let node = gameView.scene!.rootNode
         
         node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: "music.m4a", volume: 0.25, positional: false, loops: true, shouldStream: true)))
         node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: "wind.m4a", volume: 0.3, positional: false, loops: true, shouldStream: true)))
-        self.game.flameThrowerSound = SCNAudioPlayer(source: SCNAudioSource(name: "flamethrower.mp3", volume: 0, positional: false, loops: true))
+        game.flameThrowerSound = SCNAudioPlayer(source: SCNAudioSource(name: "flamethrower.mp3", volume: 0, positional: false, loops: true))
         node.addAudioPlayer(self.game.flameThrowerSound)
         
-        self.game.collectPearlSound = SCNAudioSource(name: "collect1.mp3", volume: 0.5)
-        self.game.collectFlowerSound = SCNAudioSource(name: "collect2.mp3")
-        self.game.victoryMusic = SCNAudioSource(name: "Music_victory.mp3", volume: 0.5, shouldLoad: false)
+        game.collectPearlSound = SCNAudioSource(name: "collect1.mp3", volume: 0.5)
+        game.collectFlowerSound = SCNAudioSource(name: "collect2.mp3")
+        game.victoryMusic = SCNAudioSource(name: "Music_victory.mp3", volume: 0.5, shouldLoad: false)
     }
     
     // MARK: Collecting Items
@@ -403,7 +396,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     // MARK: Congratulating the Player
     
     private func showEndScreen() {
-        gameIsComplete = true
+        game.isComplete = true
         
         // Add confettis
         let particleSystemPosition = SCNMatrix4MakeTranslation(0.0, 8.0, 0.0)
