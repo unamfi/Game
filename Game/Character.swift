@@ -20,6 +20,9 @@ private typealias ParticleEmitter = (node: SCNNode, particleSystem: SCNParticleS
 
 class Character {
     
+    var replacementPosition : SCNVector3?
+    var maxPenetrationDistance = CGFloat(0.0)
+    
     // MARK: Initialization
     
     init() {

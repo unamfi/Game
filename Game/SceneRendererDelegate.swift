@@ -19,8 +19,6 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
 
     private var grassArea : SCNMaterial
     private var waterArea : SCNMaterial
-    internal var replacementPosition : SCNVector3?
-    internal var maxPenetrationDistance = CGFloat(0.0)
     private var scene : SCNScene
     private var characterDirection : () -> float3
     private var character : Character
@@ -32,8 +30,6 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
     
     init(            grassArea : SCNMaterial ,
                      waterArea : SCNMaterial,
-           replacementPosition : SCNVector3?,
-        maxPenetrationDistance : CGFloat,
                          scene : SCNScene,
             characterDirection : () -> float3,
                      character : Character,
@@ -45,8 +41,6 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
           
             self.grassArea = grassArea
             self.waterArea = waterArea
-            self.replacementPosition = replacementPosition
-            self.maxPenetrationDistance = maxPenetrationDistance
             self.scene = scene
             self.characterDirection = characterDirection
             self.character = character
@@ -72,8 +66,8 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
     
     func renderer(renderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval) {
         // Reset some states every frame
-        replacementPosition = nil
-        maxPenetrationDistance = 0
+        self.character.replacementPosition = nil
+        self.character.maxPenetrationDistance = 0
         
         let scene = self.scene
         let direction = characterDirection()
@@ -109,7 +103,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
     
     func renderer(renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: NSTimeInterval) {
         // If we hit a wall, position needs to be adjusted
-        if let position = replacementPosition {
+        if let position = self.character.replacementPosition {
             character.node.position = position
         }
     }

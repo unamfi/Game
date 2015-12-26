@@ -141,8 +141,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         scene.physicsWorld.contactDelegate = self
         self.sceneRendererDelegate = SceneRendererDelegate( grassArea: grassArea,
                                                             waterArea: waterArea,
-                                                  replacementPosition: nil,
-                                               maxPenetrationDistance: 0,
                                                                 scene: gameView.scene!,
                                                    characterDirection: characterDirection,
                                                             character: character,
@@ -273,18 +271,18 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
             return
         }
         
-        if self.sceneRendererDelegate.maxPenetrationDistance > contact.penetrationDistance {
+        if self.character.maxPenetrationDistance > contact.penetrationDistance {
             return
         }
         
-        self.sceneRendererDelegate.maxPenetrationDistance = contact.penetrationDistance
+        self.character.maxPenetrationDistance = contact.penetrationDistance
         
         var characterPosition = float3(character.node.position)
         var positionOffset = float3(contact.contactNormal) * Float(contact.penetrationDistance)
         positionOffset.y = 0
         characterPosition += positionOffset
         
-        self.sceneRendererDelegate.replacementPosition = SCNVector3(characterPosition)
+        self.character.replacementPosition = SCNVector3(characterPosition)
     }
     
     // MARK: Scene Setup
