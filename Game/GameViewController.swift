@@ -71,7 +71,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         self.gameView.loops = true
         
         // Set the game component
-        self.game = Game(scene: scene)
+        self.game = Game(gameView: gameView)
         
         // Various setup
         setupCamera()
@@ -111,11 +111,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         
         // Setup delegates
         scene.physicsWorld.contactDelegate = self
-        self.sceneRendererDelegate = SceneRendererDelegate( character: game.character,
-                                                                 game: game,
-                                                             gameView: gameView,
-                                                  controllerDirection: controllerDirection)
-        
+        self.sceneRendererDelegate = SceneRendererDelegate(game: game, controllerDirection: controllerDirection)
         gameView.delegate = sceneRendererDelegate
         
        

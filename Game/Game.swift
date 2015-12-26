@@ -35,9 +35,12 @@ class Game: NSObject {
     
     let character = Character()
     
-    init(scene: SCNScene) {
+    var gameView : GameView!
+    
+    init(gameView: GameView) {
         super.init()
-        self.scene = scene
+        self.gameView = gameView
+        self.scene = gameView.scene
         self.setupAutomaticCameraPositions()
     }
     
@@ -86,4 +89,23 @@ class Game: NSObject {
             }
         }
     }
+    
+    func characterDirection(controllerDirection : float2) -> float3 {
+        
+        var direction = float3(controllerDirection.x, 0.0, controllerDirection.y)
+        
+        if let pov = self.gameView.pointOfView {
+            let p1 = pov.presentationNode.convertPosition(SCNVector3(direction), toNode: nil)
+            let p0 = pov.presentationNode.convertPosition(SCNVector3Zero, toNode: nil)
+            direction = float3(Float(p1.x - p0.x), 0.0, Float(p1.z - p0.z))
+            
+            if direction.x != 0.0 || direction.z != 0.0 {
+                direction = normalize(direction)
+            }
+        }
+        
+        return direction
+    }
+    
+    
 }

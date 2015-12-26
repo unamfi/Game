@@ -15,16 +15,12 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
     private var controllerDirection : () -> float2
     private var character : Character
     private var game : Game
-    private var gameView : GameView
     
-    init(            character : Character,
-                          game : Game,
-                      gameView : GameView,
+    init(                 game : Game,
            controllerDirection : () -> float2) {
         self.controllerDirection = controllerDirection
-        self.character = character
+        self.character = game.character
         self.game = game
-        self.gameView = gameView
         super.init()
     }
     
@@ -49,7 +45,8 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
         self.character.maxPenetrationDistance = 0
         
         let scene = self.game.scene
-        let direction = characterDirection()
+        let controllerDirection = self.controllerDirection()
+        let direction = self.game.characterDirection(controllerDirection)
         
         let groundNode = character.walkInDirection(direction, time: time, scene: scene, groundTypeFromMaterial:groundTypeFromMaterial)
         if let groundNode = groundNode {
@@ -88,23 +85,8 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
     }
     
     // MARK: Moving the Character
-    
-    private func characterDirection() -> float3 {
-        let controllerDirection = self.controllerDirection()
-        var direction = float3(controllerDirection.x, 0.0, controllerDirection.y)
-        
-        if let pov = self.gameView.pointOfView {
-            let p1 = pov.presentationNode.convertPosition(SCNVector3(direction), toNode: nil)
-            let p0 = pov.presentationNode.convertPosition(SCNVector3Zero, toNode: nil)
-            direction = float3(Float(p1.x - p0.x), 0.0, Float(p1.z - p0.z))
-            
-            if direction.x != 0.0 || direction.z != 0.0 {
-                direction = normalize(direction)
-            }
-        }
-        
-        return direction
-    }
+//     let controllerDirection = self.controllerDirection()
+
     
 
 }
