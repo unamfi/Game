@@ -51,12 +51,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     }
     private var lockCamera = false
     
-    // Sounds
-    private var collectPearlSound: SCNAudioSource!
-    private var collectFlowerSound: SCNAudioSource!
-    
-    private var victoryMusic: SCNAudioSource!
-    
     // Particles
     private var confettiParticleSystem: SCNParticleSystem!
     private var collectFlowerParticleSystem: SCNParticleSystem!
@@ -368,9 +362,9 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         self.game.flameThrowerSound = SCNAudioPlayer(source: SCNAudioSource(name: "flamethrower.mp3", volume: 0, positional: false, loops: true))
         node.addAudioPlayer(self.game.flameThrowerSound)
         
-        collectPearlSound = SCNAudioSource(name: "collect1.mp3", volume: 0.5)
-        collectFlowerSound = SCNAudioSource(name: "collect2.mp3")
-        victoryMusic = SCNAudioSource(name: "Music_victory.mp3", volume: 0.5, shouldLoad: false)
+        self.game.collectPearlSound = SCNAudioSource(name: "collect1.mp3", volume: 0.5)
+        self.game.collectFlowerSound = SCNAudioSource(name: "collect2.mp3")
+        self.game.victoryMusic = SCNAudioSource(name: "Music_victory.mp3", volume: 0.5, shouldLoad: false)
     }
     
     // MARK: Collecting Items
@@ -397,7 +391,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     
     private func collectPearl(pearlNode: SCNNode) {
         if pearlNode.parentNode != nil {
-            removeNode(pearlNode, soundToPlay:collectPearlSound)
+            removeNode(pearlNode, soundToPlay:self.game.collectPearlSound)
             collectedPearlsCount++
         }
     }
@@ -419,7 +413,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
             gameView.scene!.addParticleSystem(collectFlowerParticleSystem, withTransform: particleSystemPosition)
             
             // Remove the flower from the scene.
-            removeNode(flowerNode, soundToPlay:collectFlowerSound)
+            removeNode(flowerNode, soundToPlay:self.game.collectFlowerSound)
             collectedFlowersCount++
         }
     }
@@ -437,7 +431,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         gameView.scene!.rootNode.removeAllAudioPlayers()
         
         // Play the congrat sound.
-        gameView.scene!.rootNode.addAudioPlayer(SCNAudioPlayer(source: victoryMusic))
+        gameView.scene!.rootNode.addAudioPlayer(SCNAudioPlayer(source: self.game.victoryMusic))
         
         // Animate the camera forever
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {

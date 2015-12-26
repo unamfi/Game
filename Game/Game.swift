@@ -15,5 +15,8 @@ class Game: NSObject {
     var waterArea: SCNMaterial!
     var flames = [SCNNode]()
     var enemies = [SCNNode]()
+    var collectPearlSound: SCNAudioSource!
+    var collectFlowerSound: SCNAudioSource!
     var flameThrowerSound: SCNAudioPlayer!
+    var victoryMusic: SCNAudioSource!
 }
