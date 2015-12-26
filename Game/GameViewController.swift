@@ -176,7 +176,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         
         // Automatically update the position of the camera when we move to another block.
         if node != game.currentGround {
-            self.game.currentGround = node
+            game.currentGround = node
             
             if var position = game.groundToCameraPosition[node] {
                 if node == game.mainGround && character.node.position.x < 2.5 {
