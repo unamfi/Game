@@ -51,9 +51,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     }
     private var lockCamera = false
     
-    private var flames = [SCNNode]()
-    private var enemies = [SCNNode]()
-    
     // Sounds
     private var collectPearlSound: SCNAudioSource!
     private var collectFlowerSound: SCNAudioSource!
@@ -120,9 +117,9 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
             switch node.name {
             case .Some("flame"):
                 node.physicsBody!.categoryBitMask = BitmaskEnemy
-                self.flames.append(node)
+                self.game.flames.append(node)
             case .Some("enemy"):
-                self.enemies.append(node)
+                self.game.enemies.append(node)
             case let .Some(s) where s.rangeOfString("collision") != nil:
                 collisionNodes.append(node)
             default:
@@ -141,8 +138,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
                                                    characterDirection: characterDirection,
                                                             character: character,
                                         updateCameraWithCurrentGround: updateCameraWithCurrentGround,
-                                                               flames: flames,
-                                                              enemies: enemies,
                                                                  game: self.game,
                                                     flameThrowerSound: flameThrowerSound)
         

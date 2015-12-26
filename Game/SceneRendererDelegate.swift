@@ -21,8 +21,6 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
     private var characterDirection : () -> float3
     private var character : Character
     private var updateCameraWithCurrentGround : SCNNode -> ()
-    private var flames : [SCNNode]
-    private var enemies : [SCNNode]
     private var game : Game
     private var flameThrowerSound : SCNAudioPlayer!
     
@@ -30,8 +28,6 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
             characterDirection : () -> float3,
                      character : Character,
  updateCameraWithCurrentGround : SCNNode -> (),
-                        flames : [SCNNode],
-                       enemies : [SCNNode],
                           game : Game,
              flameThrowerSound : SCNAudioPlayer!) {
           
@@ -39,8 +35,6 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
             self.characterDirection = characterDirection
             self.character = character
             self.updateCameraWithCurrentGround = updateCameraWithCurrentGround
-            self.flames = flames
-            self.enemies = enemies
             self.game = game
             self.flameThrowerSound = flameThrowerSound
            super.init()
@@ -72,14 +66,14 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
         }
         
         // Flames are static physics bodies, but they are moved by an action - So we need to tell the physics engine that the transforms did change.
-        for flame in flames {
+        for flame in self.game.flames {
             flame.physicsBody!.resetTransform()
         }
         
         // Adjust the volume of the enemy based on the distance to the character.
         var distanceToClosestEnemy = Float.infinity
         let characterPosition = float3(character.node.position)
-        for enemy in enemies {
+        for enemy in self.game.enemies {
             //distance to enemy
             let enemyTransform = float4x4(enemy.worldTransform)
             let enemyPosition = float3(enemyTransform[3].x, enemyTransform[3].y, enemyTransform[3].z)

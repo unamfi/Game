@@ -13,4 +13,6 @@ class Game: NSObject {
     var isComplete = false
     var grassArea: SCNMaterial!
     var waterArea: SCNMaterial!
+    var flames = [SCNNode]()
+    var enemies = [SCNNode]()
 }
