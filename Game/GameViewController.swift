@@ -40,7 +40,15 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     private let character = Character()
     
     // Game states
-    private var gameIsComplete = false
+    private var game = Game()
+    private var gameIsComplete : Bool {
+        get {
+            return self.game.isComplete
+        }
+        set (newValue){
+            self.game.isComplete = newValue
+        }
+    }
     private var lockCamera = false
     
     private var grassArea: SCNMaterial!
@@ -141,7 +149,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
                                         updateCameraWithCurrentGround: updateCameraWithCurrentGround,
                                                                flames: flames,
                                                               enemies: enemies,
-                                                       gameIsComplete: gameIsComplete,
+                                                                 game: self.game,
                                                     flameThrowerSound: flameThrowerSound)
         
         gameView.delegate = self.sceneRendererDelegate

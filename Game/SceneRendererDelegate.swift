@@ -27,7 +27,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
     private var updateCameraWithCurrentGround : SCNNode -> ()
     private var flames : [SCNNode]
     private var enemies : [SCNNode]
-    private var gameIsComplete : Bool
+    private var game : Game
     private var flameThrowerSound : SCNAudioPlayer!
     
     init(            grassArea : SCNMaterial ,
@@ -40,7 +40,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
  updateCameraWithCurrentGround : SCNNode -> (),
                         flames : [SCNNode],
                        enemies : [SCNNode],
-                gameIsComplete : Bool,
+                          game : Game,
              flameThrowerSound : SCNAudioPlayer!) {
           
             self.grassArea = grassArea
@@ -53,7 +53,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
             self.updateCameraWithCurrentGround = updateCameraWithCurrentGround
             self.flames = flames
             self.enemies = enemies
-            self.gameIsComplete = gameIsComplete
+            self.game = game
             self.flameThrowerSound = flameThrowerSound
            super.init()
     }
@@ -100,7 +100,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
         }
         
         // Adjust sounds volumes based on distance with the enemy.
-        if !gameIsComplete {
+        if !self.game.isComplete {
             if let mixer = flameThrowerSound!.audioNode as? AVAudioMixerNode {
                 mixer.volume = 0.3 * max(0, min(1, 1 - ((distanceToClosestEnemy - 1.2) / 1.6)))
             }
