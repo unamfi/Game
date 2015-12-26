@@ -83,10 +83,5 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
             character.node.position = position
         }
     }
-    
-    // MARK: Moving the Character
-//     let controllerDirection = self.controllerDirection()
-
-    
 
 }
