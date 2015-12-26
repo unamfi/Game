@@ -15,8 +15,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
     private var controllerDirection : () -> float2
     private var game : Game
     
-    init(                 game : Game,
-           controllerDirection : () -> float2) {
+    init(game : Game, controllerDirection : () -> float2) {
         self.controllerDirection = controllerDirection
         self.game = game
         super.init()
