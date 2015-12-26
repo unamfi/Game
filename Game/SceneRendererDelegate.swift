@@ -13,13 +13,11 @@ import AVFoundation
 class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
 
     private var controllerDirection : () -> float2
-    private var character : Character
     private var game : Game
     
     init(                 game : Game,
            controllerDirection : () -> float2) {
         self.controllerDirection = controllerDirection
-        self.character = game.character
         self.game = game
         super.init()
     }
@@ -41,8 +39,10 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
     
     func renderer(renderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval) {
         // Reset some states every frame
-        self.character.replacementPosition = nil
-        self.character.maxPenetrationDistance = 0
+        let character = game.character
+        
+        character.replacementPosition = nil
+        character.maxPenetrationDistance = 0
         
         let scene = self.game.scene
         let controllerDirection = self.controllerDirection()
@@ -79,7 +79,8 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
     
     func renderer(renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: NSTimeInterval) {
         // If we hit a wall, position needs to be adjusted
-        if let position = self.character.replacementPosition {
+        let character = game.character
+        if let position = character.replacementPosition {
             character.node.position = position
         }
     }
