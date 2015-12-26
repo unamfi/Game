@@ -51,7 +51,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     }
     private var lockCamera = false
     
-    private var waterArea: SCNMaterial!
     private var flames = [SCNNode]()
     private var enemies = [SCNNode]()
     
@@ -138,8 +137,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         
         // Setup delegates
         scene.physicsWorld.contactDelegate = self
-        self.sceneRendererDelegate = SceneRendererDelegate( waterArea: waterArea,
-                                                                scene: gameView.scene!,
+        self.sceneRendererDelegate = SceneRendererDelegate(     scene: gameView.scene!,
                                                    characterDirection: characterDirection,
                                                             character: character,
                                         updateCameraWithCurrentGround: updateCameraWithCurrentGround,
@@ -362,7 +360,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
             
             // Get the water area
             if geometry.firstMaterial!.name == "water" {
-                waterArea = geometry.firstMaterial
+                self.game.waterArea = geometry.firstMaterial
             }
             
             // Temporary workaround because concave shape created from geometry instead of node fails

@@ -12,4 +12,5 @@ import SceneKit
 class Game: NSObject {
     var isComplete = false
     var grassArea: SCNMaterial!
+    var waterArea: SCNMaterial!
 }

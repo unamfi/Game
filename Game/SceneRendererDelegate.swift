@@ -17,7 +17,6 @@ import AVFoundation
 
 class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
 
-    private var waterArea : SCNMaterial
     private var scene : SCNScene
     private var characterDirection : () -> float3
     private var character : Character
@@ -27,8 +26,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
     private var game : Game
     private var flameThrowerSound : SCNAudioPlayer!
     
-    init(            waterArea : SCNMaterial, //Game cnadidate
-                         scene : SCNScene, // Game candidate
+    init(                scene : SCNScene, // Game candidate
             characterDirection : () -> float3,
                      character : Character,
  updateCameraWithCurrentGround : SCNNode -> (),
@@ -37,7 +35,6 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
                           game : Game,
              flameThrowerSound : SCNAudioPlayer!) {
           
-            self.waterArea = waterArea
             self.scene = scene
             self.characterDirection = characterDirection
             self.character = character
@@ -53,7 +50,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
         if material == self.game.grassArea {
             return .Grass
         }
-        if material == waterArea {
+        if material == self.game.waterArea {
             return .Water
         }
         else {
