@@ -10,15 +10,10 @@ import Foundation
 import SceneKit
 import AVFoundation
 
-// MARK: SCNSceneRendererDelegate Conformance (Game Loop)
-
-// SceneKit calls this method exactly once per frame, so long as the SCNView object (or other SCNSceneRenderer object) displaying the scene is not paused.
-// Implement this method to add game logic to the rendering loop. Any changes you make to the scene graph during this method are immediately reflected in the displayed scene.
-
 class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
 
     private var scene : SCNScene
-    private var characterDirection : () -> float3
+    private var controllerDirection : () -> float2
     private var character : Character
     private var updateCameraWithCurrentGround : SCNNode -> ()
     private var game : Game
@@ -26,14 +21,14 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
     private var flameThrowerSound : SCNAudioPlayer!
     
     init(                scene : SCNScene,
-            characterDirection : () -> float3,
                      character : Character,
  updateCameraWithCurrentGround : SCNNode -> (),
                           game : Game,
                       gameView : GameView,
+           controllerDirection : () -> float2,
              flameThrowerSound : SCNAudioPlayer!) {
         self.scene = scene
-        self.characterDirection = characterDirection
+        self.controllerDirection = controllerDirection
         self.character = character
         self.updateCameraWithCurrentGround = updateCameraWithCurrentGround
         self.game = game
@@ -53,6 +48,9 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
             return .Rock
         }
     }
+    
+    // SceneKit calls this method exactly once per frame, so long as the SCNView object (or other SCNSceneRenderer object) displaying the scene is not paused.
+    // Implement this method to add game logic to the rendering loop. Any changes you make to the scene graph during this method are immediately reflected in the displayed scene.
     
     func renderer(renderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval) {
         // Reset some states every frame
@@ -96,5 +94,24 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
         if let position = self.character.replacementPosition {
             character.node.position = position
         }
+    }
+    
+    // MARK: Moving the Character
+    
+    private func characterDirection() -> float3 {
+        let controllerDirection = self.controllerDirection()
+        var direction = float3(controllerDirection.x, 0.0, controllerDirection.y)
+        
+        if let pov = self.gameView.pointOfView {
+            let p1 = pov.presentationNode.convertPosition(SCNVector3(direction), toNode: nil)
+            let p0 = pov.presentationNode.convertPosition(SCNVector3Zero, toNode: nil)
+            direction = float3(Float(p1.x - p0.x), 0.0, Float(p1.z - p0.z))
+            
+            if direction.x != 0.0 || direction.z != 0.0 {
+                direction = normalize(direction)
+            }
+        }
+        
+        return direction
     }
 }

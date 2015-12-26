@@ -134,12 +134,12 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         
         // Setup delegates
         scene.physicsWorld.contactDelegate = self
-        self.sceneRendererDelegate = SceneRendererDelegate(     scene: gameView.scene!,
-                                                   characterDirection: characterDirection,
+        self.sceneRendererDelegate = SceneRendererDelegate(     scene: gameView.scene!, 
                                                             character: character,
                                         updateCameraWithCurrentGround: updateCameraWithCurrentGround,
                                                                  game: self.game,
                                                              gameView: self.gameView,
+                                                  controllerDirection: self.controllerDirection,
                                                     flameThrowerSound: flameThrowerSound)
         
         gameView.delegate = self.sceneRendererDelegate
@@ -211,25 +211,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
                 cameraXHandle.runAction(actionX)
             }
         }
-    }
-    
-    // MARK: Moving the Character
-    
-    private func characterDirection() -> float3 {
-        let controllerDirection = self.controllerDirection()
-        var direction = float3(controllerDirection.x, 0.0, controllerDirection.y)
-        
-        if let pov = gameView.pointOfView {
-            let p1 = pov.presentationNode.convertPosition(SCNVector3(direction), toNode: nil)
-            let p0 = pov.presentationNode.convertPosition(SCNVector3Zero, toNode: nil)
-            direction = float3(Float(p1.x - p0.x), 0.0, Float(p1.z - p0.z))
-            
-            if direction.x != 0.0 || direction.z != 0.0 {
-                direction = normalize(direction)
-            }
-        }
-        
-        return direction
     }
     
     // MARK: SCNPhysicsContactDelegate Conformance
