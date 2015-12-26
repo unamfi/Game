@@ -143,7 +143,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
                                                             waterArea: waterArea,
                                                   replacementPosition: nil,
                                                maxPenetrationDistance: 0,
-                                                             gameView: gameView,
+                                                                scene: gameView.scene!,
                                                    characterDirection: characterDirection,
                                                             character: character,
                                         updateCameraWithCurrentGround: updateCameraWithCurrentGround,

@@ -21,7 +21,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
     private var waterArea : SCNMaterial
     internal var replacementPosition : SCNVector3?
     internal var maxPenetrationDistance = CGFloat(0.0)
-    private var gameView : GameView
+    private var scene : SCNScene
     private var characterDirection : () -> float3
     private var character : Character
     private var updateCameraWithCurrentGround : SCNNode -> ()
@@ -34,7 +34,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
                      waterArea : SCNMaterial,
            replacementPosition : SCNVector3?,
         maxPenetrationDistance : CGFloat,
-                      gameView : GameView,
+                         scene : SCNScene,
             characterDirection : () -> float3,
                      character : Character,
  updateCameraWithCurrentGround : SCNNode -> (),
@@ -47,7 +47,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
             self.waterArea = waterArea
             self.replacementPosition = replacementPosition
             self.maxPenetrationDistance = maxPenetrationDistance
-            self.gameView = gameView
+            self.scene = scene
             self.characterDirection = characterDirection
             self.character = character
             self.updateCameraWithCurrentGround = updateCameraWithCurrentGround
@@ -75,7 +75,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
         replacementPosition = nil
         maxPenetrationDistance = 0
         
-        let scene = gameView.scene!
+        let scene = self.scene
         let direction = characterDirection()
         
         let groundNode = character.walkInDirection(direction, time: time, scene: scene, groundTypeFromMaterial:groundTypeFromMaterial)
