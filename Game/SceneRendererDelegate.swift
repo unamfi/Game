@@ -22,22 +22,24 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
     private var character : Character
     private var updateCameraWithCurrentGround : SCNNode -> ()
     private var game : Game
+    private var gameView : GameView
     private var flameThrowerSound : SCNAudioPlayer!
     
-    init(                scene : SCNScene, 
+    init(                scene : SCNScene,
             characterDirection : () -> float3,
                      character : Character,
  updateCameraWithCurrentGround : SCNNode -> (),
                           game : Game,
+                      gameView : GameView,
              flameThrowerSound : SCNAudioPlayer!) {
-          
-            self.scene = scene
-            self.characterDirection = characterDirection
-            self.character = character
-            self.updateCameraWithCurrentGround = updateCameraWithCurrentGround
-            self.game = game
-            self.flameThrowerSound = flameThrowerSound
-           super.init()
+        self.scene = scene
+        self.characterDirection = characterDirection
+        self.character = character
+        self.updateCameraWithCurrentGround = updateCameraWithCurrentGround
+        self.game = game
+        self.gameView = gameView
+        self.flameThrowerSound = flameThrowerSound
+        super.init()
     }
     
     private func groundTypeFromMaterial(material: SCNMaterial) -> GroundType {

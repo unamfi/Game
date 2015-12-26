@@ -139,6 +139,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
                                                             character: character,
                                         updateCameraWithCurrentGround: updateCameraWithCurrentGround,
                                                                  game: self.game,
+                                                             gameView: self.gameView,
                                                     flameThrowerSound: flameThrowerSound)
         
         gameView.delegate = self.sceneRendererDelegate
