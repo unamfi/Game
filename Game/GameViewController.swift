@@ -54,7 +54,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     // Sounds
     private var collectPearlSound: SCNAudioSource!
     private var collectFlowerSound: SCNAudioSource!
-    private var flameThrowerSound: SCNAudioPlayer!
+    
     private var victoryMusic: SCNAudioSource!
     
     // Particles
@@ -139,8 +139,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
                                         updateCameraWithCurrentGround: updateCameraWithCurrentGround,
                                                                  game: self.game,
                                                              gameView: self.gameView,
-                                                  controllerDirection: self.controllerDirection,
-                                                    flameThrowerSound: flameThrowerSound)
+                                                  controllerDirection: self.controllerDirection)
         
         gameView.delegate = self.sceneRendererDelegate
         
@@ -366,8 +365,8 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         
         node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: "music.m4a", volume: 0.25, positional: false, loops: true, shouldStream: true)))
         node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: "wind.m4a", volume: 0.3, positional: false, loops: true, shouldStream: true)))
-        flameThrowerSound = SCNAudioPlayer(source: SCNAudioSource(name: "flamethrower.mp3", volume: 0, positional: false, loops: true))
-        node.addAudioPlayer(flameThrowerSound)
+        self.game.flameThrowerSound = SCNAudioPlayer(source: SCNAudioSource(name: "flamethrower.mp3", volume: 0, positional: false, loops: true))
+        node.addAudioPlayer(self.game.flameThrowerSound)
         
         collectPearlSound = SCNAudioSource(name: "collect1.mp3", volume: 0.5)
         collectFlowerSound = SCNAudioSource(name: "collect2.mp3")
