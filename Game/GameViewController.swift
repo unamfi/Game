@@ -51,7 +51,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     }
     private var lockCamera = false
     
-    private var grassArea: SCNMaterial!
     private var waterArea: SCNMaterial!
     private var flames = [SCNNode]()
     private var enemies = [SCNNode]()
@@ -139,8 +138,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         
         // Setup delegates
         scene.physicsWorld.contactDelegate = self
-        self.sceneRendererDelegate = SceneRendererDelegate( grassArea: grassArea,
-                                                            waterArea: waterArea,
+        self.sceneRendererDelegate = SceneRendererDelegate( waterArea: waterArea,
                                                                 scene: gameView.scene!,
                                                    characterDirection: characterDirection,
                                                             character: character,
@@ -355,10 +353,10 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
             
             // Get grass area to play the right sound steps
             if geometry.firstMaterial!.name == "grass-area" {
-                if grassArea != nil {
-                    geometry.firstMaterial = grassArea
+                if self.game.grassArea != nil {
+                    geometry.firstMaterial = self.game.grassArea
                 } else {
-                    grassArea = geometry.firstMaterial
+                    self.game.grassArea = geometry.firstMaterial
                 }
             }
             

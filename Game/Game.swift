@@ -7,7 +7,9 @@
 //
 
 import Foundation
+import SceneKit
 
 class Game: NSObject {
     var isComplete = false
+    var grassArea: SCNMaterial!
 }
