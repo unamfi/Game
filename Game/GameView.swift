@@ -18,6 +18,8 @@ class GameView: SCNView {
     private let congratulationsGroupNode = SKNode()
     private let collectedPearlCountLabel = SKLabelNode(fontNamed: "Chalkduster")
     private var collectedFlowerSprites = [SKSpriteNode]()
+    var sceneRendererDelegate : SceneRendererDelegate!
+    var physicsContactDelegate : PhysicsContactDelegate!
     
     #if os(iOS) || os(tvOS)
     

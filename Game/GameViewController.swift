@@ -25,7 +25,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         return view as! GameView
     }
     
-    // Game states
     private var game : Game!
     
     // Game controls
@@ -38,9 +37,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     internal var padTouch: UITouch?
     internal var panningTouch: UITouch?
     #endif
-    
-    private var sceneRendererDelegate : SceneRendererDelegate!
-    private var physicsContactDelegate : PhysicsContactDelegate!
     
     // MARK: Initialization
     
@@ -95,47 +91,22 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         }
         
         // Setup delegates
-        self.physicsContactDelegate = PhysicsContactDelegate(game: game)
-        scene.physicsWorld.contactDelegate = self.physicsContactDelegate
-        self.sceneRendererDelegate = SceneRendererDelegate(game: game, controllerDirection: controllerDirection)
-        gameView.delegate = sceneRendererDelegate
+        gameView.physicsContactDelegate = PhysicsContactDelegate(game: game)
+        scene.physicsWorld.contactDelegate = gameView.physicsContactDelegate
+        gameView.sceneRendererDelegate = SceneRendererDelegate(game: game, controllerDirection: controllerDirection)
+        gameView.delegate = gameView.sceneRendererDelegate
         
        
         setupGameControllers()
     }
     
-    // MARK: Managing the Camera
-    
     func panCamera(var direction: float2) {
-        if game.lockCamera {
-            return
-        }
         
         #if os(iOS) || os(tvOS)
             direction *= float2(1.0, -1.0)
         #endif
-        
-        let F = SCNFloat(0.005)
-        
-        // Make sure the camera handles are correctly reset (because automatic camera animations may have put the "rotation" in a weird state.
-        SCNTransaction.animateWithDuration(0.0) {
-            self.game.cameraYHandle.removeAllActions()
-            self.game.cameraXHandle.removeAllActions()
-            
-            if self.game.cameraYHandle.rotation.y < 0 {
-                self.game.cameraYHandle.rotation = SCNVector4(0, 1, 0, -self.game.cameraYHandle.rotation.w)
-            }
-            
-            if self.game.cameraXHandle.rotation.x < 0 {
-                self.game.cameraXHandle.rotation = SCNVector4(1, 0, 0, -self.game.cameraXHandle.rotation.w)
-            }
-        }
-        
-        // Update the camera position with some inertia.
-        SCNTransaction.animateWithDuration(0.5, timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)) {
-            self.game.cameraYHandle.rotation = SCNVector4(0, 1, 0, self.game.cameraYHandle.rotation.y * (self.game.cameraYHandle.rotation.w - SCNFloat(direction.x) * F))
-            self.game.cameraXHandle.rotation = SCNVector4(1, 0, 0, (max(SCNFloat(-M_PI_2), min(0.13, self.game.cameraXHandle.rotation.w + SCNFloat(direction.y) * F))))
-        }
+    
+        self.game.panCamera(direction)
     }
     
 }

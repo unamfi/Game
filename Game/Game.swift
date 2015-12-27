@@ -307,5 +307,34 @@ class Game: NSObject {
         gameView.showEndScreen();
     }
     
+    func panCamera(direction : float2) {
+        
+        if lockCamera {
+            return
+        }
+        
+        let F = SCNFloat(0.005)
+        
+        // Make sure the camera handles are correctly reset (because automatic camera animations may have put the "rotation" in a weird state.
+        SCNTransaction.animateWithDuration(0.0) {
+            self.cameraYHandle.removeAllActions()
+            self.cameraXHandle.removeAllActions()
+            
+            if self.cameraYHandle.rotation.y < 0 {
+                self.cameraYHandle.rotation = SCNVector4(0, 1, 0, -self.cameraYHandle.rotation.w)
+            }
+            
+            if self.cameraXHandle.rotation.x < 0 {
+                self.cameraXHandle.rotation = SCNVector4(1, 0, 0, -self.cameraXHandle.rotation.w)
+            }
+        }
+        
+        // Update the camera position with some inertia.
+        SCNTransaction.animateWithDuration(0.5, timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)) {
+            self.cameraYHandle.rotation = SCNVector4(0, 1, 0, self.cameraYHandle.rotation.y * (self.cameraYHandle.rotation.w - SCNFloat(direction.x) * F))
+            self.cameraXHandle.rotation = SCNVector4(1, 0, 0, (max(SCNFloat(-M_PI_2), min(0.13, self.cameraXHandle.rotation.w + SCNFloat(direction.y) * F))))
+        }
+    }
+    
     
 }
