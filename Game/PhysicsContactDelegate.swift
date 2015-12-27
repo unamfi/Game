@@ -18,9 +18,6 @@ class PhysicsContactDelegate: NSObject, SCNPhysicsContactDelegate {
         self.game = game
     }
     
-    // To receive contact messages, you set the contactDelegate property of an SCNPhysicsWorld object.
-    // SceneKit calls your delegate methods when a contact begins, when information about the contact changes, and when the contact ends.
-    
     func physicsWorld(world: SCNPhysicsWorld, didBeginContact contact: SCNPhysicsContact) {
         contact.match(category: BitmaskCollision) { (matching, other) in
             self.game.characterNode(other, hitWall: matching, withContact: contact)
