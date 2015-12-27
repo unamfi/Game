@@ -33,13 +33,11 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
         }
     }
     
-    // SceneKit calls this method exactly once per frame, so long as the SCNView object (or other SCNSceneRenderer object) displaying the scene is not paused.
-    // Implement this method to add game logic to the rendering loop. Any changes you make to the scene graph during this method are immediately reflected in the displayed scene.
-    
     func renderer(renderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval) {
-        // Reset some states every frame
+        
         let character = game.character
         
+        // Reset some states every frame
         character.replacementPosition = nil
         character.maxPenetrationDistance = 0
         
