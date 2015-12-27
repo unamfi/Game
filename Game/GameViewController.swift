@@ -47,6 +47,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     #endif
     
     private var sceneRendererDelegate : SceneRendererDelegate!
+    private var physicsContactDelegate : PhysicsContactDelegate!
     
     // MARK: Initialization
     
@@ -101,7 +102,8 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         }
         
         // Setup delegates
-        scene.physicsWorld.contactDelegate = self
+        self.physicsContactDelegate = PhysicsContactDelegate(game: game)
+        scene.physicsWorld.contactDelegate = self.physicsContactDelegate
         self.sceneRendererDelegate = SceneRendererDelegate(game: game, controllerDirection: controllerDirection)
         gameView.delegate = sceneRendererDelegate
         
@@ -140,32 +142,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         SCNTransaction.animateWithDuration(0.5, timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)) {
             self.game.cameraYHandle.rotation = SCNVector4(0, 1, 0, self.game.cameraYHandle.rotation.y * (self.game.cameraYHandle.rotation.w - SCNFloat(direction.x) * F))
             self.game.cameraXHandle.rotation = SCNVector4(1, 0, 0, (max(SCNFloat(-M_PI_2), min(0.13, self.game.cameraXHandle.rotation.w + SCNFloat(direction.y) * F))))
-        }
-    }
-    
-    // MARK: SCNPhysicsContactDelegate Conformance
-    
-    // To receive contact messages, you set the contactDelegate property of an SCNPhysicsWorld object.
-    // SceneKit calls your delegate methods when a contact begins, when information about the contact changes, and when the contact ends.
-    
-    func physicsWorld(world: SCNPhysicsWorld, didBeginContact contact: SCNPhysicsContact) {
-        contact.match(category: BitmaskCollision) { (matching, other) in
-            self.game.characterNode(other, hitWall: matching, withContact: contact)
-        }
-        contact.match(category: BitmaskCollectable) { (matching, _) in
-            self.game.collectPearl(matching)
-        }
-        contact.match(category: BitmaskSuperCollectable) { (matching, _) in
-            self.game.collectFlower(matching)
-        }
-        contact.match(category: BitmaskEnemy) { (_, _) in
-            self.game.character.catchFire()
-        }
-    }
-    
-    func physicsWorld(world: SCNPhysicsWorld, didUpdateContact contact: SCNPhysicsContact) {
-        contact.match(category: BitmaskCollision) { (matching, other) in
-            self.game.characterNode(other, hitWall: matching, withContact: contact)
         }
     }
     
