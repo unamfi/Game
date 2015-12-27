@@ -61,18 +61,14 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         let scene = SCNScene(named: "game.scnassets/level.scn")!
         
         // Set the scene to the view and loop for the animation of the bamboos.
-        self.gameView.scene = scene
-        self.gameView.playing = true
-        self.gameView.loops = true
+        gameView.scene = scene
+        gameView.playing = true
+        gameView.loops = true
         
         // Set the game component
-        self.game = Game(gameView: gameView)
-        
-        // Various setup
+        game = Game(gameView: gameView)
         game.setupCamera()
         game.setupSounds()
-        
-        // Configure particle systems
         game.collectFlowerParticleSystem = SCNParticleSystem(named: "collect.scnp", inDirectory: nil)
         game.collectFlowerParticleSystem.loops = false
         game.confettiParticleSystem = SCNParticleSystem(named: "confetti.scnp", inDirectory: nil)
@@ -154,13 +150,13 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     
     func physicsWorld(world: SCNPhysicsWorld, didBeginContact contact: SCNPhysicsContact) {
         contact.match(category: BitmaskCollision) { (matching, other) in
-            self.characterNode(other, hitWall: matching, withContact: contact)
+            self.game.characterNode(other, hitWall: matching, withContact: contact)
         }
         contact.match(category: BitmaskCollectable) { (matching, _) in
-            self.collectPearl(matching)
+            self.game.collectPearl(matching)
         }
         contact.match(category: BitmaskSuperCollectable) { (matching, _) in
-            self.collectFlower(matching)
+            self.game.collectFlower(matching)
         }
         contact.match(category: BitmaskEnemy) { (_, _) in
             self.game.character.catchFire()
@@ -169,102 +165,8 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     
     func physicsWorld(world: SCNPhysicsWorld, didUpdateContact contact: SCNPhysicsContact) {
         contact.match(category: BitmaskCollision) { (matching, other) in
-            self.characterNode(other, hitWall: matching, withContact: contact)
+            self.game.characterNode(other, hitWall: matching, withContact: contact)
         }
-    }
-    
-    private func characterNode(characterNode: SCNNode, hitWall wall: SCNNode, withContact contact: SCNPhysicsContact) {
-        if characterNode.parentNode != game.character.node {
-            return
-        }
-        
-        if self.game.character.maxPenetrationDistance > contact.penetrationDistance {
-            return
-        }
-        
-        self.game.character.maxPenetrationDistance = contact.penetrationDistance
-        
-        var characterPosition = float3(game.character.node.position)
-        var positionOffset = float3(contact.contactNormal) * Float(contact.penetrationDistance)
-        positionOffset.y = 0
-        characterPosition += positionOffset
-        
-        self.game.character.replacementPosition = SCNVector3(characterPosition)
-    }
-    
-    // MARK: Collecting Items
-    
-    private func removeNode(node: SCNNode, soundToPlay sound: SCNAudioSource) {
-        if let parentNode = node.parentNode {
-            let soundEmitter = SCNNode()
-            soundEmitter.position = node.position
-            parentNode.addChildNode(soundEmitter)
-            
-            soundEmitter.runAction(SCNAction.sequence([
-                SCNAction.playAudioSource(sound, waitForCompletion: true),
-                SCNAction.removeFromParentNode()]))
-            
-            node.removeFromParentNode()
-        }
-    }
-    
-    private var collectedPearlsCount = 0 {
-        didSet {
-            gameView.collectedPearlsCount = collectedPearlsCount
-        }
-    }
-    
-    private func collectPearl(pearlNode: SCNNode) {
-        if pearlNode.parentNode != nil {
-            removeNode(pearlNode, soundToPlay:self.game.collectPearlSound)
-            collectedPearlsCount++
-        }
-    }
-    
-    private var collectedFlowersCount = 0 {
-        didSet {
-            gameView.collectedFlowersCount = collectedFlowersCount
-            if (collectedFlowersCount == 3) {
-                showEndScreen()
-            }
-        }
-    }
-    
-    private func collectFlower(flowerNode: SCNNode) {
-        if flowerNode.parentNode != nil {
-            // Emit particles.
-            var particleSystemPosition = flowerNode.worldTransform
-            particleSystemPosition.m42 += 0.1
-            gameView.scene!.addParticleSystem(game.collectFlowerParticleSystem, withTransform: particleSystemPosition)
-            
-            // Remove the flower from the scene.
-            removeNode(flowerNode, soundToPlay:self.game.collectFlowerSound)
-            collectedFlowersCount++
-        }
-    }
-    
-    // MARK: Congratulating the Player
-    
-    private func showEndScreen() {
-        game.isComplete = true
-        
-        // Add confettis
-        let particleSystemPosition = SCNMatrix4MakeTranslation(0.0, 8.0, 0.0)
-        gameView.scene!.addParticleSystem(game.confettiParticleSystem, withTransform: particleSystemPosition)
-        
-        // Stop the music.
-        gameView.scene!.rootNode.removeAllAudioPlayers()
-        
-        // Play the congrat sound.
-        gameView.scene!.rootNode.addAudioPlayer(SCNAudioPlayer(source: self.game.victoryMusic))
-        
-        // Animate the camera forever
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
-            self.game.cameraYHandle.runAction(SCNAction.repeatActionForever(SCNAction.rotateByX(0, y:-1, z: 0, duration: 3)))
-            self.game.cameraXHandle.runAction(SCNAction.rotateToX(CGFloat(-M_PI_4), y: 0, z: 0, duration: 5.0))
-        }
-        
-        gameView.showEndScreen();
     }
     
 }

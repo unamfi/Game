@@ -213,5 +213,99 @@ class Game: NSObject {
         return direction
     }
     
+    func characterNode(characterNode: SCNNode, hitWall wall: SCNNode, withContact contact: SCNPhysicsContact) {
+        if characterNode.parentNode != character.node {
+            return
+        }
+        
+        if character.maxPenetrationDistance > contact.penetrationDistance {
+            return
+        }
+        
+        character.maxPenetrationDistance = contact.penetrationDistance
+        
+        var characterPosition = float3(character.node.position)
+        var positionOffset = float3(contact.contactNormal) * Float(contact.penetrationDistance)
+        positionOffset.y = 0
+        characterPosition += positionOffset
+        
+        character.replacementPosition = SCNVector3(characterPosition)
+    }
+    
+    // MARK: Collecting Items
+    
+    private func removeNode(node: SCNNode, soundToPlay sound: SCNAudioSource) {
+        if let parentNode = node.parentNode {
+            let soundEmitter = SCNNode()
+            soundEmitter.position = node.position
+            parentNode.addChildNode(soundEmitter)
+            
+            soundEmitter.runAction(SCNAction.sequence([
+                SCNAction.playAudioSource(sound, waitForCompletion: true),
+                SCNAction.removeFromParentNode()]))
+            
+            node.removeFromParentNode()
+        }
+    }
+    
+    private var collectedPearlsCount = 0 {
+        didSet {
+            gameView.collectedPearlsCount = collectedPearlsCount
+        }
+    }
+    
+    func collectPearl(pearlNode: SCNNode) {
+        if pearlNode.parentNode != nil {
+            removeNode(pearlNode, soundToPlay:self.collectPearlSound)
+            collectedPearlsCount++
+        }
+    }
+    
+    private var collectedFlowersCount = 0 {
+        didSet {
+            gameView.collectedFlowersCount = collectedFlowersCount
+            if (collectedFlowersCount == 3) {
+                showEndScreen()
+            }
+        }
+    }
+    
+    func collectFlower(flowerNode: SCNNode) {
+        if flowerNode.parentNode != nil {
+            // Emit particles.
+            var particleSystemPosition = flowerNode.worldTransform
+            particleSystemPosition.m42 += 0.1
+            gameView.scene!.addParticleSystem(collectFlowerParticleSystem, withTransform: particleSystemPosition)
+            
+            // Remove the flower from the scene.
+            removeNode(flowerNode, soundToPlay:collectFlowerSound)
+            collectedFlowersCount++
+        }
+    }
+    
+    // MARK: Congratulating the Player
+    
+    private func showEndScreen() {
+        isComplete = true
+        
+        // Add confettis
+        let particleSystemPosition = SCNMatrix4MakeTranslation(0.0, 8.0, 0.0)
+        gameView.scene!.addParticleSystem(confettiParticleSystem, withTransform: particleSystemPosition)
+        
+        // Stop the music.
+        gameView.scene!.rootNode.removeAllAudioPlayers()
+        
+        // Play the congrat sound.
+        gameView.scene!.rootNode.addAudioPlayer(SCNAudioPlayer(source: victoryMusic))
+        
+        // Animate the camera forever
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
+            self.cameraYHandle.runAction(SCNAction.repeatActionForever(SCNAction.rotateByX(0, y:-1, z: 0, duration: 3)))
+            self.cameraXHandle.runAction(SCNAction.rotateToX(CGFloat(-M_PI_4), y: 0, z: 0, duration: 5.0))
+        }
+        
+        gameView.showEndScreen();
+    }
+    
     
 }
