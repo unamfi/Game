@@ -34,7 +34,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     
     // Game states
     private var game : Game!
-    private var lockCamera = false
     
     // Game controls
     internal var controllerDPad: GCControllerDirectionPad?
@@ -70,8 +69,8 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         self.game = Game(gameView: gameView)
         
         // Various setup
-        setupCamera()
-        setupSounds()
+        game.setupCamera()
+        game.setupSounds()
         
         // Configure particle systems
         game.collectFlowerParticleSystem = SCNParticleSystem(named: "collect.scnp", inDirectory: nil)
@@ -102,7 +101,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         
         for node in collisionNodes {
             node.hidden = false
-            setupCollisionNode(node)
+            game.setupCollisionNode(node)
         }
         
         // Setup delegates
@@ -117,7 +116,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     // MARK: Managing the Camera
     
     func panCamera(var direction: float2) {
-        if lockCamera {
+        if game.lockCamera {
             return
         }
         
@@ -191,108 +190,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         characterPosition += positionOffset
         
         self.game.character.replacementPosition = SCNVector3(characterPosition)
-    }
-    
-    // MARK: Scene Setup
-    
-    private func setupCamera() {
-        let ALTITUDE = 1.0
-        let DISTANCE = 10.0
-        
-        // We create 2 nodes to manipulate the camera:
-        // The first node "cameraXHandle" is at the center of the world (0, ALTITUDE, 0) and will only rotate on the X axis
-        // The second node "cameraYHandle" is a child of the first one and will ony rotate on the Y axis
-        // The camera node is a child of the "cameraYHandle" at a specific distance (DISTANCE).
-        // So rotating cameraYHandle and cameraXHandle will update the camera position and the camera will always look at the center of the scene.
-        
-        let pov = self.gameView.pointOfView!
-        pov.eulerAngles = SCNVector3Zero
-        pov.position = SCNVector3(0.0, 0.0, DISTANCE)
-        
-        game.cameraXHandle.rotation = SCNVector4(1.0, 0.0, 0.0, -M_PI_4 * 0.125)
-        game.cameraXHandle.addChildNode(pov)
-        
-        game.cameraYHandle.position = SCNVector3(0.0, ALTITUDE, 0.0)
-        game.cameraYHandle.rotation = SCNVector4(0.0, 1.0, 0.0, M_PI_2 + M_PI_4 * 3.0)
-        game.cameraYHandle.addChildNode(game.cameraXHandle)
-        
-        gameView.scene?.rootNode.addChildNode(game.cameraYHandle)
-        
-        // Animate camera on launch and prevent the user from manipulating the camera until the end of the animation.
-        SCNTransaction.animateWithDuration(completionBlock: { self.lockCamera = false }) {
-            self.lockCamera = true
-            
-            // Create 2 additive animations that converge to 0
-            // That way at the end of the animation, the camera will be at its default position.
-            let cameraYAnimation = CABasicAnimation(keyPath: "rotation.w")
-            cameraYAnimation.fromValue = SCNFloat(M_PI) * 2.0 - self.game.cameraYHandle.rotation.w
-            cameraYAnimation.toValue = 0.0
-            cameraYAnimation.additive = true
-            cameraYAnimation.beginTime = CACurrentMediaTime() + 3.0 // wait a little bit before stating
-            cameraYAnimation.fillMode = kCAFillModeBoth
-            cameraYAnimation.duration = 5.0
-            cameraYAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-            self.game.cameraYHandle.addAnimation(cameraYAnimation, forKey: nil)
-            
-            let cameraXAnimation = cameraYAnimation.copy() as! CABasicAnimation
-            cameraXAnimation.fromValue = -SCNFloat(M_PI_2) + self.game.cameraXHandle.rotation.w
-            self.game.cameraXHandle.addAnimation(cameraXAnimation, forKey: nil)
-        }
-    }
-    
-    private func setupCollisionNode(node: SCNNode) {
-        if let geometry = node.geometry {
-            // Collision meshes must use a concave shape for intersection correctness.
-            node.physicsBody = SCNPhysicsBody.staticBody()
-            node.physicsBody!.categoryBitMask = BitmaskCollision
-            node.physicsBody!.physicsShape = SCNPhysicsShape(node: node, options: [SCNPhysicsShapeTypeKey: SCNPhysicsShapeTypeConcavePolyhedron])
-            
-            // Get grass area to play the right sound steps
-            if geometry.firstMaterial!.name == "grass-area" {
-                if self.game.grassArea != nil {
-                    geometry.firstMaterial = self.game.grassArea
-                } else {
-                    self.game.grassArea = geometry.firstMaterial
-                }
-            }
-            
-            // Get the water area
-            if geometry.firstMaterial!.name == "water" {
-                self.game.waterArea = geometry.firstMaterial
-            }
-            
-            // Temporary workaround because concave shape created from geometry instead of node fails
-            let childNode = SCNNode()
-            node.addChildNode(childNode)
-            childNode.hidden = true
-            childNode.geometry = node.geometry
-            node.geometry = nil
-            node.hidden = false
-            
-            if node.name == "water" {
-                node.physicsBody!.categoryBitMask = BitmaskWater
-            }
-        }
-        
-        for childNode in node.childNodes {
-            if childNode.hidden == false {
-                setupCollisionNode(childNode)
-            }
-        }
-    }
-    
-    private func setupSounds() {
-        // Get an arbitrary node to attach the sounds to.
-        let node = gameView.scene!.rootNode
-        
-        node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: "music.m4a", volume: 0.25, positional: false, loops: true, shouldStream: true)))
-        node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: "wind.m4a", volume: 0.3, positional: false, loops: true, shouldStream: true)))
-        game.flameThrowerSound = SCNAudioPlayer(source: SCNAudioSource(name: "flamethrower.mp3", volume: 0, positional: false, loops: true))
-        node.addAudioPlayer(self.game.flameThrowerSound)
-        
-        game.collectPearlSound = SCNAudioSource(name: "collect1.mp3", volume: 0.5)
-        game.collectFlowerSound = SCNAudioSource(name: "collect2.mp3")
-        game.victoryMusic = SCNAudioSource(name: "Music_victory.mp3", volume: 0.5, shouldLoad: false)
     }
     
     // MARK: Collecting Items
