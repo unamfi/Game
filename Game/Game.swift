@@ -29,6 +29,10 @@ class Game: NSObject {
     var mainGround: SCNNode!
     var groundToCameraPosition = [SCNNode: SCNVector3]()
     
+    // Particles
+    var confettiParticleSystem: SCNParticleSystem!
+    var collectFlowerParticleSystem: SCNParticleSystem!
+    
     // Nodes to manipulate the camera
     let cameraYHandle = SCNNode()
     let cameraXHandle = SCNNode()

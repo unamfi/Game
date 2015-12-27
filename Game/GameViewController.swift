@@ -36,10 +36,6 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
     private var game : Game!
     private var lockCamera = false
     
-    // Particles
-    private var confettiParticleSystem: SCNParticleSystem!
-    private var collectFlowerParticleSystem: SCNParticleSystem!
-    
     // Game controls
     internal var controllerDPad: GCControllerDirectionPad?
     internal var controllerStoredDirection = float2(0.0) // left/right up/down
@@ -78,9 +74,9 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         setupSounds()
         
         // Configure particle systems
-        collectFlowerParticleSystem = SCNParticleSystem(named: "collect.scnp", inDirectory: nil)
-        collectFlowerParticleSystem.loops = false
-        confettiParticleSystem = SCNParticleSystem(named: "confetti.scnp", inDirectory: nil)
+        game.collectFlowerParticleSystem = SCNParticleSystem(named: "collect.scnp", inDirectory: nil)
+        game.collectFlowerParticleSystem.loops = false
+        game.confettiParticleSystem = SCNParticleSystem(named: "confetti.scnp", inDirectory: nil)
         
         // Add the character to the scene.
         scene.rootNode.addChildNode(game.character.node)
@@ -342,7 +338,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
             // Emit particles.
             var particleSystemPosition = flowerNode.worldTransform
             particleSystemPosition.m42 += 0.1
-            gameView.scene!.addParticleSystem(collectFlowerParticleSystem, withTransform: particleSystemPosition)
+            gameView.scene!.addParticleSystem(game.collectFlowerParticleSystem, withTransform: particleSystemPosition)
             
             // Remove the flower from the scene.
             removeNode(flowerNode, soundToPlay:self.game.collectFlowerSound)
@@ -357,7 +353,7 @@ class GameViewController: ViewController, SCNPhysicsContactDelegate {
         
         // Add confettis
         let particleSystemPosition = SCNMatrix4MakeTranslation(0.0, 8.0, 0.0)
-        gameView.scene!.addParticleSystem(confettiParticleSystem, withTransform: particleSystemPosition)
+        gameView.scene!.addParticleSystem(game.confettiParticleSystem, withTransform: particleSystemPosition)
         
         // Stop the music.
         gameView.scene!.rootNode.removeAllAudioPlayers()
