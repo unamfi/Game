@@ -12,13 +12,6 @@ import SpriteKit
 import QuartzCore
 import GameController
 
-// Collision bit masks
-let BitmaskCollision        = 1 << 2
-let BitmaskCollectable      = 1 << 3
-let BitmaskEnemy            = 1 << 4
-let BitmaskSuperCollectable = 1 << 5
-let BitmaskWater            = 1 << 6
-
 #if os(iOS) || os(tvOS)
     typealias ViewController = UIViewController
 #elseif os(OSX)
