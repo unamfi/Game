@@ -24,8 +24,6 @@ class GameViewController: ViewController {
         return view as! GameView
     }
     
-    private var game : Game!
-    
     // Game controls
     internal var controllerDPad: GCControllerDirectionPad?
     internal var controllerStoredDirection = float2(0.0) // left/right up/down
@@ -43,20 +41,7 @@ class GameViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let scene = SCNScene(named: "game.scnassets/level.scn")!
-        
-        gameView.setup(scene)
-        
-        game = Game(gameView: gameView)
-        
-        // Setup delegates
-        gameView.physicsContactDelegate = PhysicsContactDelegate(game: game)
-        scene.physicsWorld.contactDelegate = gameView.physicsContactDelegate
-        gameView.sceneRendererDelegate = SceneRendererDelegate(game: game, controllerDirection: controllerDirection)
-        gameView.delegate = gameView.sceneRendererDelegate
-        
-       
+        gameView.setup(controllerDirection)
         setupGameControllers()
     }
     
@@ -66,7 +51,7 @@ class GameViewController: ViewController {
             direction *= float2(1.0, -1.0)
         #endif
     
-        self.game.panCamera(direction)
+        self.gameView.game.panCamera(direction)
     }
     
 }

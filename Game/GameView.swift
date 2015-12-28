@@ -13,13 +13,11 @@ import SpriteKit
 class GameView: SCNView {
     
     // MARK: 2D Overlay
-    
+
     private let overlayNode = SKNode()
     private let congratulationsGroupNode = SKNode()
     private let collectedPearlCountLabel = SKLabelNode(fontNamed: "Chalkduster")
     private var collectedFlowerSprites = [SKSpriteNode]()
-    var sceneRendererDelegate : SceneRendererDelegate!
-    var physicsContactDelegate : PhysicsContactDelegate!
     
     #if os(iOS) || os(tvOS)
     
@@ -47,10 +45,25 @@ class GameView: SCNView {
     
     #endif
     
-    func setup(scene: SCNScene) {
-        self.scene = scene
+    var game : Game!
+    var sceneRendererDelegate : SceneRendererDelegate!
+    var physicsContactDelegate : PhysicsContactDelegate!
+    var controllerDirection : ()->float2 = { return float2()}
+    
+    func setup(controllerDirection: ()->float2 ) {
+        self.scene = SCNScene(named: "game.scnassets/level.scn")!
+        self.controllerDirection = controllerDirection
+        game = Game(gameView: self)
         playing = true
         loops = true
+        setupDelegates()
+    }
+    
+    func setupDelegates() {
+        physicsContactDelegate = PhysicsContactDelegate(game: game)
+        game.scene.physicsWorld.contactDelegate = physicsContactDelegate
+        sceneRendererDelegate = SceneRendererDelegate(game: game, controllerDirection: controllerDirection)
+        delegate = sceneRendererDelegate
     }
     
     private func layout2DOverlay() {
