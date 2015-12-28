@@ -18,7 +18,7 @@ import GameController
     typealias ViewController = NSViewController
 #endif
 
-class GameViewController: ViewController, SCNPhysicsContactDelegate {
+class GameViewController: ViewController {
    
     // Game view
     var gameView: GameView {
