@@ -47,15 +47,12 @@ class GameViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Create a new scene.
         let scene = SCNScene(named: "game.scnassets/level.scn")!
         
         gameView.setup(scene)
         
-        // Set the game component
         game = Game(gameView: gameView)
         
-        // Add the character to the scene.
         scene.rootNode.addChildNode(game.character.node)
         
         let startPosition = scene.rootNode.childNodeWithName("startingPoint", recursively: true)!
