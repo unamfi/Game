@@ -10,34 +10,12 @@ import Foundation
 import SceneKit
 
 class Game: NSObject {
+    
     var isComplete = false
-    var lockCamera = false
-    
     var scene : SCNScene!
-    
-    
-    var grassArea: SCNMaterial!
-    var waterArea: SCNMaterial!
     
     var flames = [SCNNode]()
     var enemies = [SCNNode]()
-    
-    var collectPearlSound: SCNAudioSource!
-    var collectFlowerSound: SCNAudioSource!
-    var flameThrowerSound: SCNAudioPlayer!
-    var victoryMusic: SCNAudioSource!
-    
-    var currentGround: SCNNode!
-    var mainGround: SCNNode!
-    var groundToCameraPosition = [SCNNode: SCNVector3]()
-    
-    // Particles
-    var confettiParticleSystem: SCNParticleSystem!
-    var collectFlowerParticleSystem: SCNParticleSystem!
-    
-    // Nodes to manipulate the camera
-    let cameraYHandle = SCNNode()
-    let cameraXHandle = SCNNode()
     
     let character = Character()
     
@@ -49,6 +27,39 @@ class Game: NSObject {
         self.scene = gameView.scene
         self.setupAutomaticCameraPositions()
     }
+    
+    // MARK: Sounds
+    
+    var collectPearlSound: SCNAudioSource!
+    var collectFlowerSound: SCNAudioSource!
+    var flameThrowerSound: SCNAudioPlayer!
+    var victoryMusic: SCNAudioSource!
+
+    func setupSounds() {
+        // Get an arbitrary node to attach the sounds to.
+        let node = gameView.scene!.rootNode
+        
+        node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: "music.m4a", volume: 0.25, positional: false, loops: true, shouldStream: true)))
+        node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: "wind.m4a", volume: 0.3, positional: false, loops: true, shouldStream: true)))
+        flameThrowerSound = SCNAudioPlayer(source: SCNAudioSource(name: "flamethrower.mp3", volume: 0, positional: false, loops: true))
+        node.addAudioPlayer(flameThrowerSound)
+        
+        collectPearlSound = SCNAudioSource(name: "collect1.mp3", volume: 0.5)
+        collectFlowerSound = SCNAudioSource(name: "collect2.mp3")
+        victoryMusic = SCNAudioSource(name: "Music_victory.mp3", volume: 0.5, shouldLoad: false)
+    }
+    
+    // MARK: Camera
+    
+    var lockCamera = false
+    
+    // Nodes to manipulate the camera
+    let cameraYHandle = SCNNode()
+    let cameraXHandle = SCNNode()
+    
+    var currentGround: SCNNode!
+    var mainGround: SCNNode!
+    var groundToCameraPosition = [SCNNode: SCNVector3]()
     
     func setupCamera() {
         let ALTITUDE = 1.0
@@ -95,58 +106,33 @@ class Game: NSObject {
         }
     }
     
-    func setupSounds() {
-        // Get an arbitrary node to attach the sounds to.
-        let node = gameView.scene!.rootNode
-        
-        node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: "music.m4a", volume: 0.25, positional: false, loops: true, shouldStream: true)))
-        node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: "wind.m4a", volume: 0.3, positional: false, loops: true, shouldStream: true)))
-        flameThrowerSound = SCNAudioPlayer(source: SCNAudioSource(name: "flamethrower.mp3", volume: 0, positional: false, loops: true))
-        node.addAudioPlayer(flameThrowerSound)
-        
-        collectPearlSound = SCNAudioSource(name: "collect1.mp3", volume: 0.5)
-        collectFlowerSound = SCNAudioSource(name: "collect2.mp3")
-        victoryMusic = SCNAudioSource(name: "Music_victory.mp3", volume: 0.5, shouldLoad: false)
-    }
     
-    func setupCollisionNode(node: SCNNode) {
-        if let geometry = node.geometry {
-            // Collision meshes must use a concave shape for intersection correctness.
-            node.physicsBody = SCNPhysicsBody.staticBody()
-            node.physicsBody!.categoryBitMask = BitmaskCollision
-            node.physicsBody!.physicsShape = SCNPhysicsShape(node: node, options: [SCNPhysicsShapeTypeKey: SCNPhysicsShapeTypeConcavePolyhedron])
+    func panCamera(direction : float2) {
+        
+        if lockCamera {
+            return
+        }
+        
+        let F = SCNFloat(0.005)
+        
+        // Make sure the camera handles are correctly reset (because automatic camera animations may have put the "rotation" in a weird state.
+        SCNTransaction.animateWithDuration(0.0) {
+            self.cameraYHandle.removeAllActions()
+            self.cameraXHandle.removeAllActions()
             
-            // Get grass area to play the right sound steps
-            if geometry.firstMaterial!.name == "grass-area" {
-                if grassArea != nil {
-                    geometry.firstMaterial = grassArea
-                } else {
-                    grassArea = geometry.firstMaterial
-                }
+            if self.cameraYHandle.rotation.y < 0 {
+                self.cameraYHandle.rotation = SCNVector4(0, 1, 0, -self.cameraYHandle.rotation.w)
             }
             
-            // Get the water area
-            if geometry.firstMaterial!.name == "water" {
-                waterArea = geometry.firstMaterial
-            }
-            
-            // Temporary workaround because concave shape created from geometry instead of node fails
-            let childNode = SCNNode()
-            node.addChildNode(childNode)
-            childNode.hidden = true
-            childNode.geometry = node.geometry
-            node.geometry = nil
-            node.hidden = false
-            
-            if node.name == "water" {
-                node.physicsBody!.categoryBitMask = BitmaskWater
+            if self.cameraXHandle.rotation.x < 0 {
+                self.cameraXHandle.rotation = SCNVector4(1, 0, 0, -self.cameraXHandle.rotation.w)
             }
         }
         
-        for childNode in node.childNodes {
-            if childNode.hidden == false {
-                setupCollisionNode(childNode)
-            }
+        // Update the camera position with some inertia.
+        SCNTransaction.animateWithDuration(0.5, timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)) {
+            self.cameraYHandle.rotation = SCNVector4(0, 1, 0, self.cameraYHandle.rotation.y * (self.cameraYHandle.rotation.w - SCNFloat(direction.x) * F))
+            self.cameraXHandle.rotation = SCNVector4(1, 0, 0, (max(SCNFloat(-M_PI_2), min(0.13, self.cameraXHandle.rotation.w + SCNFloat(direction.y) * F))))
         }
     }
     
@@ -234,6 +220,50 @@ class Game: NSObject {
     
     // MARK: Collecting Items
     
+    var grassArea: SCNMaterial!
+    var waterArea: SCNMaterial!
+    
+    func setupCollisionNode(node: SCNNode) {
+        if let geometry = node.geometry {
+            // Collision meshes must use a concave shape for intersection correctness.
+            node.physicsBody = SCNPhysicsBody.staticBody()
+            node.physicsBody!.categoryBitMask = BitmaskCollision
+            node.physicsBody!.physicsShape = SCNPhysicsShape(node: node, options: [SCNPhysicsShapeTypeKey: SCNPhysicsShapeTypeConcavePolyhedron])
+            
+            // Get grass area to play the right sound steps
+            if geometry.firstMaterial!.name == "grass-area" {
+                if grassArea != nil {
+                    geometry.firstMaterial = grassArea
+                } else {
+                    grassArea = geometry.firstMaterial
+                }
+            }
+            
+            // Get the water area
+            if geometry.firstMaterial!.name == "water" {
+                waterArea = geometry.firstMaterial
+            }
+            
+            // Temporary workaround because concave shape created from geometry instead of node fails
+            let childNode = SCNNode()
+            node.addChildNode(childNode)
+            childNode.hidden = true
+            childNode.geometry = node.geometry
+            node.geometry = nil
+            node.hidden = false
+            
+            if node.name == "water" {
+                node.physicsBody!.categoryBitMask = BitmaskWater
+            }
+        }
+        
+        for childNode in node.childNodes {
+            if childNode.hidden == false {
+                setupCollisionNode(childNode)
+            }
+        }
+    }
+    
     private func removeNode(node: SCNNode, soundToPlay sound: SCNAudioSource) {
         if let parentNode = node.parentNode {
             let soundEmitter = SCNNode()
@@ -270,6 +300,8 @@ class Game: NSObject {
         }
     }
     
+    var collectFlowerParticleSystem: SCNParticleSystem!
+    
     func collectFlower(flowerNode: SCNNode) {
         if flowerNode.parentNode != nil {
             // Emit particles.
@@ -284,6 +316,8 @@ class Game: NSObject {
     }
     
     // MARK: Congratulating the Player
+    
+    var confettiParticleSystem: SCNParticleSystem!
     
     private func showEndScreen() {
         isComplete = true
@@ -305,35 +339,6 @@ class Game: NSObject {
         }
         
         gameView.showEndScreen();
-    }
-    
-    func panCamera(direction : float2) {
-        
-        if lockCamera {
-            return
-        }
-        
-        let F = SCNFloat(0.005)
-        
-        // Make sure the camera handles are correctly reset (because automatic camera animations may have put the "rotation" in a weird state.
-        SCNTransaction.animateWithDuration(0.0) {
-            self.cameraYHandle.removeAllActions()
-            self.cameraXHandle.removeAllActions()
-            
-            if self.cameraYHandle.rotation.y < 0 {
-                self.cameraYHandle.rotation = SCNVector4(0, 1, 0, -self.cameraYHandle.rotation.w)
-            }
-            
-            if self.cameraXHandle.rotation.x < 0 {
-                self.cameraXHandle.rotation = SCNVector4(1, 0, 0, -self.cameraXHandle.rotation.w)
-            }
-        }
-        
-        // Update the camera position with some inertia.
-        SCNTransaction.animateWithDuration(0.5, timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)) {
-            self.cameraYHandle.rotation = SCNVector4(0, 1, 0, self.cameraYHandle.rotation.y * (self.cameraYHandle.rotation.w - SCNFloat(direction.x) * F))
-            self.cameraXHandle.rotation = SCNVector4(1, 0, 0, (max(SCNFloat(-M_PI_2), min(0.13, self.cameraXHandle.rotation.w + SCNFloat(direction.y) * F))))
-        }
     }
     
     
