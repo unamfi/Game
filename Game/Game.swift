@@ -14,22 +14,22 @@ class Game: NSObject {
     var isComplete = false
     var scene : SCNScene!
     
-    var flames = [SCNNode]()
-    var enemies = [SCNNode]()
-    
     var gameView : GameView!
     
     init(gameView: GameView) {
         super.init()
-        self.gameView = gameView
-        self.scene = gameView.scene
-        self.setupAutomaticCameraPositions()
         
+        self.gameView = gameView
+        scene = gameView.scene
+        setupAutomaticCameraPositions()
         setupCamera()
         setupSounds()
+        setupNodes()
+        
         collectFlowerParticleSystem = SCNParticleSystem(named: "collect.scnp", inDirectory: nil)
         collectFlowerParticleSystem.loops = false
         confettiParticleSystem = SCNParticleSystem(named: "confetti.scnp", inDirectory: nil)
+        
         putCharacterNodeOnStartingPoint()
     }
     
@@ -235,8 +235,34 @@ class Game: NSObject {
     
     // MARK: Collecting Items
     
+    var flames = [SCNNode]()
+    var enemies = [SCNNode]()
+    
     var grassArea: SCNMaterial!
     var waterArea: SCNMaterial!
+    
+    func setupNodes() {
+        // Retrieve various game elements in one traversal
+        var collisionNodes = [SCNNode]()
+        scene.rootNode.enumerateChildNodesUsingBlock { (node, _) in
+            switch node.name {
+            case .Some("flame"):
+                node.physicsBody!.categoryBitMask = BitmaskEnemy
+                self.flames.append(node)
+            case .Some("enemy"):
+                self.enemies.append(node)
+            case let .Some(s) where s.rangeOfString("collision") != nil:
+                collisionNodes.append(node)
+            default:
+                break
+            }
+        }
+        
+        for node in collisionNodes {
+            node.hidden = false
+            setupCollisionNode(node)
+        }
+    }
     
     func setupCollisionNode(node: SCNNode) {
         if let geometry = node.geometry {

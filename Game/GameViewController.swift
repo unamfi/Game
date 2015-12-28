@@ -50,27 +50,6 @@ class GameViewController: ViewController {
         
         game = Game(gameView: gameView)
         
-        // Retrieve various game elements in one traversal
-        var collisionNodes = [SCNNode]()
-        scene.rootNode.enumerateChildNodesUsingBlock { (node, _) in
-            switch node.name {
-            case .Some("flame"):
-                node.physicsBody!.categoryBitMask = BitmaskEnemy
-                self.game.flames.append(node)
-            case .Some("enemy"):
-                self.game.enemies.append(node)
-            case let .Some(s) where s.rangeOfString("collision") != nil:
-                collisionNodes.append(node)
-            default:
-                break
-            }
-        }
-        
-        for node in collisionNodes {
-            node.hidden = false
-            game.setupCollisionNode(node)
-        }
-        
         // Setup delegates
         gameView.physicsContactDelegate = PhysicsContactDelegate(game: game)
         scene.physicsWorld.contactDelegate = gameView.physicsContactDelegate
