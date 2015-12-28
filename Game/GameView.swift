@@ -47,6 +47,12 @@ class GameView: SCNView {
     
     #endif
     
+    func setup(scene: SCNScene) {
+        self.scene = scene
+        playing = true
+        loops = true
+    }
+    
     private func layout2DOverlay() {
         overlayNode.position = CGPointMake(0.0, bounds.size.height)
         

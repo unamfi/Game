@@ -50,18 +50,10 @@ class GameViewController: ViewController {
         // Create a new scene.
         let scene = SCNScene(named: "game.scnassets/level.scn")!
         
-        // Set the scene to the view and loop for the animation of the bamboos.
-        gameView.scene = scene
-        gameView.playing = true
-        gameView.loops = true
+        gameView.setup(scene)
         
         // Set the game component
         game = Game(gameView: gameView)
-        game.setupCamera()
-        game.setupSounds()
-        game.collectFlowerParticleSystem = SCNParticleSystem(named: "collect.scnp", inDirectory: nil)
-        game.collectFlowerParticleSystem.loops = false
-        game.confettiParticleSystem = SCNParticleSystem(named: "confetti.scnp", inDirectory: nil)
         
         // Add the character to the scene.
         scene.rootNode.addChildNode(game.character.node)

@@ -26,6 +26,13 @@ class Game: NSObject {
         self.gameView = gameView
         self.scene = gameView.scene
         self.setupAutomaticCameraPositions()
+        
+        setupCamera()
+        setupSounds()
+        collectFlowerParticleSystem = SCNParticleSystem(named: "collect.scnp", inDirectory: nil)
+        collectFlowerParticleSystem.loops = false
+        confettiParticleSystem = SCNParticleSystem(named: "confetti.scnp", inDirectory: nil)
+        
     }
     
     // MARK: Sounds
