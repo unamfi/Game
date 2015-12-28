@@ -19,8 +19,7 @@ import GameController
 #endif
 
 class GameViewController: ViewController {
-   
-    // Game view
+
     var gameView: GameView {
         return view as! GameView
     }
@@ -37,8 +36,6 @@ class GameViewController: ViewController {
     internal var padTouch: UITouch?
     internal var panningTouch: UITouch?
     #endif
-    
-    // MARK: Initialization
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
