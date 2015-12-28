@@ -50,11 +50,6 @@ class GameViewController: ViewController {
         
         game = Game(gameView: gameView)
         
-        scene.rootNode.addChildNode(game.character.node)
-        
-        let startPosition = scene.rootNode.childNodeWithName("startingPoint", recursively: true)!
-        game.character.node.transform = startPosition.transform
-        
         // Retrieve various game elements in one traversal
         var collisionNodes = [SCNNode]()
         scene.rootNode.enumerateChildNodesUsingBlock { (node, _) in

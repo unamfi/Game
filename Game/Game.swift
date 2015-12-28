@@ -17,8 +17,6 @@ class Game: NSObject {
     var flames = [SCNNode]()
     var enemies = [SCNNode]()
     
-    let character = Character()
-    
     var gameView : GameView!
     
     init(gameView: GameView) {
@@ -32,7 +30,7 @@ class Game: NSObject {
         collectFlowerParticleSystem = SCNParticleSystem(named: "collect.scnp", inDirectory: nil)
         collectFlowerParticleSystem.loops = false
         confettiParticleSystem = SCNParticleSystem(named: "confetti.scnp", inDirectory: nil)
-        
+        putCharacterNodeOnStartingPoint()
     }
     
     // MARK: Sounds
@@ -187,6 +185,16 @@ class Game: NSObject {
                 cameraXHandle.runAction(actionX)
             }
         }
+    }
+    
+    // MARK: Character
+    
+    let character = Character()
+    
+    func putCharacterNodeOnStartingPoint() {
+        scene.rootNode.addChildNode(character.node)
+        let startPosition = scene.rootNode.childNodeWithName("startingPoint", recursively: true)!
+        character.node.transform = startPosition.transform
     }
     
     func characterDirection(controllerDirection : float2) -> float3 {
