@@ -25,11 +25,8 @@ class Game: NSObject {
         setupCamera()
         setupSounds()
         setupNodes()
-        
-        collectFlowerParticleSystem = SCNParticleSystem(named: "collect.scnp", inDirectory: nil)
-        collectFlowerParticleSystem.loops = false
-        confettiParticleSystem = SCNParticleSystem(named: "confetti.scnp", inDirectory: nil)
-        
+        initializeCollectFlowerParticleSystem()
+        initializeConfettiParticleSystem()
         putCharacterNodeOnStartingPoint()
     }
     
@@ -343,6 +340,11 @@ class Game: NSObject {
     
     var collectFlowerParticleSystem: SCNParticleSystem!
     
+    func initializeCollectFlowerParticleSystem() {
+        collectFlowerParticleSystem = SCNParticleSystem(named: "collect.scnp", inDirectory: nil)
+        collectFlowerParticleSystem.loops = false
+    }
+    
     func collectFlower(flowerNode: SCNNode) {
         if flowerNode.parentNode != nil {
             // Emit particles.
@@ -359,6 +361,10 @@ class Game: NSObject {
     // MARK: Congratulating the Player
     
     var confettiParticleSystem: SCNParticleSystem!
+    
+    func initializeConfettiParticleSystem() {
+        confettiParticleSystem = SCNParticleSystem(named: "confetti.scnp", inDirectory: nil)
+    }
     
     private func showEndScreen() {
         isComplete = true
