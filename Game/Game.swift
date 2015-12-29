@@ -14,7 +14,7 @@ class Game: NSObject {
     var isComplete = false
     var scene : SCNScene!
     
-    var gameView : GameView!
+    weak var gameView : GameView!
     
     init(gameView: GameView) {
         super.init()
