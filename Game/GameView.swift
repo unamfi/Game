@@ -49,7 +49,6 @@ class GameView: SCNView {
     var controllerDirection : ()->float2 = { return float2()}
     
     func setup(controllerDirection: ()->float2 ) {
-        self.scene = SCNScene(named: "game.scnassets/level.scn")!
         self.controllerDirection = controllerDirection
         game = Game(gameView: self)
         playing = true

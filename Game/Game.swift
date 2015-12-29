@@ -18,9 +18,8 @@ class Game: NSObject {
     
     init(gameView: GameView) {
         super.init()
-        
-        self.gameView = gameView
-        scene = gameView.scene
+        scene = SCNScene(named: "game.scnassets/level.scn")!
+        setupGameOnView(gameView)
         setupAutomaticCameraPositions()
         setupCamera()
         setupSounds()
@@ -30,6 +29,11 @@ class Game: NSObject {
         putCharacterNodeOnStartingPoint()
         setupSceneRendererDelegate()
         setupPhysicsContactDelegate()
+    }
+    
+    func setupGameOnView(gameView : GameView) {
+        self.gameView = gameView
+        self.gameView.scene = scene
     }
     
     // MARK : Scene Renderer Delegate
