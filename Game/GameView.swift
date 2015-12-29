@@ -46,8 +46,6 @@ class GameView: SCNView {
     #endif
     
     var game : Game!
-    var sceneRendererDelegate : SceneRendererDelegate!
-    var physicsContactDelegate : PhysicsContactDelegate!
     var controllerDirection : ()->float2 = { return float2()}
     
     func setup(controllerDirection: ()->float2 ) {
@@ -56,14 +54,6 @@ class GameView: SCNView {
         game = Game(gameView: self)
         playing = true
         loops = true
-        setupDelegates()
-    }
-    
-    func setupDelegates() {
-        physicsContactDelegate = PhysicsContactDelegate(game: game)
-        game.scene.physicsWorld.contactDelegate = physicsContactDelegate
-        sceneRendererDelegate = SceneRendererDelegate(game: game, controllerDirection: controllerDirection)
-        delegate = sceneRendererDelegate
     }
     
     private func layout2DOverlay() {

@@ -28,6 +28,26 @@ class Game: NSObject {
         initializeCollectFlowerParticleSystem()
         initializeConfettiParticleSystem()
         putCharacterNodeOnStartingPoint()
+        setupSceneRendererDelegate()
+        setupPhysicsContactDelegate()
+    }
+    
+    // MARK : Scene Renderer Delegate
+    
+    var sceneRendererDelegate : SceneRendererDelegate!
+    
+    func setupSceneRendererDelegate() {
+        sceneRendererDelegate = SceneRendererDelegate(game: self, controllerDirection: gameView.controllerDirection)
+        gameView.delegate = sceneRendererDelegate
+    }
+    
+    // MARK: Physics contact delegate
+    
+    var physicsContactDelegate : PhysicsContactDelegate!
+    
+    func setupPhysicsContactDelegate() {
+        physicsContactDelegate = PhysicsContactDelegate(game: self)
+        scene.physicsWorld.contactDelegate = physicsContactDelegate
     }
     
     // MARK: Sounds
