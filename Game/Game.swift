@@ -12,7 +12,7 @@ import SceneKit
 class Game: NSObject {
     
     var isComplete = false
-    var scene : SCNScene!
+    private var scene : SCNScene!
     private weak var gameView : GameView!
     
     init(gameView: GameView) {
