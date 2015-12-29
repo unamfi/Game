@@ -13,8 +13,7 @@ class Game: NSObject {
     
     var isComplete = false
     var scene : SCNScene!
-    
-    weak var gameView : GameView!
+    private weak var gameView : GameView!
     
     init(gameView: GameView) {
         super.init()
@@ -31,25 +30,25 @@ class Game: NSObject {
         setupPhysicsContactDelegate()
     }
     
-    func setupGameOnView(gameView : GameView) {
+    private func setupGameOnView(gameView : GameView) {
         self.gameView = gameView
         self.gameView.scene = scene
     }
     
     // MARK : Scene Renderer Delegate
     
-    var sceneRendererDelegate : SceneRendererDelegate!
+    private var sceneRendererDelegate : SceneRendererDelegate!
     
-    func setupSceneRendererDelegate() {
+    private func setupSceneRendererDelegate() {
         sceneRendererDelegate = SceneRendererDelegate(game: self, controllerDirection: gameView.controllerDirection)
         gameView.delegate = sceneRendererDelegate
     }
     
     // MARK: Physics contact delegate
     
-    var physicsContactDelegate : PhysicsContactDelegate!
+    private var physicsContactDelegate : PhysicsContactDelegate!
     
-    func setupPhysicsContactDelegate() {
+    private func setupPhysicsContactDelegate() {
         physicsContactDelegate = PhysicsContactDelegate(game: self)
         scene.physicsWorld.contactDelegate = physicsContactDelegate
     }
@@ -61,7 +60,7 @@ class Game: NSObject {
     var flameThrowerSound: SCNAudioPlayer!
     var victoryMusic: SCNAudioSource!
 
-    func setupSounds() {
+    private func setupSounds() {
         // Get an arbitrary node to attach the sounds to.
         let node = scene!.rootNode
         
@@ -77,17 +76,17 @@ class Game: NSObject {
     
     // MARK: Camera
     
-    var lockCamera = false
+    private var lockCamera = false
     
     // Nodes to manipulate the camera
-    let cameraYHandle = SCNNode()
-    let cameraXHandle = SCNNode()
+    private let cameraYHandle = SCNNode()
+    private let cameraXHandle = SCNNode()
     
-    var currentGround: SCNNode!
-    var mainGround: SCNNode!
-    var groundToCameraPosition = [SCNNode: SCNVector3]()
+    private var currentGround: SCNNode!
+    private var mainGround: SCNNode!
+    private var groundToCameraPosition = [SCNNode: SCNVector3]()
     
-    func setupCamera() {
+    private func setupCamera() {
         let ALTITUDE = 1.0
         let DISTANCE = 10.0
         
@@ -212,7 +211,7 @@ class Game: NSObject {
     
     let character = Character()
     
-    func putCharacterNodeOnStartingPoint() {
+    private func putCharacterNodeOnStartingPoint() {
         scene.rootNode.addChildNode(character.node)
         let startPosition = scene.rootNode.childNodeWithName("startingPoint", recursively: true)!
         character.node.transform = startPosition.transform
@@ -262,7 +261,7 @@ class Game: NSObject {
     var grassArea: SCNMaterial!
     var waterArea: SCNMaterial!
     
-    func setupNodes() {
+    private func setupNodes() {
         // Retrieve various game elements in one traversal
         var collisionNodes = [SCNNode]()
         scene.rootNode.enumerateChildNodesUsingBlock { (node, _) in
@@ -285,7 +284,7 @@ class Game: NSObject {
         }
     }
     
-    func setupCollisionNode(node: SCNNode) {
+    private func setupCollisionNode(node: SCNNode) {
         if let geometry = node.geometry {
             // Collision meshes must use a concave shape for intersection correctness.
             node.physicsBody = SCNPhysicsBody.staticBody()
@@ -362,9 +361,9 @@ class Game: NSObject {
         }
     }
     
-    var collectFlowerParticleSystem: SCNParticleSystem!
+    private var collectFlowerParticleSystem: SCNParticleSystem!
     
-    func initializeCollectFlowerParticleSystem() {
+    private func initializeCollectFlowerParticleSystem() {
         collectFlowerParticleSystem = SCNParticleSystem(named: "collect.scnp", inDirectory: nil)
         collectFlowerParticleSystem.loops = false
     }
@@ -384,9 +383,9 @@ class Game: NSObject {
     
     // MARK: Congratulating the Player
     
-    var confettiParticleSystem: SCNParticleSystem!
+    private var confettiParticleSystem: SCNParticleSystem!
     
-    func initializeConfettiParticleSystem() {
+    private func initializeConfettiParticleSystem() {
         confettiParticleSystem = SCNParticleSystem(named: "confetti.scnp", inDirectory: nil)
     }
     
