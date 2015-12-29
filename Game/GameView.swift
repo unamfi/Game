@@ -231,13 +231,13 @@ extension GameView {
     #if os(iOS)
     
     private func virtualDPadBoundsInScene() -> CGRect {
-    return CGRectMake(10.0, 10.0, 150.0, 150.0)
+        return CGRectMake(10.0, 10.0, 150.0, 150.0)
     }
     
     func virtualDPadBounds() -> CGRect {
-    var virtualDPadBounds = virtualDPadBoundsInScene()
-    virtualDPadBounds.origin.y = bounds.size.height - virtualDPadBounds.size.height + virtualDPadBounds.origin.y
-    return virtualDPadBounds
+        var virtualDPadBounds = virtualDPadBoundsInScene()
+        virtualDPadBounds.origin.y = bounds.size.height - virtualDPadBounds.size.height + virtualDPadBounds.origin.y
+        return virtualDPadBounds
     }
     
     #endif
