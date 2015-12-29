@@ -39,7 +39,7 @@ class Game: NSObject {
 
     func setupSounds() {
         // Get an arbitrary node to attach the sounds to.
-        let node = gameView.scene!.rootNode
+        let node = scene!.rootNode
         
         node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: "music.m4a", volume: 0.25, positional: false, loops: true, shouldStream: true)))
         node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: "wind.m4a", volume: 0.3, positional: false, loops: true, shouldStream: true)))
@@ -84,7 +84,7 @@ class Game: NSObject {
         cameraYHandle.rotation = SCNVector4(0.0, 1.0, 0.0, M_PI_2 + M_PI_4 * 3.0)
         cameraYHandle.addChildNode(cameraXHandle)
         
-        gameView.scene?.rootNode.addChildNode(cameraYHandle)
+        scene.rootNode.addChildNode(cameraYHandle)
         
         // Animate camera on launch and prevent the user from manipulating the camera until the end of the animation.
         SCNTransaction.animateWithDuration(completionBlock: { self.lockCamera = false }) {
@@ -139,7 +139,7 @@ class Game: NSObject {
     }
     
     private func setupAutomaticCameraPositions() {
-        let rootNode = self.scene.rootNode
+        let rootNode = scene.rootNode
         
         mainGround = rootNode.childNodeWithName("bloc05_collisionMesh_02", recursively: true)
         
@@ -350,7 +350,7 @@ class Game: NSObject {
             // Emit particles.
             var particleSystemPosition = flowerNode.worldTransform
             particleSystemPosition.m42 += 0.1
-            gameView.scene!.addParticleSystem(collectFlowerParticleSystem, withTransform: particleSystemPosition)
+            scene.addParticleSystem(collectFlowerParticleSystem, withTransform: particleSystemPosition)
             
             // Remove the flower from the scene.
             removeNode(flowerNode, soundToPlay:collectFlowerSound)
@@ -371,13 +371,13 @@ class Game: NSObject {
         
         // Add confettis
         let particleSystemPosition = SCNMatrix4MakeTranslation(0.0, 8.0, 0.0)
-        gameView.scene!.addParticleSystem(confettiParticleSystem, withTransform: particleSystemPosition)
+        scene.addParticleSystem(confettiParticleSystem, withTransform: particleSystemPosition)
         
         // Stop the music.
-        gameView.scene!.rootNode.removeAllAudioPlayers()
+        scene.rootNode.removeAllAudioPlayers()
         
         // Play the congrat sound.
-        gameView.scene!.rootNode.addAudioPlayer(SCNAudioPlayer(source: victoryMusic))
+        scene.rootNode.addAudioPlayer(SCNAudioPlayer(source: victoryMusic))
         
         // Animate the camera forever
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
