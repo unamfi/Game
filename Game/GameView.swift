@@ -223,9 +223,6 @@ class GameView: SCNView {
     }
     
     #endif
-    
-
-    
 }
 
 extension GameView {

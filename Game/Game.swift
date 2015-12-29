@@ -410,6 +410,4 @@ class Game: NSObject {
         
         gameView.showEndScreen();
     }
-    
-    
 }

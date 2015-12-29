@@ -45,4 +45,5 @@ class PhysicsContactDelegate: NSObject, SCNPhysicsContactDelegate {
             self.game.characterNode(other, hitWall: matching, withContact: contact)
         }
     }
+    
 }
