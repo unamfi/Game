@@ -8,14 +8,6 @@
 
 import SceneKit
 
-enum GroundType: Int {
-    case Grass
-    case Rock
-    case Water
-    case InTheAir
-    case Count
-}
-
 private typealias ParticleEmitter = (node: SCNNode, particleSystem: SCNParticleSystem, birthRate: CGFloat)
 
 class Character {

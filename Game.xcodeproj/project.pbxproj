@@ -41,6 +41,9 @@
 		4379D8601C24CD51007EF2C0 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 43DA68DC1BFE795A00BED1B0 /* art.scnassets */; };
 		437A2AC01C20904700ED6EEC /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437A2ABF1C20904700ED6EEC /* Math.swift */; };
 		437A2ACE1C209D1000ED6EEC /* VectorialAlgebra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437A2ACD1C209D1000ED6EEC /* VectorialAlgebra.swift */; };
+		437CC0831C33316F00BBB9EB /* GroundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437CC0821C33316F00BBB9EB /* GroundType.swift */; };
+		437CC0841C33316F00BBB9EB /* GroundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437CC0821C33316F00BBB9EB /* GroundType.swift */; };
+		437CC0851C33316F00BBB9EB /* GroundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437CC0821C33316F00BBB9EB /* GroundType.swift */; };
 		43A143921C2F73B0003699B4 /* PhysicsContactDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A143911C2F73B0003699B4 /* PhysicsContactDelegate.swift */; };
 		43A143931C2F73B0003699B4 /* PhysicsContactDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A143911C2F73B0003699B4 /* PhysicsContactDelegate.swift */; };
 		43A143941C2F73B0003699B4 /* PhysicsContactDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A143911C2F73B0003699B4 /* PhysicsContactDelegate.swift */; };
@@ -189,6 +192,7 @@
 		4379D8531C24CC91007EF2C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		437A2ABF1C20904700ED6EEC /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		437A2ACD1C209D1000ED6EEC /* VectorialAlgebra.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VectorialAlgebra.swift; path = ../OSXGame/VectorialAlgebra.swift; sourceTree = "<group>"; };
+		437CC0821C33316F00BBB9EB /* GroundType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroundType.swift; sourceTree = "<group>"; };
 		43A143911C2F73B0003699B4 /* PhysicsContactDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsContactDelegate.swift; sourceTree = "<group>"; };
 		43BA6CC01C24F9A900FB99E4 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
 		43BA6CC11C2691D000FB99E4 /* Gameplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gameplay.swift; sourceTree = "<group>"; };
@@ -442,6 +446,7 @@
 				43BA6D631C277C7800FB99E4 /* GameViewController.swift */,
 				43A143911C2F73B0003699B4 /* PhysicsContactDelegate.swift */,
 				435AC3A91C2D9D1E006D0F0B /* SceneRendererDelegate.swift */,
+				437CC0821C33316F00BBB9EB /* GroundType.swift */,
 				43BA6D641C277C7800FB99E4 /* SceneKitExtensions.swift */,
 				437A2ABF1C20904700ED6EEC /* Math.swift */,
 				43BA6D651C277C7800FB99E4 /* SCNSIMDOverlay.swift */,
@@ -816,6 +821,7 @@
 				43BA6D6F1C277C7800FB99E4 /* GameViewController.swift in Sources */,
 				43BA6D751C277C7800FB99E4 /* SCNSIMDOverlay.swift in Sources */,
 				43BA6D721C277C7800FB99E4 /* SceneKitExtensions.swift in Sources */,
+				437CC0831C33316F00BBB9EB /* GroundType.swift in Sources */,
 				43BA6CC21C2691D000FB99E4 /* Gameplay.swift in Sources */,
 				435AC3AA1C2D9D1E006D0F0B /* SceneRendererDelegate.swift in Sources */,
 				43BA6D661C277C7800FB99E4 /* Character.swift in Sources */,
@@ -853,6 +859,7 @@
 				43BA6D701C277C7800FB99E4 /* GameViewController.swift in Sources */,
 				43BA6D731C277C7800FB99E4 /* SceneKitExtensions.swift in Sources */,
 				4329AF551C2A5EAC00DB7E92 /* VectorialAlgebra.swift in Sources */,
+				437CC0841C33316F00BBB9EB /* GroundType.swift in Sources */,
 				4329AF531C2A5E5A00DB7E92 /* Math.swift in Sources */,
 				435AC3AB1C2D9D1E006D0F0B /* SceneRendererDelegate.swift in Sources */,
 				43BA6D6A1C277C7800FB99E4 /* GameControls.swift in Sources */,
@@ -890,6 +897,7 @@
 				43BA6D711C277C7800FB99E4 /* GameViewController.swift in Sources */,
 				43BA6D741C277C7800FB99E4 /* SceneKitExtensions.swift in Sources */,
 				4329AF561C2A5EAD00DB7E92 /* VectorialAlgebra.swift in Sources */,
+				437CC0851C33316F00BBB9EB /* GroundType.swift in Sources */,
 				4329AF541C2A5E5B00DB7E92 /* Math.swift in Sources */,
 				435AC3AC1C2D9D1E006D0F0B /* SceneRendererDelegate.swift in Sources */,
 				43BA6D6B1C277C7800FB99E4 /* GameControls.swift in Sources */,
