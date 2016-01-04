@@ -19,6 +19,7 @@ class Game: NSObject {
         super.init()
         scene = SCNScene(named: "game.scnassets/level.scn")!
         setupGameOnView(gameView)
+        setupSceneRendererDelegate()
         setupAutomaticCameraPositions()
         setupCamera()
         setupSounds()
@@ -26,7 +27,6 @@ class Game: NSObject {
         initializeCollectFlowerParticleSystem()
         initializeConfettiParticleSystem()
         putCharacterNodeOnStartingPoint()
-        setupSceneRendererDelegate()
         setupPhysicsContactDelegate()
     }
     
