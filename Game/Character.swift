@@ -69,8 +69,8 @@ class Character {
         // MARK: Load sound effects
         
         reliefSound = SCNAudioSource(name: "aah_extinction.mp3", volume: 2.0)
-        haltFireSound = SCNAudioSource(name: "fire_extinction.mp3", volume: 2.0)
-        catchFireSound = SCNAudioSource(name: "ouch_firehit.mp3", volume: 2.0)
+        haltFireOnTailSound = SCNAudioSource(name: "fire_extinction.mp3", volume: 2.0)
+        catchTailOnFireSound = SCNAudioSource(name: "ouch_firehit.mp3", volume: 2.0)
         
         for i in 0..<10 {
             if let grassSound = SCNAudioSource(named: "game.scnassets/sounds/Step_grass_0\(i).mp3") {
@@ -187,7 +187,7 @@ class Character {
             
             if groundType == .Water {
                 if isBurning {
-                    haltFire()
+                    haltFireOnTail()
                 }
                 
                 // do a new ray test without the water to get the altitude of the ground (under the water).
@@ -271,11 +271,11 @@ class Character {
     private var smokeEmitter: ParticleEmitter! = nil
     private var whiteSmokeEmitter: ParticleEmitter! = nil
     
-    func catchFire() {
+    func catchTailOnFire() {
         if isInvincible == false {
             isInvincible = true
             node.runAction(SCNAction.sequence([
-                SCNAction.playAudioSource(catchFireSound, waitForCompletion: false),
+                SCNAction.playAudioSource(catchTailOnFireSound, waitForCompletion: false),
                 SCNAction.repeatAction(SCNAction.sequence([
                     SCNAction.fadeOpacityTo(0.01, duration: 0.1),
                     SCNAction.fadeOpacityTo(1.0, duration: 0.1)
@@ -293,12 +293,12 @@ class Character {
         walkSpeed = 2.3
     }
     
-    func haltFire() {
+    func haltFireOnTail() {
         if isBurning {
             isBurning = false
             
             node.runAction(SCNAction.sequence([
-                SCNAction.playAudioSource(haltFireSound, waitForCompletion: true),
+                SCNAction.playAudioSource(haltFireOnTailSound, waitForCompletion: true),
                 SCNAction.playAudioSource(reliefSound, waitForCompletion: false)])
             )
             
@@ -324,8 +324,8 @@ class Character {
     // MARK: Dealing with sound
     
     private var reliefSound: SCNAudioSource
-    private var haltFireSound: SCNAudioSource
-    private var catchFireSound: SCNAudioSource
+    private var haltFireOnTailSound: SCNAudioSource
+    private var catchTailOnFireSound: SCNAudioSource
     
     private var steps = [[SCNAudioSource]](count: GroundType.Count.rawValue, repeatedValue: [])
     
