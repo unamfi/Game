@@ -9,16 +9,28 @@
 import Foundation
 import SceneKit
 
+protocol GameDelegate {
+    func collectedPearls(count:Int)
+    func collectedFlowers(count:Int)
+    func gameDidComplete()
+}
+
 class Game: NSObject {
     
     var isComplete = false
     var scene : SCNScene!
+    var controllerDirection : ()->float2 = { return float2() }
+    var delegate : GameDelegate?
     
-    init(gameView: GameView) {
+    init(sceneRenderer: SCNSceneRenderer, controllerDirection: ()->float2 ) {
         super.init()
+        
+        self.controllerDirection = controllerDirection
+        
         scene = SCNScene(named: "game.scnassets/level.scn")!
-        setupGameOnView(gameView)
-        setupSceneRendererDelegate()
+        setupGameOnSceneRenderer(sceneRenderer)
+        setupSceneRendererDelegate(sceneRenderer)
+        
         setupAutomaticCameraPositions()
         setupCamera()
         setupSounds()
@@ -31,20 +43,20 @@ class Game: NSObject {
     
     // MARK : GameView
     
-    private weak var gameView : GameView!
+    private weak var sceneRenderer : SCNSceneRenderer!
     
-    private func setupGameOnView(gameView : GameView) {
-        self.gameView = gameView
-        self.gameView.scene = scene
+    private func setupGameOnSceneRenderer(sceneRenderer: SCNSceneRenderer) {
+        self.sceneRenderer = sceneRenderer
+        self.sceneRenderer.scene = scene
     }
     
     // MARK : Scene Renderer Delegate
     
     private var sceneRendererDelegate : SceneRendererDelegate!
     
-    private func setupSceneRendererDelegate() {
-        sceneRendererDelegate = SceneRendererDelegate(game: self, controllerDirection: gameView.controllerDirection)
-        gameView.delegate = sceneRendererDelegate
+    private func setupSceneRendererDelegate(renderer : SCNSceneRenderer) {
+        sceneRendererDelegate = SceneRendererDelegate(game: self, controllerDirection: controllerDirection)
+        renderer.delegate = sceneRendererDelegate
     }
     
     // MARK: Physics contact delegate
@@ -123,7 +135,7 @@ class Game: NSObject {
         // The camera node is a child of the "cameraYHandle" at a specific distance (DISTANCE).
         // So rotating cameraYHandle and cameraXHandle will update the camera position and the camera will always look at the center of the scene.
         
-        let pov = self.gameView.pointOfView!
+        let pov = self.sceneRenderer.pointOfView!
         pov.eulerAngles = SCNVector3Zero
         pov.position = SCNVector3(0.0, 0.0, DISTANCE)
         
@@ -248,7 +260,7 @@ class Game: NSObject {
         
         var direction = float3(controllerDirection.x, 0.0, controllerDirection.y)
         
-        if let pov = self.gameView.pointOfView {
+        if let pov = self.sceneRenderer.pointOfView {
             let p1 = pov.presentationNode.convertPosition(SCNVector3(direction), toNode: nil)
             let p0 = pov.presentationNode.convertPosition(SCNVector3Zero, toNode: nil)
             direction = float3(Float(p1.x - p0.x), 0.0, Float(p1.z - p0.z))
@@ -368,7 +380,7 @@ class Game: NSObject {
     
     private var collectedPearlsCount = 0 {
         didSet {
-            gameView.collectedPearlsCount = collectedPearlsCount
+            delegate?.collectedPearls(collectedPearlsCount)
         }
     }
     
@@ -381,7 +393,7 @@ class Game: NSObject {
     
     private var collectedFlowersCount = 0 {
         didSet {
-            gameView.collectedFlowersCount = collectedFlowersCount
+            delegate?.collectedFlowers(collectedFlowersCount)
             if (collectedFlowersCount == 3) {
                completeGame()
             }
@@ -449,7 +461,7 @@ class Game: NSObject {
     private func completeGame() {
         isComplete = true
         showEndAnimation()
-        gameView.showEndScreen()
+        delegate?.gameDidComplete()
     }
     
 }

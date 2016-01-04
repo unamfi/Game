@@ -23,6 +23,7 @@ class GameView: SCNView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        initializeVariables()
         setup2DOverlay()
     }
     
@@ -35,6 +36,7 @@ class GameView: SCNView {
     
     override func viewDidMoveToWindow() {
         super.viewDidMoveToWindow()
+        initializeVariables()
         setup2DOverlay()
     }
     
@@ -45,12 +47,7 @@ class GameView: SCNView {
     
     #endif
     
-    var game : Game!
-    var controllerDirection : ()->float2 = { return float2()}
-    
-    func setup(controllerDirection: ()->float2 ) {
-        self.controllerDirection = controllerDirection
-        game = Game(gameView: self)
+    private func initializeVariables() {
         playing = true
         loops = true
     }
@@ -241,4 +238,16 @@ extension GameView {
     }
     
     #endif
+}
+
+extension GameView : GameDelegate {
+    func collectedPearls(count:Int) {
+        collectedPearlsCount = count
+    }
+    func collectedFlowers(count:Int) {
+        collectedFlowersCount = count
+    }
+    func gameDidComplete() {
+        showEndScreen()
+    }
 }

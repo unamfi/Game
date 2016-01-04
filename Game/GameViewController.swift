@@ -24,6 +24,8 @@ class GameViewController: ViewController {
         return view as! GameView
     }
     
+    var game : Game!
+    
     // Game controls
     internal var controllerDPad: GCControllerDirectionPad?
     internal var controllerStoredDirection = float2(0.0) // left/right up/down
@@ -41,7 +43,8 @@ class GameViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        gameView.setup(controllerDirection)
+        game = Game(sceneRenderer: gameView, controllerDirection: self.controllerDirection)
+        game.delegate = gameView
         setupGameControllers()
     }
     
@@ -51,7 +54,7 @@ class GameViewController: ViewController {
             direction *= float2(1.0, -1.0)
         #endif
     
-        self.gameView.game.panCamera(direction)
+        self.game.panCamera(direction)
     }
     
 }
