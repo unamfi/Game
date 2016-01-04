@@ -356,9 +356,7 @@ class Game: NSObject {
         didSet {
             gameView.collectedFlowersCount = collectedFlowersCount
             if (collectedFlowersCount == 3) {
-                isComplete = true
-                showEndAnimation()
-                gameView.showEndScreen();
+               completeGame()
             }
         }
     }
@@ -418,4 +416,13 @@ class Game: NSObject {
         playCongratSound()
         animateTheCameraForever()
     }
+    
+    // MARK: Finalize Game
+    
+    private func completeGame() {
+        isComplete = true
+        showEndAnimation()
+        gameView.showEndScreen()
+    }
+    
 }
