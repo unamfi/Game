@@ -370,14 +370,15 @@ class Game: NSObject {
         collectFlowerParticleSystem.loops = false
     }
     
+    private func emitFlowerParticles(flowerNode : SCNNode) {
+        var particleSystemPosition = flowerNode.worldTransform
+        particleSystemPosition.m42 += 0.1
+        scene.addParticleSystem(collectFlowerParticleSystem, withTransform: particleSystemPosition)
+    }
+    
     func collectFlower(flowerNode: SCNNode) {
         if flowerNode.parentNode != nil {
-            // Emit particles.
-            var particleSystemPosition = flowerNode.worldTransform
-            particleSystemPosition.m42 += 0.1
-            scene.addParticleSystem(collectFlowerParticleSystem, withTransform: particleSystemPosition)
-            
-            // Remove the flower from the scene.
+            emitFlowerParticles(flowerNode)
             removeNode(flowerNode, soundToPlay:collectFlowerSound)
             collectedFlowersCount++
         }
