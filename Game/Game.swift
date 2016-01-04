@@ -54,24 +54,48 @@ class Game: NSObject {
     }
     
     // MARK: Sounds
-    
-    var collectPearlSound: SCNAudioSource!
-    var collectFlowerSound: SCNAudioSource!
-    var flameThrowerSound: SCNAudioPlayer!
-    var victoryMusic: SCNAudioSource!
 
     private func setupSounds() {
-        // Get an arbitrary node to attach the sounds to.
         let node = scene!.rootNode
-        
+        setupMusicOnNode(node)
+        setupWindSoundOnNode(node)
+        setupFlameThrowerSoundOnNode(node)
+        setupCollectPearlSound()
+        setupCollectFlowerSound()
+        setupVictoryMusic()
+    }
+    
+    private func setupMusicOnNode(node:SCNNode) {
         node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: "music.m4a", volume: 0.25, positional: false, loops: true, shouldStream: true)))
+    }
+    
+    private func setupWindSoundOnNode(node: SCNNode) {
         node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: "wind.m4a", volume: 0.3, positional: false, loops: true, shouldStream: true)))
+    }
+    
+    var flameThrowerSound: SCNAudioPlayer!
+    
+    private func setupFlameThrowerSoundOnNode(node : SCNNode) {
         flameThrowerSound = SCNAudioPlayer(source: SCNAudioSource(name: "flamethrower.mp3", volume: 0, positional: false, loops: true))
         node.addAudioPlayer(flameThrowerSound)
-        
+    }
+    
+    var collectPearlSound: SCNAudioSource!
+    
+    private func setupCollectPearlSound() {
         collectPearlSound = SCNAudioSource(name: "collect1.mp3", volume: 0.5)
+    }
+    
+    var collectFlowerSound: SCNAudioSource!
+    
+    private func setupCollectFlowerSound() {
         collectFlowerSound = SCNAudioSource(name: "collect2.mp3")
-        victoryMusic = SCNAudioSource(name: "Music_victory.mp3", volume: 0.5, shouldLoad: false)
+    }
+    
+    var victoryMusic: SCNAudioSource!
+    
+    private func setupVictoryMusic() {
+         victoryMusic = SCNAudioSource(name: "Music_victory.mp3", volume: 0.5, shouldLoad: false)
     }
     
     // MARK: Camera
