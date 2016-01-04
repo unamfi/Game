@@ -13,7 +13,6 @@ class Game: NSObject {
     
     var isComplete = false
     var scene : SCNScene!
-    private weak var gameView : GameView!
     
     init(gameView: GameView) {
         super.init()
@@ -29,6 +28,10 @@ class Game: NSObject {
         putCharacterNodeOnStartingPoint()
         setupPhysicsContactDelegate()
     }
+    
+    // MARK : GameView
+    
+    private weak var gameView : GameView!
     
     private func setupGameOnView(gameView : GameView) {
         self.gameView = gameView
