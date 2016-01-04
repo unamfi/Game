@@ -10,8 +10,8 @@ import Foundation
 import SceneKit
 
 protocol GameDelegate {
-    func collectedPearls(count:Int)
-    func collectedFlowers(count:Int)
+    func didCollectAPearl(collectedPearlsCount:Int)
+    func didCollectAFlower(collectedFlowersCount:Int)
     func gameDidComplete()
 }
 
@@ -380,7 +380,7 @@ class Game: NSObject {
     
     private var collectedPearlsCount = 0 {
         didSet {
-            delegate?.collectedPearls(collectedPearlsCount)
+            delegate?.didCollectAPearl(collectedPearlsCount)
         }
     }
     
@@ -393,7 +393,7 @@ class Game: NSObject {
     
     private var collectedFlowersCount = 0 {
         didSet {
-            delegate?.collectedFlowers(collectedFlowersCount)
+            delegate?.didCollectAFlower(collectedFlowersCount)
             if (collectedFlowersCount == 3) {
                completeGame()
             }

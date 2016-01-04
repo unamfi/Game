@@ -241,12 +241,15 @@ extension GameView {
 }
 
 extension GameView : GameDelegate {
-    func collectedPearls(count:Int) {
-        collectedPearlsCount = count
+    
+    func didCollectAPearl(collectedPearlsCount: Int) {
+        self.collectedPearlsCount = collectedPearlsCount
     }
-    func collectedFlowers(count:Int) {
-        collectedFlowersCount = count
+    
+    func didCollectAFlower(collectedFlowersCount : Int) {
+        self.collectedFlowersCount = collectedFlowersCount
     }
+    
     func gameDidComplete() {
         showEndScreen()
     }
