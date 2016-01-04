@@ -356,7 +356,9 @@ class Game: NSObject {
         didSet {
             gameView.collectedFlowersCount = collectedFlowersCount
             if (collectedFlowersCount == 3) {
-                showEndScreen()
+                isComplete = true
+                showEndAnimation()
+                gameView.showEndScreen();
             }
         }
     }
@@ -389,25 +391,30 @@ class Game: NSObject {
         confettiParticleSystem = SCNParticleSystem(named: "confetti.scnp", inDirectory: nil)
     }
     
-    private func showEndScreen() {
-        isComplete = true
-        
-        // Add confettis
+    private func addConfettis() {
         let particleSystemPosition = SCNMatrix4MakeTranslation(0.0, 8.0, 0.0)
         scene.addParticleSystem(confettiParticleSystem, withTransform: particleSystemPosition)
-        
-        // Stop the music.
+    }
+    
+    private func stopTheMusic() {
         scene.rootNode.removeAllAudioPlayers()
-        
-        // Play the congrat sound.
+    }
+    
+    private func playCongratSound() {
         scene.rootNode.addAudioPlayer(SCNAudioPlayer(source: victoryMusic))
-        
-        // Animate the camera forever
+    }
+    
+    private func animateTheCameraForever() {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
             self.cameraYHandle.runAction(SCNAction.repeatActionForever(SCNAction.rotateByX(0, y:-1, z: 0, duration: 3)))
             self.cameraXHandle.runAction(SCNAction.rotateToX(CGFloat(-M_PI_4), y: 0, z: 0, duration: 5.0))
         }
-        
-        gameView.showEndScreen();
+    }
+    
+    private func showEndAnimation() {
+        addConfettis()
+        stopTheMusic()
+        playCongratSound()
+        animateTheCameraForever()
     }
 }
