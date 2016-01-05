@@ -140,42 +140,6 @@ class GameView: SCNView {
          collectedFlowerSprites[collectedFlowersCount - 1].texture = SKTexture(imageNamed: "FlowerFull.png")
     }
     
-    // MARK: Congratulating the Player
-    
-    func showEndScreen() {
-        // Congratulation title
-        let congratulationsNode = SKSpriteNode(imageNamed: "congratulations.png")
-        
-        // Max image
-        let characterNode = SKSpriteNode(imageNamed: "congratulations_pandaMax.png")
-        characterNode.position = CGPointMake(0.0, -220.0)
-        characterNode.anchorPoint = CGPointMake(0.5, 0.0)
-        
-        congratulationsGroupNode.addChild(characterNode)
-        congratulationsGroupNode.addChild(congratulationsNode)
-        
-        let overlayScene = overlaySKScene!
-        overlayScene.addChild(congratulationsGroupNode)
-        
-        // Layout the overlay
-        layout2DOverlay()
-        
-        // Animate
-        (congratulationsNode.alpha, congratulationsNode.xScale, congratulationsNode.yScale) = (0.0, 0.0, 0.0)
-        congratulationsNode.runAction(SKAction.group([
-            SKAction.fadeInWithDuration(0.25),
-            SKAction.sequence([SKAction.scaleTo(1.22, duration: 0.25), SKAction.scaleTo(1.0, duration: 0.1)])]))
-        
-        (characterNode.alpha, characterNode.xScale, characterNode.yScale) = (0.0, 0.0, 0.0)
-        characterNode.runAction(SKAction.sequence([
-            SKAction.waitForDuration(0.5),
-            SKAction.group([
-                SKAction.fadeInWithDuration(0.5),
-                SKAction.sequence([SKAction.scaleTo(1.22, duration: 0.25), SKAction.scaleTo(1.0, duration: 0.1)])])]))
-        
-        congratulationsGroupNode.position = CGPointMake(bounds.size.width * 0.5, bounds.size.height * 0.5);
-    }
-    
     // MARK: Mouse and Keyboard Events
     
     #if os(OSX)
@@ -236,6 +200,44 @@ extension GameView {
     }
     
     #endif
+}
+
+// MARK: Congratulating the Player
+extension GameView {
+    
+    func showEndScreen() {
+        // Congratulation title
+        let congratulationsNode = SKSpriteNode(imageNamed: "congratulations.png")
+        
+        // Max image
+        let characterNode = SKSpriteNode(imageNamed: "congratulations_pandaMax.png")
+        characterNode.position = CGPointMake(0.0, -220.0)
+        characterNode.anchorPoint = CGPointMake(0.5, 0.0)
+        
+        congratulationsGroupNode.addChild(characterNode)
+        congratulationsGroupNode.addChild(congratulationsNode)
+        
+        let overlayScene = overlaySKScene!
+        overlayScene.addChild(congratulationsGroupNode)
+        
+        // Layout the overlay
+        layout2DOverlay()
+        
+        // Animate
+        (congratulationsNode.alpha, congratulationsNode.xScale, congratulationsNode.yScale) = (0.0, 0.0, 0.0)
+        congratulationsNode.runAction(SKAction.group([
+            SKAction.fadeInWithDuration(0.25),
+            SKAction.sequence([SKAction.scaleTo(1.22, duration: 0.25), SKAction.scaleTo(1.0, duration: 0.1)])]))
+        
+        (characterNode.alpha, characterNode.xScale, characterNode.yScale) = (0.0, 0.0, 0.0)
+        characterNode.runAction(SKAction.sequence([
+            SKAction.waitForDuration(0.5),
+            SKAction.group([
+                SKAction.fadeInWithDuration(0.5),
+                SKAction.sequence([SKAction.scaleTo(1.22, duration: 0.25), SKAction.scaleTo(1.0, duration: 0.1)])])]))
+        
+        congratulationsGroupNode.position = CGPointMake(bounds.size.width * 0.5, bounds.size.height * 0.5);
+    }
 }
 
 extension GameView : GameDelegate {
