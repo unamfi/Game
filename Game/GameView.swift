@@ -129,17 +129,25 @@ class GameView: SCNView {
     
     var collectedPearlsCount = 0 {
         didSet {
-            if collectedPearlsCount == 10 {
-                collectedPearlCountLabel.position = CGPointMake(158, collectedPearlCountLabel.position.y)
-            }
-            collectedPearlCountLabel.text = "x\(collectedPearlsCount)"
+            setPearlCountOnLabelAccordingCollectedPearlsCount()
         }
+    }
+    
+    private func setPearlCountOnLabelAccordingCollectedPearlsCount() {
+        if collectedPearlsCount == 10 {
+            collectedPearlCountLabel.position = CGPointMake(158, collectedPearlCountLabel.position.y)
+        }
+        collectedPearlCountLabel.text = "x\(collectedPearlsCount)"
     }
     
     var collectedFlowersCount = 0 {
         didSet {
-            collectedFlowerSprites[collectedFlowersCount - 1].texture = SKTexture(imageNamed: "FlowerFull.png")
+           setFlowerSpritesAccordingCollectedFlowersCount()
         }
+    }
+    
+    private func setFlowerSpritesAccordingCollectedFlowersCount() {
+         collectedFlowerSprites[collectedFlowersCount - 1].texture = SKTexture(imageNamed: "FlowerFull.png")
     }
     
     // MARK: Congratulating the Player
