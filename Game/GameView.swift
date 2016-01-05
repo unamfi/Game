@@ -127,26 +127,16 @@ class GameView: SCNView {
         skScene.userInteractionEnabled = false
     }
     
-    var collectedPearlsCount = 0 {
-        didSet {
-            setPearlCountOnLabelAccordingCollectedPearlsCount()
-        }
-    }
+    // MARK: Counters
     
-    private func setPearlCountOnLabelAccordingCollectedPearlsCount() {
+    private func setPearlCountOnLabelAccordingCollectedPearlsCount(collectedPearlsCount : Int) {
         if collectedPearlsCount == 10 {
             collectedPearlCountLabel.position = CGPointMake(158, collectedPearlCountLabel.position.y)
         }
         collectedPearlCountLabel.text = "x\(collectedPearlsCount)"
     }
     
-    var collectedFlowersCount = 0 {
-        didSet {
-           setFlowerSpritesAccordingCollectedFlowersCount()
-        }
-    }
-    
-    private func setFlowerSpritesAccordingCollectedFlowersCount() {
+    private func setFlowerSpritesAccordingCollectedFlowersCount(collectedFlowersCount : Int) {
          collectedFlowerSprites[collectedFlowersCount - 1].texture = SKTexture(imageNamed: "FlowerFull.png")
     }
     
@@ -251,11 +241,11 @@ extension GameView {
 extension GameView : GameDelegate {
     
     func didCollectAPearl(collectedPearlsCount: Int) {
-        self.collectedPearlsCount = collectedPearlsCount
+        setPearlCountOnLabelAccordingCollectedPearlsCount(collectedPearlsCount)
     }
     
     func didCollectAFlower(collectedFlowersCount : Int) {
-        self.collectedFlowersCount = collectedFlowersCount
+        setFlowerSpritesAccordingCollectedFlowersCount(collectedFlowersCount)
     }
     
     func gameDidComplete() {
