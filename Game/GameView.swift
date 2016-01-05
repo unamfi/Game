@@ -16,8 +16,6 @@ class GameView: SCNView {
 
     private let overlayNode = SKNode()
     private let congratulationsGroupNode = SKNode()
-    private let collectedPearlCountLabel = SKLabelNode(fontNamed: "Chalkduster")
-    private var collectedFlowerSprites = [SKSpriteNode]()
     
     #if os(iOS) || os(tvOS)
     
@@ -85,6 +83,9 @@ class GameView: SCNView {
         congratulationsGroupNode.yScale = scale
     }
     
+    private let collectedPearlCountLabel = SKLabelNode(fontNamed: "Chalkduster")
+    private var collectedFlowerSprites = [SKSpriteNode]()
+    
     private func setup2DOverlay() {
         let w = bounds.size.width
         let h = bounds.size.height
@@ -96,35 +97,35 @@ class GameView: SCNView {
         skScene.addChild(overlayNode)
         overlayNode.position = CGPoint(x: 0.0, y: h)
         
-        // The Max icon.
-        overlayNode.addChild(SKSpriteNode(imageNamed: "MaxIcon.png", position: CGPoint(x: 50, y:-50), scale: 0.5))
+        addMaxIconToNode(overlayNode)
+        addFlowerSpritesToNode(overlayNode)
+        addPearlIconAndCountToNode(overlayNode)
         
-        // The flowers.
-        for i in 0..<3 {
-            collectedFlowerSprites.append(SKSpriteNode(imageNamed: "FlowerEmpty.png", position: CGPoint(x: 110 + i * 40, y:-50), scale: 0.25))
-            overlayNode.addChild(collectedFlowerSprites[i])
-        }
-        
-        // The pearl icon and count.
-        overlayNode.addChild(SKSpriteNode(imageNamed: "ItemsPearl.png", position: CGPointMake(110, -100), scale: 0.5))
-        collectedPearlCountLabel.text = "x0"
-        collectedPearlCountLabel.position = CGPointMake(152, -113)
-        overlayNode.addChild(collectedPearlCountLabel)
-        
-        // The virtual D-pad
         #if os(iOS)
-        
-        let virtualDPadBounds = virtualDPadBoundsInScene()
-        let dpadSprite = SKSpriteNode(imageNamed: "dpad.png", position: virtualDPadBounds.origin, scale: 1.0)
-        dpadSprite.anchorPoint = CGPointMake(0.0, 0.0)
-        dpadSprite.size = virtualDPadBounds.size
-        skScene.addChild(dpadSprite)
-        
+        addvirtualDPadToScene(skScene)
         #endif
         
         // Assign the SpriteKit overlay to the SceneKit view.
         overlaySKScene = skScene
         skScene.userInteractionEnabled = false
+    }
+    
+    private func addMaxIconToNode(node : SKNode) {
+        node.addChild(SKSpriteNode(imageNamed: "MaxIcon.png", position: CGPoint(x: 50, y:-50), scale: 0.5))
+    }
+    
+    private func addFlowerSpritesToNode(node : SKNode) {
+        for i in 0..<3 {
+            collectedFlowerSprites.append(SKSpriteNode(imageNamed: "FlowerEmpty.png", position: CGPoint(x: 110 + i * 40, y:-50), scale: 0.25))
+            overlayNode.addChild(collectedFlowerSprites[i])
+        }
+    }
+    
+    private func addPearlIconAndCountToNode(node : SKNode) {
+        node.addChild(SKSpriteNode(imageNamed: "ItemsPearl.png", position: CGPointMake(110, -100), scale: 0.5))
+        collectedPearlCountLabel.text = "x0"
+        collectedPearlCountLabel.position = CGPointMake(152, -113)
+        node.addChild(collectedPearlCountLabel)
     }
     
     // MARK: Counters
@@ -197,6 +198,14 @@ extension GameView {
         var virtualDPadBounds = virtualDPadBoundsInScene()
         virtualDPadBounds.origin.y = bounds.size.height - virtualDPadBounds.size.height + virtualDPadBounds.origin.y
         return virtualDPadBounds
+    }
+    
+    private func addvirtualDPadToScene(scene: SKScene) {
+        let virtualDPadBounds = virtualDPadBoundsInScene()
+        let dpadSprite = SKSpriteNode(imageNamed: "dpad.png", position: virtualDPadBounds.origin, scale: 1.0)
+        dpadSprite.anchorPoint = CGPointMake(0.0, 0.0)
+        dpadSprite.size = virtualDPadBounds.size
+        scene.addChild(dpadSprite)
     }
     
     #endif
