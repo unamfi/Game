@@ -185,8 +185,8 @@ class GameView: SCNView {
 }
 
 extension GameView {
-    // MARK: Virtual D-pad
     
+    // MARK: Virtual D-pad
     #if os(iOS)
     
     private func virtualDPadBoundsInScene() -> CGRect {
@@ -202,9 +202,10 @@ extension GameView {
     #endif
 }
 
-// MARK: Congratulating the Player
+
 extension GameView {
     
+    // MARK: Congratulating the Player
     func showEndScreen() {
         // Congratulation title
         let congratulationsNode = SKSpriteNode(imageNamed: "congratulations.png")
