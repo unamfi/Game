@@ -41,7 +41,7 @@ class Game: NSObject {
         setupPhysicsContactDelegate()
     }
     
-    // MARK : GameView
+    // MARK: Scene Renderer
     
     private weak var sceneRenderer : SCNSceneRenderer!
     
@@ -50,7 +50,7 @@ class Game: NSObject {
         self.sceneRenderer.scene = scene
     }
     
-    // MARK : Scene Renderer Delegate
+    // MARK: Scene Renderer Delegate
     
     private var sceneRendererDelegate : SceneRendererDelegate!
     
