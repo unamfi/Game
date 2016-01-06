@@ -292,7 +292,7 @@ class Game: NSObject {
         character.replacementPosition = SCNVector3(characterPosition)
     }
     
-    // MARK: Collecting Items
+    // MARK: Setup nodes
     
     var flames = [SCNNode]()
     var enemies = [SCNNode]()
@@ -363,6 +363,8 @@ class Game: NSObject {
             }
         }
     }
+    
+    // MARK: Collecting Items
     
     private func removeNode(node: SCNNode, soundToPlay sound: SCNAudioSource) {
         if let parentNode = node.parentNode {
