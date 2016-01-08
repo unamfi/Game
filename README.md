@@ -25,3 +25,6 @@ Please remember this points every time you write code
 Please feel free to contribute! We follow the [collaborative etiquette](http://git.io/col) guidelines. 
 Remember to keep it clean and to write unit tests.
 
+##Slack
+
+Join the [Slack community](https://swift-game.herokuapp.com)
