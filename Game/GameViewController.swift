@@ -56,7 +56,7 @@ class GameViewController: ViewController {
             direction *= float2(1.0, -1.0)
         #endif
     
-        self.game.panCamera(direction)
+        game.panCamera(direction)
     }
     
 }
