@@ -14,7 +14,7 @@ class Game: NSObject {
     
     var scene : SCNScene!
     var controllerDirection : ()->float2 = { return float2() }
-    var logic = GameModel()
+    var model = GameModel()
     
     init(sceneRenderer: SCNSceneRenderer, controllerDirection: ()->float2 ) {
         super.init()
@@ -210,7 +210,7 @@ class Game: NSObject {
     
     
     func updateCameraWithCurrentGround(node: SCNNode) {
-        if logic.isComplete {
+        if model.isComplete {
             return
         }
         
@@ -377,7 +377,7 @@ class Game: NSObject {
     func collectPearl(pearlNode: SCNNode) {
         if pearlNode.parentNode != nil {
             removeNode(pearlNode, soundToPlay:self.collectPearlSound)
-            logic.statistics.collectedPearlsCount++
+            model.statistics.collectedPearlsCount++
         }
     }
     
@@ -398,7 +398,7 @@ class Game: NSObject {
         if flowerNode.parentNode != nil {
             emitFlowerParticles(flowerNode)
             removeNode(flowerNode, soundToPlay:collectFlowerSound)
-            logic.statistics.collectedFlowersCount++
+            model.statistics.collectedFlowersCount++
         }
     }
     

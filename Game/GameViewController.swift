@@ -44,9 +44,9 @@ class GameViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         game = Game(sceneRenderer: gameView, controllerDirection: self.controllerDirection)
-        game.logic.statisticsDelegateMulticast.addDelegate(gameView)
-        game.logic.completionDelegateMulticast.addDelegate(gameView)
-        game.logic.completionDelegateMulticast.addDelegate(game)
+        game.model.statisticsDelegateMulticast.addDelegate(gameView)
+        game.model.completionDelegateMulticast.addDelegate(gameView)
+        game.model.completionDelegateMulticast.addDelegate(game)
         setupGameControllers()
     }
     
