@@ -67,7 +67,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
         }
         
         // Adjust sounds volumes based on distance with the enemy.
-        if !self.game.logic.isComplete {
+        if !self.game.model.isComplete {
             if let mixer = self.game.flameThrowerSound!.audioNode as? AVAudioMixerNode {
                 mixer.volume = 0.3 * max(0, min(1, 1 - ((distanceToClosestEnemy - 1.2) / 1.6)))
             }
