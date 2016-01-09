@@ -138,7 +138,10 @@ class GameView: SCNView {
     }
     
     private func setFlowerSpritesAccordingCollectedFlowersCount(collectedFlowersCount : Int) {
-         collectedFlowerSprites[collectedFlowersCount - 1].texture = SKTexture(imageNamed: "FlowerFull.png")
+        if collectedFlowersCount > 0 && collectedFlowersCount <= collectedFlowerSprites.count {
+            collectedFlowerSprites[collectedFlowersCount - 1].texture = SKTexture(imageNamed: "FlowerFull.png")
+        }
+        
     }
     
     // MARK: Mouse and Keyboard Events
@@ -250,17 +253,15 @@ extension GameView {
     }
 }
 
-extension GameView : GameDelegate {
-    
-    func didCollectAPearl(collectedPearlsCount: Int) {
-        setPearlCountOnLabelAccordingCollectedPearlsCount(collectedPearlsCount)
-    }
-    
-    func didCollectAFlower(collectedFlowersCount : Int) {
-        setFlowerSpritesAccordingCollectedFlowersCount(collectedFlowersCount)
-    }
-    
-    func gameDidComplete() {
+extension GameView : GameLogicCompletionDelegate {
+    func gameLogicDidComplete(logic:GameLogic) {
         showEndScreen()
+    }
+}
+
+extension GameView : StatisticsDelegate {
+    func didUpdateStatistics(statistics:Statistics) {
+        setPearlCountOnLabelAccordingCollectedPearlsCount(statistics.collectedPearlsCount)
+        setFlowerSpritesAccordingCollectedFlowersCount(statistics.collectedFlowersCount)
     }
 }

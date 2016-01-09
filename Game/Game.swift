@@ -9,18 +9,13 @@
 import Foundation
 import SceneKit
 
-protocol GameDelegate {
-    func didCollectAPearl(collectedPearlsCount:Int)
-    func didCollectAFlower(collectedFlowersCount:Int)
-    func gameDidComplete()
-}
 
 class Game: NSObject {
     
-    var isComplete = false
+//    var isComplete = false // This is now redundant
     var scene : SCNScene!
     var controllerDirection : ()->float2 = { return float2() }
-    var delegate : GameDelegate?
+    var logic = GameLogic()
     
     init(sceneRenderer: SCNSceneRenderer, controllerDirection: ()->float2 ) {
         super.init()
@@ -216,7 +211,7 @@ class Game: NSObject {
     
     
     func updateCameraWithCurrentGround(node: SCNNode) {
-        if isComplete {
+        if logic.isComplete {
             return
         }
         
@@ -380,25 +375,10 @@ class Game: NSObject {
         }
     }
     
-    private var collectedPearlsCount = 0 {
-        didSet {
-            delegate?.didCollectAPearl(collectedPearlsCount)
-        }
-    }
-    
     func collectPearl(pearlNode: SCNNode) {
         if pearlNode.parentNode != nil {
             removeNode(pearlNode, soundToPlay:self.collectPearlSound)
-            collectedPearlsCount++
-        }
-    }
-    
-    private var collectedFlowersCount = 0 {
-        didSet {
-            delegate?.didCollectAFlower(collectedFlowersCount)
-            if (collectedFlowersCount == 3) {
-               completeGame()
-            }
+            logic.statistics.collectedPearlsCount++
         }
     }
     
@@ -419,7 +399,7 @@ class Game: NSObject {
         if flowerNode.parentNode != nil {
             emitFlowerParticles(flowerNode)
             removeNode(flowerNode, soundToPlay:collectFlowerSound)
-            collectedFlowersCount++
+            logic.statistics.collectedFlowersCount++
         }
     }
     
@@ -457,13 +437,10 @@ class Game: NSObject {
         playCongratSound()
         animateTheCameraForever()
     }
-    
-    // MARK: Finalize Game
-    
-    private func completeGame() {
-        isComplete = true
+}
+
+extension Game : GameLogicCompletionDelegate {
+    func gameLogicDidComplete(logic:GameLogic) {
         showEndAnimation()
-        delegate?.gameDidComplete()
     }
-    
 }
