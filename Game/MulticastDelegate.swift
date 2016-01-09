@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DelegateMulticast <T> {
+class MulticastDelegate <T> {
     
     private var delegates = [T]()
     

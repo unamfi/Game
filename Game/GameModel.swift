@@ -38,7 +38,7 @@ class GameModel : NSObject, StatisticsDelegate {
         statistics.delegate = self
     }
     
-    var completionDelegateMulticast = DelegateMulticast<GameModelCompletionDelegate>()
+    var completionDelegateMulticast = MulticastDelegate<GameModelCompletionDelegate>()
     private(set) var isComplete = false {
         didSet {
             if isComplete {
@@ -48,7 +48,7 @@ class GameModel : NSObject, StatisticsDelegate {
     }
     
     var statistics = Statistics()
-    var statisticsDelegateMulticast = DelegateMulticast<StatisticsDelegate>()
+    var statisticsDelegateMulticast = MulticastDelegate<StatisticsDelegate>()
 
     func didUpdateStatistics(statistics: Statistics) {
         if statistics.collectedFlowersCount == 3 {
