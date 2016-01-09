@@ -112,8 +112,8 @@ class Character {
         walkAnimation.repeatCount = Float.infinity
         walkAnimation.speed = Character.speedFactor
         walkAnimation.animationEvents = [
-            SCNAnimationEvent(keyTime: 0.1) { (_, _, _) in self.playFootStep() },
-            SCNAnimationEvent(keyTime: 0.6) { (_, _, _) in self.playFootStep() }]
+            SCNAnimationEvent(keyTime: 0.1) { (_, _, _) in self.playFootStepSound() },
+            SCNAnimationEvent(keyTime: 0.6) { (_, _, _) in self.playFootStepSound() }]
     }
     
     // MARK: Retrieving nodes
@@ -329,7 +329,7 @@ class Character {
     
     private var steps = [[SCNAudioSource]](count: GroundType.Count.rawValue, repeatedValue: [])
     
-    private func playFootStep() {
+    private func playFootStepSound() {
         if groundType != .InTheAir { // We are in the air, no sound to play.
             // Play a random step sound.
             let soundsCount = steps[groundType.rawValue].count
