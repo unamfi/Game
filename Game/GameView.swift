@@ -253,8 +253,8 @@ extension GameView {
     }
 }
 
-extension GameView : GameLogicCompletionDelegate {
-    func gameLogicDidComplete(logic:GameLogic) {
+extension GameView : GameModelCompletionDelegate {
+    func gameModelDidComplete(model:GameModel) {
         showEndScreen()
     }
 }

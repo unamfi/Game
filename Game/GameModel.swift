@@ -27,22 +27,22 @@ struct Statistics {
 }
 
 
-protocol GameLogicCompletionDelegate  {
-    func gameLogicDidComplete(logic:GameLogic)
+protocol GameModelCompletionDelegate  {
+    func gameModelDidComplete(model:GameModel)
 }
 
-class GameLogic : NSObject, StatisticsDelegate {
+class GameModel : NSObject, StatisticsDelegate {
     
     private(set) var isComplete = false {
         didSet {
             if isComplete {
-                completionDelegateMulticast.invokeDelegates({ $0.gameLogicDidComplete(self) })
+                completionDelegateMulticast.invokeDelegates({ $0.gameModelDidComplete(self) })
             }
         }
     }
     
     var statistics = Statistics()
-    var completionDelegateMulticast = DelegateMulticast<GameLogicCompletionDelegate>()
+    var completionDelegateMulticast = DelegateMulticast<GameModelCompletionDelegate>()
     var statisticsDelegateMulticast = DelegateMulticast<StatisticsDelegate>()
     
     override init() {

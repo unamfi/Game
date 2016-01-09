@@ -12,10 +12,9 @@ import SceneKit
 
 class Game: NSObject {
     
-//    var isComplete = false // This is now redundant
     var scene : SCNScene!
     var controllerDirection : ()->float2 = { return float2() }
-    var logic = GameLogic()
+    var logic = GameModel()
     
     init(sceneRenderer: SCNSceneRenderer, controllerDirection: ()->float2 ) {
         super.init()
@@ -439,8 +438,8 @@ class Game: NSObject {
     }
 }
 
-extension Game : GameLogicCompletionDelegate {
-    func gameLogicDidComplete(logic:GameLogic) {
+extension Game : GameModelCompletionDelegate {
+    func gameModelDidComplete(logic:GameModel) {
         showEndAnimation()
     }
 }
