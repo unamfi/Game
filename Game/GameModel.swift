@@ -33,6 +33,12 @@ protocol GameModelCompletionDelegate  {
 
 class GameModel : NSObject, StatisticsDelegate {
     
+    override init() {
+        super.init()
+        statistics.delegate = self
+    }
+    
+    var completionDelegateMulticast = DelegateMulticast<GameModelCompletionDelegate>()
     private(set) var isComplete = false {
         didSet {
             if isComplete {
@@ -42,14 +48,8 @@ class GameModel : NSObject, StatisticsDelegate {
     }
     
     var statistics = Statistics()
-    var completionDelegateMulticast = DelegateMulticast<GameModelCompletionDelegate>()
     var statisticsDelegateMulticast = DelegateMulticast<StatisticsDelegate>()
-    
-    override init() {
-        super.init()
-        statistics.delegate = self
-    }
-    
+
     func didUpdateStatistics(statistics: Statistics) {
         if statistics.collectedFlowersCount == 3 {
             isComplete = true
