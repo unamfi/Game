@@ -3,5 +3,3 @@
 import Cocoa
 
 var str = "Hello, playground"
-
-//Travis CI test
