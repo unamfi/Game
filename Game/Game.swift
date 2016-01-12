@@ -10,21 +10,24 @@ import Foundation
 import SceneKit
 
 class Game: NSObject {
-    
-    var scene : SCNScene!
+
     var controllerDirection : ()->float2 = { return float2() }
     weak var model : GameModel!
     
-    init(gameModel : GameModel, sceneRenderer: SCNSceneRenderer, controllerDirection: ()->float2 ) {
+    
+    init(gameModel : GameModel, controllerDirection: ()->float2 ) {
         super.init()
-        
         self.controllerDirection = controllerDirection
         self.model = gameModel
-        
-        scene = SCNScene(named: "game.scnassets/level.scn")!
-        setupGameOnSceneRenderer(sceneRenderer)
-        setupSceneRendererDelegate(sceneRenderer)
-        
+        scene = SCNScene(named: model.sceneName)!
+    }
+    
+    // MARK: Scene
+    
+    var scene : SCNScene!
+    weak var pointOfView : SCNNode! 
+    
+    func setupAfterSceneAndPointOfViewHaveBeenSet() {
         setupAutomaticCameraPositions()
         setupCamera()
         setupSounds()
@@ -33,24 +36,6 @@ class Game: NSObject {
         initializeConfettiParticleSystem()
         putCharacterNodeOnStartingPoint()
         setupPhysicsContactDelegate()
-    }
-    
-    // MARK: Scene Renderer
-    
-    private weak var sceneRenderer : SCNSceneRenderer!
-    
-    private func setupGameOnSceneRenderer(sceneRenderer: SCNSceneRenderer) {
-        self.sceneRenderer = sceneRenderer
-        self.sceneRenderer.scene = scene
-    }
-    
-    // MARK: Scene Renderer Delegate
-    
-    private var sceneRendererDelegate : SceneRendererDelegate!
-    
-    private func setupSceneRendererDelegate(renderer : SCNSceneRenderer) {
-        sceneRendererDelegate = SceneRendererDelegate(game: self, controllerDirection: controllerDirection)
-        renderer.delegate = sceneRendererDelegate
     }
     
     // MARK: Physics contact delegate
@@ -129,7 +114,7 @@ class Game: NSObject {
         // The camera node is a child of the "cameraYHandle" at a specific distance (DISTANCE).
         // So rotating cameraYHandle and cameraXHandle will update the camera position and the camera will always look at the center of the scene.
         
-        let pov = self.sceneRenderer.pointOfView!
+        let pov = pointOfView
         pov.eulerAngles = SCNVector3Zero
         pov.position = SCNVector3(0.0, 0.0, DISTANCE)
         
@@ -254,7 +239,7 @@ class Game: NSObject {
         
         var direction = float3(controllerDirection.x, 0.0, controllerDirection.y)
         
-        if let pov = self.sceneRenderer.pointOfView {
+        if let pov = pointOfView {
             let p1 = pov.presentationNode.convertPosition(SCNVector3(direction), toNode: nil)
             let p0 = pov.presentationNode.convertPosition(SCNVector3Zero, toNode: nil)
             direction = float3(Float(p1.x - p0.x), 0.0, Float(p1.z - p0.z))

@@ -34,6 +34,7 @@ class GameModel:NSObject, NSCopying, GKGameModel {
     var players : [GKGameModelPlayer]?
     var activePlayer : GKGameModelPlayer?
     
+    var sceneName = "game.scnassets/level.scn"
     var playerModel = PlayerModel()
     var collectedPearlsUpdate = CollectedPearlsUpdate()
     var collectedFlowersUpdate = CollectedFlowersUpdate()
@@ -67,6 +68,14 @@ class GameModel:NSObject, NSCopying, GKGameModel {
     
     func isWinForPlayer(player: GKGameModelPlayer) -> Bool {
         return collectedFlowersUpdate.value == 3
+    }
+}
+
+extension GameModel {
+    func addDelegates(delegates : [GameModelDelegate]) {
+        for delegate in delegates {
+            self.delegates.addDelegate(delegate)
+        }
     }
 }
 
