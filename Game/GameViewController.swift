@@ -7,8 +7,6 @@
 */
 
 import simd
-import SceneKit
-import SpriteKit
 import QuartzCore
 import GameController
 
