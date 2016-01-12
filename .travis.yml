@@ -1,0 +1,5 @@
+language: objective-c
+osx_image: xcode7.2
+script:
+- xctool -workspace Game.xcworkspace -scheme iOSGame -destination platform='iOS Simulator',OS=9.2,name='iPhone 6' -sdk iphonesimulator
+- xctool test -workspace Game.xcworkspace -scheme iOSGame -destination platform='iOS Simulator',OS=9.2,name='iPhone 6' -sdk iphonesimulator
