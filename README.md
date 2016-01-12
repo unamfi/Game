@@ -1,4 +1,5 @@
 ![](https://rawgit.com/JuIioCesar/Game/develop/Game/art.scnassets/RepositoryAssets/GameBanner.png)
+![](https://travis-ci.org/JuIioCesar/Game.svg?branch=develop)
 
 Game is a native workspace that contains a basic architecture for game development on iOS, OSX and tvOS. That allows the developer to share code between these platforms
 
