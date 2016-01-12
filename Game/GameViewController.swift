@@ -25,6 +25,7 @@ class GameViewController: ViewController {
     }
     
     var game : Game!
+    var gameModel = GameModel()
     
     // Game controls
     internal var controllerDPad: GCControllerDirectionPad?
@@ -43,11 +44,10 @@ class GameViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        game = Game(sceneRenderer: gameView, controllerDirection: self.controllerDirection)
-        game.model.completionDelegateMulticast.addDelegate(game)
-        game.model.completionDelegateMulticast.addDelegate(gameView)
-        game.model.statisticsDelegateMulticast.addDelegate(gameView)
-  
+        
+        game = Game(gameModel: gameModel, sceneRenderer: gameView, controllerDirection: self.controllerDirection)
+        gameModel.delegates.addDelegate(game)
+        gameModel.delegates.addDelegate(gameView)
         setupGameControllers()
     }
     

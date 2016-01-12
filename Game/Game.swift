@@ -9,17 +9,17 @@
 import Foundation
 import SceneKit
 
-
 class Game: NSObject {
     
     var scene : SCNScene!
     var controllerDirection : ()->float2 = { return float2() }
-    var model = GameModel()
+    weak var model : GameModel!
     
-    init(sceneRenderer: SCNSceneRenderer, controllerDirection: ()->float2 ) {
+    init(gameModel : GameModel, sceneRenderer: SCNSceneRenderer, controllerDirection: ()->float2 ) {
         super.init()
         
         self.controllerDirection = controllerDirection
+        self.model = gameModel
         
         scene = SCNScene(named: "game.scnassets/level.scn")!
         setupGameOnSceneRenderer(sceneRenderer)
@@ -210,7 +210,7 @@ class Game: NSObject {
     
     
     func updateCameraWithCurrentGround(node: SCNNode) {
-        if model.isComplete {
+        if model.isWin() {
             return
         }
         
@@ -377,7 +377,7 @@ class Game: NSObject {
     func collectPearl(pearlNode: SCNNode) {
         if pearlNode.parentNode != nil {
             removeNode(pearlNode, soundToPlay:self.collectPearlSound)
-            model.statistics.collectedPearlsCount++
+            model.applyCollectedPearlsUpdate()
         }
     }
     
@@ -398,7 +398,8 @@ class Game: NSObject {
         if flowerNode.parentNode != nil {
             emitFlowerParticles(flowerNode)
             removeNode(flowerNode, soundToPlay:collectFlowerSound)
-            model.statistics.collectedFlowersCount++
+            model.applyCollectedFlowersUpdate()
+           
         }
     }
     
@@ -438,8 +439,10 @@ class Game: NSObject {
     }
 }
 
-extension Game : GameModelCompletionDelegate {
-    func gameModelDidComplete(logic:GameModel) {
-        showEndAnimation()
+extension Game : GameModelDelegate {
+    func didApplyGameModelUpdate(gameModel: GameModel) {
+        if model.isWin() {
+            showEndAnimation()
+        }
     }
 }

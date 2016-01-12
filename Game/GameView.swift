@@ -9,7 +9,8 @@
 import simd
 import SceneKit
 import SpriteKit
-    
+
+
 class GameView: SCNView {
     
     // MARK: 2D Overlay
@@ -253,15 +254,16 @@ extension GameView {
     }
 }
 
-extension GameView : GameModelCompletionDelegate {
-    func gameModelDidComplete(model:GameModel) {
-        showEndScreen()
+extension GameView : GameModelDelegate {
+    
+    func didApplyGameModelUpdate(gameModel: GameModel) {
+        
+        if gameModel.isWin() {
+            showEndScreen()
+        }
+        
+        setPearlCountOnLabelAccordingCollectedPearlsCount(gameModel.collectedPearlsUpdate.value)
+        setFlowerSpritesAccordingCollectedFlowersCount(gameModel.collectedFlowersUpdate.value)
     }
 }
 
-extension GameView : StatisticsDelegate {
-    func didUpdateStatistics(statistics:Statistics) {
-        setPearlCountOnLabelAccordingCollectedPearlsCount(statistics.collectedPearlsCount)
-        setFlowerSpritesAccordingCollectedFlowersCount(statistics.collectedFlowersCount)
-    }
-}
