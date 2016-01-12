@@ -1,4 +1,4 @@
 language: objective-c
 script:
-- xctool -workspace Game.xcworkspace -scheme iOSGame -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-- xctool test -workspace Game.xcworkspace -scheme iOSGameTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+- xctool -workspace Game.xcworkspace -scheme iOSGame -destination platform='iOS Simulator',OS=9.2,name='iPhone 6'
+- xctool test -workspace Game.xcworkspace -scheme iOSGameTests -destination platform='iOS Simulator',OS=9.2,name='iPhone 6'
