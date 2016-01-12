@@ -11,13 +11,10 @@ import SceneKit
 
 class Game: NSObject {
 
-    var controllerDirection : ()->float2 = { return float2() }
     weak var model : GameModel!
-    
-    
-    init(gameModel : GameModel, controllerDirection: ()->float2 ) {
+
+    init(gameModel : GameModel) {
         super.init()
-        self.controllerDirection = controllerDirection
         self.model = gameModel
         scene = SCNScene(named: model.sceneName)!
     }

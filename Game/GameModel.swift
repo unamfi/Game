@@ -40,6 +40,8 @@ class GameModel:NSObject, NSCopying, GKGameModel {
     var collectedFlowersUpdate = CollectedFlowersUpdate()
     var delegates = MulticastDelegate<GameModelDelegate>()
     
+    var controllerDirection: ()->float2 = { return float2() }
+    
     func copyWithZone(zone: NSZone) -> AnyObject {
         return self
     }

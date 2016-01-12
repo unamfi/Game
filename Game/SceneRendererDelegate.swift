@@ -12,11 +12,11 @@ import AVFoundation
 
 class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
 
-    private var controllerDirection : () -> float2
+    private var gameModel : GameModel
     private var game : Game
     
-    init(game : Game, controllerDirection : () -> float2) {
-        self.controllerDirection = controllerDirection
+    init(game : Game, gameModel: GameModel) {
+        self.gameModel = gameModel
         self.game = game
         super.init()
     }
@@ -41,9 +41,9 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
         character.replacementPosition = nil
         character.maxPenetrationDistance = 0
         
-        let scene = self.game.scene
-        let controllerDirection = self.controllerDirection()
-        let direction = self.game.characterDirection(controllerDirection)
+        let scene = game.scene
+        let controllerDirection = gameModel.controllerDirection()
+        let direction = game.characterDirection(controllerDirection)
         
         let groundNode = character.walkInDirection(direction, time: time, scene: scene, groundTypeFromMaterial:groundTypeFromMaterial)
         if let groundNode = groundNode {
@@ -51,7 +51,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
         }
         
         // Flames are static physics bodies, but they are moved by an action - So we need to tell the physics engine that the transforms did change.
-        for flame in self.game.flames {
+        for flame in game.flames {
             flame.physicsBody!.resetTransform()
         }
         
@@ -67,7 +67,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
         }
         
         // Adjust sounds volumes based on distance with the enemy.
-        if !self.game.model.isWin() {
+        if !game.model.isWin() {
             if let mixer = self.game.flameThrowerSound!.audioNode as? AVAudioMixerNode {
                 mixer.volume = 0.3 * max(0, min(1, 1 - ((distanceToClosestEnemy - 1.2) / 1.6)))
             }

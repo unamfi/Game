@@ -11,27 +11,26 @@ import SceneKit
 
 class GameArchitecture {
     private var game : Game!
-    private var gameModel = GameModel()
+    private var gamemodel = GameModel()
     private var sceneRendererDelegate : SceneRendererDelegate!
-    private var controllerDirection: ()->float2 = { return float2() }
     
     func setup(gameView: GameView, controllerDirection: ()->float2 ) {
         
-        self.controllerDirection = controllerDirection
+        gamemodel.controllerDirection = controllerDirection
         
-        game = Game(gameModel: gameModel, controllerDirection: controllerDirection)
+        game = Game(gameModel: gamemodel)
         gameView.scene = game.scene
         game.pointOfView = gameView.pointOfView
         game.setupAfterSceneAndPointOfViewHaveBeenSet()
         
-        gameModel.addDelegates([game, gameView])
+        gamemodel.addDelegates([game, gameView])
         
         setupSceneRendererDelegateOnRenderer(game, sceneRenderer: gameView)
         
     }
     
     private func setupSceneRendererDelegateOnRenderer(game: Game, sceneRenderer : SCNSceneRenderer) {
-        sceneRendererDelegate = SceneRendererDelegate(game: game, controllerDirection: controllerDirection)
+        sceneRendererDelegate = SceneRendererDelegate(game: game, gameModel: gamemodel)
         sceneRenderer.delegate = sceneRendererDelegate
     }
     
