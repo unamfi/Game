@@ -20,6 +20,10 @@ import GameController
 
 class GameViewController: ViewController {
 
+    var gameView: GameView {
+        return view as! GameView
+    }
+    
     // Game controls
     internal var controllerDPad: GCControllerDirectionPad?
     internal var controllerStoredDirection = float2(0.0) // left/right up/down
@@ -35,40 +39,15 @@ class GameViewController: ViewController {
         super.init(coder: coder)
     }
     
+    
+    var gameArchitecture = GameArchitecture()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupGameArchitecture()
-    }
-    
-    // MARK: Architecture
-    var gameView: GameView {
-        return view as! GameView
-    }
-    
-    private var game : Game!
-    private var gameModel = GameModel()
-    private var sceneRendererDelegate : SceneRendererDelegate!
-    
-    func setupGameArchitecture() {
-        
-        game = Game(gameModel: gameModel, controllerDirection: self.controllerDirection)
-        gameView.scene = game.scene
-        game.pointOfView = gameView.pointOfView
-        game.setupAfterSceneAndPointOfViewHaveBeenSet()
-        
-        gameModel.addDelegates([game, gameView])
-        
-        
-        setupSceneRendererDelegateOnRenderer(game, sceneRenderer: gameView)
+        gameArchitecture.setup(gameView, controllerDirection: controllerDirection)
         setupGameControllers()
     }
-    
-    // MARK: Scene Renderer Delegate
 
-    private func setupSceneRendererDelegateOnRenderer(game: Game, sceneRenderer : SCNSceneRenderer) {
-        sceneRendererDelegate = SceneRendererDelegate(game: game, controllerDirection: controllerDirection)
-        sceneRenderer.delegate = sceneRendererDelegate
-    }
     
     func panCamera(var direction: float2) {
         
@@ -76,7 +55,7 @@ class GameViewController: ViewController {
             direction *= float2(1.0, -1.0)
         #endif
     
-        game.panCamera(direction)
+        gameArchitecture.panCamera(direction)
     }
     
 }
