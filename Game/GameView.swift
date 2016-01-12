@@ -257,13 +257,12 @@ extension GameView {
 extension GameView : GameModelDelegate {
     
     func didApplyGameModelUpdate(gameModel: GameModel) {
+        setPearlCountOnLabelAccordingCollectedPearlsCount(gameModel.collectedPearlsUpdate.value)
+        setFlowerSpritesAccordingCollectedFlowersCount(gameModel.collectedFlowersUpdate.value)
         
         if gameModel.isWin() {
             showEndScreen()
         }
-        
-        setPearlCountOnLabelAccordingCollectedPearlsCount(gameModel.collectedPearlsUpdate.value)
-        setFlowerSpritesAccordingCollectedFlowersCount(gameModel.collectedFlowersUpdate.value)
     }
 }
 
