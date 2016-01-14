@@ -209,7 +209,7 @@ class Game: NSObject {
             currentGround = node
             
             if var position = groundToCameraPosition[node] {
-                if node == mainGround && character.node.position.x < 2.5 {
+                if node == mainGround && foxCharacter.node.position.x < 2.5 {
                     position = SCNVector3(-0.098175, 3.926991, 0.0)
                 }
                 
@@ -227,12 +227,12 @@ class Game: NSObject {
     
     // MARK: Character
     
-    let character = FoxCharacter()
+    let foxCharacter = FoxCharacter()
     
     private func putCharacterNodeOnStartingPoint() {
-        scene.rootNode.addChildNode(character.node)
+        scene.rootNode.addChildNode(foxCharacter.node)
         let startPosition = scene.rootNode.childNodeWithName("startingPoint", recursively: true)!
-        character.node.transform = startPosition.transform
+        foxCharacter.node.transform = startPosition.transform
     }
     
     func characterDirection(controllerDirection : float2) -> float3 {
@@ -253,22 +253,22 @@ class Game: NSObject {
     }
     
     func characterNode(characterNode: SCNNode, hitWall wall: SCNNode, withContact contact: SCNPhysicsContact) {
-        if characterNode.parentNode != character.node {
+        if characterNode.parentNode != foxCharacter.node {
             return
         }
         
-        if character.maxPenetrationDistance > contact.penetrationDistance {
+        if foxCharacter.maxPenetrationDistance > contact.penetrationDistance {
             return
         }
         
-        character.maxPenetrationDistance = contact.penetrationDistance
+        foxCharacter.maxPenetrationDistance = contact.penetrationDistance
         
-        var characterPosition = float3(character.node.position)
+        var characterPosition = float3(foxCharacter.node.position)
         var positionOffset = float3(contact.contactNormal) * Float(contact.penetrationDistance)
         positionOffset.y = 0
         characterPosition += positionOffset
         
-        character.replacementPosition = SCNVector3(characterPosition)
+        foxCharacter.replacementPosition = SCNVector3(characterPosition)
     }
     
     // MARK: Setup nodes

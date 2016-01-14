@@ -36,7 +36,7 @@ class PhysicsContactDelegate: NSObject, SCNPhysicsContactDelegate {
             self.game.collectFlower(matching)
         }
         contact.match(category: BitmaskEnemy) { (_, _) in
-            self.game.character.catchTailOnFire()
+            self.game.foxCharacter.catchTailOnFire()
         }
     }
     

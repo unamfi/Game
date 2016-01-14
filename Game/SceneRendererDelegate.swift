@@ -35,17 +35,17 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
     
     func renderer(renderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval) {
         
-        let character = game.character
+        let foxCharacter = game.foxCharacter
         
         // Reset some states every frame
-        character.replacementPosition = nil
-        character.maxPenetrationDistance = 0
+        foxCharacter.replacementPosition = nil
+        foxCharacter.maxPenetrationDistance = 0
         
         let scene = game.scene
         let controllerDirection = gameModel.controllerDirection()
         let direction = game.characterDirection(controllerDirection)
         
-        let groundNode = character.walkInDirection(direction, time: time, scene: scene, groundTypeFromMaterial:groundTypeFromMaterial)
+        let groundNode = foxCharacter.walkInDirection(direction, time: time, scene: scene, groundTypeFromMaterial:groundTypeFromMaterial)
         if let groundNode = groundNode {
             game.updateCameraWithCurrentGround(groundNode)
         }
@@ -57,7 +57,7 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
         
         // Adjust the volume of the enemy based on the distance to the character.
         var distanceToClosestEnemy = Float.infinity
-        let characterPosition = float3(character.node.position)
+        let characterPosition = float3(foxCharacter.node.position)
         for enemy in self.game.enemies {
             //distance to enemy
             let enemyTransform = float4x4(enemy.worldTransform)
@@ -76,9 +76,9 @@ class SceneRendererDelegate : NSObject, SCNSceneRendererDelegate {
     
     func renderer(renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: NSTimeInterval) {
         // If we hit a wall, position needs to be adjusted
-        let character = game.character
-        if let position = character.replacementPosition {
-            character.node.position = position
+        let foxCharacter = game.foxCharacter
+        if let position = foxCharacter.replacementPosition {
+            foxCharacter.node.position = position
         }
     }
 
