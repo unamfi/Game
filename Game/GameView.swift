@@ -10,8 +10,31 @@ import simd
 import SceneKit
 import SpriteKit
 
-
 class GameView: SCNView {
+    
+    private var gameArchitecture : GameArchitecture?
+    
+    func setup(model : GameModel) {
+        setupScene(model)
+        setThisClassAsGameModelDelegate(model)
+        setupGameArchitecture(model)
+    }
+    
+    func setupScene(model: GameModel) {
+        scene = SCNScene(named: model.sceneName)
+    }
+    
+    func setThisClassAsGameModelDelegate(model: GameModel){
+        model.addDelegates([self])
+    }
+    
+    func setupGameArchitecture(model: GameModel) {
+        gameArchitecture = GameArchitecture(model: model, renderer: self)
+    }
+    
+    func panCamera(direction: float2) {
+        gameArchitecture?.panCamera(direction)
+    }
     
     // MARK: 2D Overlay
 

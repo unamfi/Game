@@ -11,25 +11,15 @@ import SceneKit
 
 class GameArchitecture {
     private var game : Game!
-    private var gamemodel = GameModel()
     private var sceneRendererDelegate : SceneRendererDelegate!
     
-    func setup(gameView: GameView, controllerDirection: ()->float2 ) {
-        
-        game = Game(gameModel: gamemodel)
-        gameView.scene = game.scene
-        game.pointOfView = gameView.pointOfView
-        game.setupAfterSceneAndPointOfViewHaveBeenSet()
-        
-        gamemodel.controllerDirection = controllerDirection
-        gamemodel.addDelegates([game, gameView])
-    
-        sceneRendererDelegate = SceneRendererDelegate(game: game, gameModel: gamemodel)
-        gameView.delegate = sceneRendererDelegate
+    init(model: GameModel, renderer: SCNSceneRenderer) {
+        game = Game(model: model, scene: renderer.scene!, pointOfView: renderer.pointOfView!)
+        sceneRendererDelegate = SceneRendererDelegate(game: game, gameModel: model)
+        renderer.delegate = sceneRendererDelegate
     }
-
+    
     func panCamera(direction: float2) {
         game.panCamera(direction)
     }
-    
 }

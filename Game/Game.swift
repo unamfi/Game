@@ -13,15 +13,18 @@ class Game: NSObject {
 
     weak var model : GameModel!
 
-    init(gameModel : GameModel) {
+    init(model : GameModel, scene: SCNScene, pointOfView: SCNNode) {
         super.init()
-        self.model = gameModel
-        scene = SCNScene(named: model.sceneName)!
+        self.model = model
+        self.scene = scene
+        self.pointOfView = pointOfView
+        model.addDelegates([self])
+        setupAfterSceneAndPointOfViewHaveBeenSet()
     }
     
     // MARK: Scene
     
-    var scene : SCNScene!
+    weak var scene : SCNScene!
     weak var pointOfView : SCNNode! 
     
     func setupAfterSceneAndPointOfViewHaveBeenSet() {
