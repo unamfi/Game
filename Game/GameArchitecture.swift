@@ -12,12 +12,9 @@ import SceneKit
 class GameArchitecture {
     private var game : Game!
     private var gamemodel = GameModel()
-    private var gameView : GameView?
     private var sceneRendererDelegate : SceneRendererDelegate!
     
     func setup(gameView: GameView, controllerDirection: ()->float2 ) {
-        
-        self.gameView = gameView
         
         game = Game(gameModel: gamemodel)
         gameView.scene = game.scene
