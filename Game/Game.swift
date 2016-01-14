@@ -9,6 +9,8 @@
 import Foundation
 import SceneKit
 
+Message to make compilation fail
+
 class Game: NSObject {
 
     weak var model : GameModel!
