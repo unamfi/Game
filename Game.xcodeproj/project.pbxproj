@@ -35,6 +35,9 @@
 		436419F91C456D9D00C35667 /* GameArchitecture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436419F81C456D9D00C35667 /* GameArchitecture.swift */; };
 		436419FA1C456D9D00C35667 /* GameArchitecture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436419F81C456D9D00C35667 /* GameArchitecture.swift */; };
 		436419FB1C456D9D00C35667 /* GameArchitecture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436419F81C456D9D00C35667 /* GameArchitecture.swift */; };
+		43686B641C48638600EB07B9 /* Shader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43686B631C48638600EB07B9 /* Shader.swift */; };
+		43686B651C48638600EB07B9 /* Shader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43686B631C48638600EB07B9 /* Shader.swift */; };
+		43686B661C48638600EB07B9 /* Shader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43686B631C48638600EB07B9 /* Shader.swift */; };
 		4379D8331C24CC91007EF2C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4379D8321C24CC91007EF2C0 /* AppDelegate.swift */; };
 		4379D83A1C24CC91007EF2C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4379D8381C24CC91007EF2C0 /* Main.storyboard */; };
 		4379D83C1C24CC91007EF2C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4379D83B1C24CC91007EF2C0 /* Assets.xcassets */; };
@@ -188,6 +191,7 @@
 		432C0F151C00F3670077C06B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		435AC3A91C2D9D1E006D0F0B /* SceneRendererDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneRendererDelegate.swift; sourceTree = "<group>"; };
 		436419F81C456D9D00C35667 /* GameArchitecture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameArchitecture.swift; sourceTree = "<group>"; };
+		43686B631C48638600EB07B9 /* Shader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shader.swift; sourceTree = "<group>"; };
 		4379D82A1C24CB7D007EF2C0 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
 		4379D82B1C24CBF7007EF2C0 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
 		4379D8301C24CC91007EF2C0 /* tvOSGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tvOSGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -453,6 +457,7 @@
 			children = (
 				431A493C1C457EB100E82C7C /* .travis.yml */,
 				4326C78E1C2F0E0F00EA5D9A /* Game.swift */,
+				43686B631C48638600EB07B9 /* Shader.swift */,
 				43BA6D601C277C7800FB99E4 /* FoxCharacter.swift */,
 				43BA6CC11C2691D000FB99E4 /* GameModel.swift */,
 				43BA6D621C277C7800FB99E4 /* GameView.swift */,
@@ -838,6 +843,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43A143921C2F73B0003699B4 /* PhysicsContactDelegate.swift in Sources */,
+				43686B641C48638600EB07B9 /* Shader.swift in Sources */,
 				43BA6D6F1C277C7800FB99E4 /* GameViewController.swift in Sources */,
 				43BA6D751C277C7800FB99E4 /* SCNSIMDOverlay.swift in Sources */,
 				43BA6D721C277C7800FB99E4 /* SceneKitExtensions.swift in Sources */,
@@ -878,6 +884,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43A143931C2F73B0003699B4 /* PhysicsContactDelegate.swift in Sources */,
+				43686B651C48638600EB07B9 /* Shader.swift in Sources */,
 				43BA6D701C277C7800FB99E4 /* GameViewController.swift in Sources */,
 				43BA6D731C277C7800FB99E4 /* SceneKitExtensions.swift in Sources */,
 				4329AF551C2A5EAC00DB7E92 /* VectorialAlgebra.swift in Sources */,
@@ -918,6 +925,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43A143941C2F73B0003699B4 /* PhysicsContactDelegate.swift in Sources */,
+				43686B661C48638600EB07B9 /* Shader.swift in Sources */,
 				43BA6D711C277C7800FB99E4 /* GameViewController.swift in Sources */,
 				43BA6D741C277C7800FB99E4 /* SceneKitExtensions.swift in Sources */,
 				4329AF561C2A5EAD00DB7E92 /* VectorialAlgebra.swift in Sources */,
