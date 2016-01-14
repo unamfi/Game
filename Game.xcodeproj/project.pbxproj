@@ -47,6 +47,9 @@
 		437CC0831C33316F00BBB9EB /* GroundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437CC0821C33316F00BBB9EB /* GroundType.swift */; };
 		437CC0841C33316F00BBB9EB /* GroundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437CC0821C33316F00BBB9EB /* GroundType.swift */; };
 		437CC0851C33316F00BBB9EB /* GroundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437CC0821C33316F00BBB9EB /* GroundType.swift */; };
+		4382EA451C47FD7500D62EC2 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 4382EA441C47FD7500D62EC2 /* Shaders */; };
+		4382EA461C47FD7500D62EC2 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 4382EA441C47FD7500D62EC2 /* Shaders */; };
+		4382EA471C47FD7500D62EC2 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 4382EA441C47FD7500D62EC2 /* Shaders */; };
 		438D55701C4177AB00C0861F /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438D556F1C4177AB00C0861F /* MulticastDelegate.swift */; };
 		438D55711C4177AB00C0861F /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438D556F1C4177AB00C0861F /* MulticastDelegate.swift */; };
 		438D55721C4177AB00C0861F /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438D556F1C4177AB00C0861F /* MulticastDelegate.swift */; };
@@ -201,6 +204,7 @@
 		437A2ABF1C20904700ED6EEC /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		437A2ACD1C209D1000ED6EEC /* VectorialAlgebra.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VectorialAlgebra.swift; path = ../OSXGame/VectorialAlgebra.swift; sourceTree = "<group>"; };
 		437CC0821C33316F00BBB9EB /* GroundType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroundType.swift; sourceTree = "<group>"; };
+		4382EA441C47FD7500D62EC2 /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shaders; sourceTree = "<group>"; };
 		438D556F1C4177AB00C0861F /* MulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
 		43A143911C2F73B0003699B4 /* PhysicsContactDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsContactDelegate.swift; sourceTree = "<group>"; };
 		43BA6CC01C24F9A900FB99E4 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
@@ -463,6 +467,7 @@
 				437A2ABF1C20904700ED6EEC /* Math.swift */,
 				43BA6D651C277C7800FB99E4 /* SCNSIMDOverlay.swift */,
 				437A2ACD1C209D1000ED6EEC /* VectorialAlgebra.swift */,
+				4382EA441C47FD7500D62EC2 /* Shaders */,
 				43BA6D781C277FD700FB99E4 /* game.scnassets */,
 				43BA6D791C277FD700FB99E4 /* Overlays */,
 				43BA6D811C277FD700FB99E4 /* Particle systems */,
@@ -718,6 +723,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43BA6D921C277FD700FB99E4 /* FlowerEmpty.png in Resources */,
+				4382EA451C47FD7500D62EC2 /* Shaders in Resources */,
 				43BA6D951C277FD700FB99E4 /* FlowerFull.png in Resources */,
 				43BA6D8F1C277FD700FB99E4 /* dpad.png in Resources */,
 				43BA6D9B1C277FD700FB99E4 /* MaxIcon.png in Resources */,
@@ -760,6 +766,7 @@
 				43BA6DA51C277FD700FB99E4 /* confetti.scnp in Resources */,
 				43BA6D8A1C277FD700FB99E4 /* congratulations.png in Resources */,
 				432C0F221C00F6EC0077C06B /* art.scnassets in Resources */,
+				4382EA461C47FD7500D62EC2 /* Shaders in Resources */,
 				43BA6DA81C277FD700FB99E4 /* glow01.png in Resources */,
 				43BA6D901C277FD700FB99E4 /* dpad.png in Resources */,
 				432C0EFB1C00F3670077C06B /* Assets.xcassets in Resources */,
@@ -791,6 +798,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43BA6D941C277FD700FB99E4 /* FlowerEmpty.png in Resources */,
+				4382EA471C47FD7500D62EC2 /* Shaders in Resources */,
 				43BA6D971C277FD700FB99E4 /* FlowerFull.png in Resources */,
 				43BA6D911C277FD700FB99E4 /* dpad.png in Resources */,
 				43BA6D9D1C277FD700FB99E4 /* MaxIcon.png in Resources */,
