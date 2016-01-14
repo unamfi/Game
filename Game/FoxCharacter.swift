@@ -10,7 +10,7 @@ import SceneKit
 
 private typealias ParticleEmitter = (node: SCNNode, particleSystem: SCNParticleSystem, birthRate: CGFloat)
 
-class Character {
+class FoxCharacter {
     
     var replacementPosition : SCNVector3?
     var maxPenetrationDistance = CGFloat(0.0)
@@ -24,7 +24,7 @@ class Character {
         // The character is loaded from a .scn file and stored in an intermediate
         // node that will be used as a handle to manipulate the whole group at once
         
-        let characterScene = SCNScene(named: "game.scnassets/panda.scn")!
+        let characterScene = SCNScene(named: "game.scnassets/fox.scn")!
         let characterTopLevelNode = characterScene.rootNode.childNodes[0]
         node.addChildNode(characterTopLevelNode)
         
@@ -110,7 +110,7 @@ class Character {
         walkAnimation.fadeInDuration = 0.3
         walkAnimation.fadeOutDuration = 0.3
         walkAnimation.repeatCount = Float.infinity
-        walkAnimation.speed = Character.speedFactor
+        walkAnimation.speed = FoxCharacter.speedFactor
         walkAnimation.animationEvents = [
             SCNAnimationEvent(keyTime: 0.1) { (_, _, _) in self.playFootStepSound() },
             SCNAnimationEvent(keyTime: 0.6) { (_, _, _) in self.playFootStepSound() }]
@@ -143,7 +143,7 @@ class Character {
         }
         
         let deltaTime = Float(min(time - previousUpdateTime, 1.0 / 60.0))
-        let characterSpeed = deltaTime * Character.speedFactor * 0.84
+        let characterSpeed = deltaTime * FoxCharacter.speedFactor * 0.84
         previousUpdateTime = time
         
         let initialPosition = node.position
@@ -255,7 +255,7 @@ class Character {
                 isWalking = false
             }
 
-            walkAnimation.speed = Character.speedFactor * walkSpeed
+            walkAnimation.speed = FoxCharacter.speedFactor * walkSpeed
             
             // restore walk animation if needed.
             isWalking = wasWalking

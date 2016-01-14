@@ -227,7 +227,7 @@ class Game: NSObject {
     
     // MARK: Character
     
-    let character = Character()
+    let character = FoxCharacter()
     
     private func putCharacterNodeOnStartingPoint() {
         scene.rootNode.addChildNode(character.node)
