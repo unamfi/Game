@@ -36,6 +36,22 @@ class Game: NSObject {
         initializeConfettiParticleSystem()
         putCharacterNodeOnStartingPoint()
         setupPhysicsContactDelegate()
+        setupPractica12()
+    }
+    
+    func setupPractica12() {
+        let geometry = SCNTorus(ringRadius: 1, pipeRadius:0.5)
+        let nodeToTestShaders = SCNNode(geometry: geometry)
+        nodeToTestShaders.position = foxCharacter.node.position
+        scene.rootNode.addChildNode(nodeToTestShaders)
+        
+        var shaderModifiers = [String:String]()
+        shaderModifiers[SCNShaderModifierEntryPointGeometry] = Shader(name: "move_up_and_down").program
+        shaderModifiers[SCNShaderModifierEntryPointFragment] = Shader(name: "up_green_down_red").program
+        
+        let material = SCNMaterial()
+        material.shaderModifiers = shaderModifiers
+        nodeToTestShaders.geometry?.materials = [material]
     }
     
     // MARK: Physics contact delegate
