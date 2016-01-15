@@ -285,40 +285,56 @@ class FoxCharacter {
         
         isBurning = true
         
-        // start fire + smoke
-        fireEmitter.particleSystem.birthRate = fireEmitter.birthRate
-        smokeEmitter.particleSystem.birthRate = smokeEmitter.birthRate
-        
-        // walk faster
-        walkSpeed = 2.3
+        startFireAndSmoke()
+        walkFaster()
     }
     
     func haltFireOnTail() {
         if isBurning {
             isBurning = false
-            
-            node.runAction(SCNAction.sequence([
-                SCNAction.playAudioSource(haltFireOnTailSound, waitForCompletion: true),
-                SCNAction.playAudioSource(reliefSound, waitForCompletion: false)])
-            )
-            
-            // stop fire and smoke
-            fireEmitter.particleSystem.birthRate = 0
-            SCNTransaction.animateWithDuration(1.0) {
-                self.smokeEmitter.particleSystem.birthRate = 0
-            }
-            
-            // start white smoke
-            whiteSmokeEmitter.particleSystem.birthRate = whiteSmokeEmitter.birthRate
-            
-            // progressively stop white smoke
-            SCNTransaction.animateWithDuration(5.0) {
-                self.whiteSmokeEmitter.particleSystem.birthRate = 0
-            }
-            
-            // walk normally
-            walkSpeed = 1.0
+            playHaltFireSounds()
+            stopFireAndSmoke()
+            startWhiteSmoke()
+            progressivelyStopWhiteSmoke()
+            walkNormally()
         }
+    }
+    
+    private func playHaltFireSounds() {
+        node.runAction(SCNAction.sequence([
+            SCNAction.playAudioSource(haltFireOnTailSound, waitForCompletion: true),
+            SCNAction.playAudioSource(reliefSound, waitForCompletion: false)])
+        )
+    }
+    
+    private func startFireAndSmoke() {
+        fireEmitter.particleSystem.birthRate = fireEmitter.birthRate
+        smokeEmitter.particleSystem.birthRate = smokeEmitter.birthRate
+    }
+    
+    private func stopFireAndSmoke() {
+        fireEmitter.particleSystem.birthRate = 0
+        SCNTransaction.animateWithDuration(1.0) {
+            self.smokeEmitter.particleSystem.birthRate = 0
+        }
+    }
+    
+    private func startWhiteSmoke() {
+        whiteSmokeEmitter.particleSystem.birthRate = whiteSmokeEmitter.birthRate
+    }
+    
+    private func progressivelyStopWhiteSmoke() {
+        SCNTransaction.animateWithDuration(5.0) {
+            self.whiteSmokeEmitter.particleSystem.birthRate = 0
+        }
+    }
+    
+    private func walkNormally() {
+        walkSpeed = 1.0
+    }
+    
+    private func walkFaster() {
+        walkSpeed = 2.3
     }
     
     // MARK: Dealing with sound
