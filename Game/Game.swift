@@ -35,7 +35,7 @@ class Game: NSObject {
         initializeConfettiParticleSystem()
         putCharacterNodeOnStartingPoint()
         setupPhysicsContactDelegate()
-        setupCameraManipulator()
+        setupCameraController()
     }
     
     // MARK: Physics contact delegate
@@ -102,14 +102,14 @@ class Game: NSObject {
     // MARK: Camera
     
     private var cameraModel = CameraModel()
-    private var cameraManipulator : CameraController!
+    private var cameraController : CameraController!
     
-    func setupCameraManipulator() {
-        cameraManipulator = CameraController(pointOfView: pointOfView, scene: scene, cameraModel: cameraModel)
+    func setupCameraController() {
+        cameraController = CameraController(pointOfView: pointOfView, scene: scene, cameraModel: cameraModel)
     }
     
     func panCamera(direction : float2) {
-        cameraManipulator.panCamera(direction)
+        cameraController.panCamera(direction)
     }
     
     // MARK: Character
@@ -300,7 +300,7 @@ class Game: NSObject {
         addConfettis()
         stopTheMusic()
         playCongratSound()
-        cameraManipulator.animateTheCameraForever()
+        cameraController.animateTheCameraForever()
     }
 }
 
@@ -373,7 +373,7 @@ extension Game {
         adjustTheVolumeOfTheEnemyBasedOnTheDistanceToTheCharacter()
         
         if let groundNode = walkFoxCharacterIntoGround(time) {
-            cameraManipulator.updateCameraWithCurrentGround(groundNode, model: model, foxCharacter: foxCharacter)
+            cameraController.updateCameraWithCurrentGround(groundNode, model: model, foxCharacter: foxCharacter)
         }     
     }
 }
