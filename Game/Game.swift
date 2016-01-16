@@ -51,6 +51,13 @@ class Game: NSObject {
     }
     
     // MARK: Sounds
+    
+    private let musicFileName = "music.m4a"
+    private let windSoundFileName = "wind.m4a"
+    private let flameThrowerSoundFileName = "flamethrower.mp3"
+    private let collectPearlSoundFileName = "collect1.mp3"
+    private let collectFlowerSoundFileName = "collect2.mp3"
+    private let victoryMusicFileName = "Music_victory.mp3"
 
     private func setupSounds() {
         let node = scene!.rootNode
@@ -63,36 +70,36 @@ class Game: NSObject {
     }
     
     private func setupMusicOnNode(node:SCNNode) {
-        node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: "music.m4a", volume: 0.25, positional: false, loops: true, shouldStream: true)))
+        node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: musicFileName, volume: 0.25, positional: false, loops: true, shouldStream: true)))
     }
     
     private func setupWindSoundOnNode(node: SCNNode) {
-        node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: "wind.m4a", volume: 0.3, positional: false, loops: true, shouldStream: true)))
+        node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: windSoundFileName, volume: 0.3, positional: false, loops: true, shouldStream: true)))
     }
     
     private var flameThrowerSound: SCNAudioPlayer!
     
     private func setupFlameThrowerSoundOnNode(node : SCNNode) {
-        flameThrowerSound = SCNAudioPlayer(source: SCNAudioSource(name: "flamethrower.mp3", volume: 0, positional: false, loops: true))
+        flameThrowerSound = SCNAudioPlayer(source: SCNAudioSource(name: flameThrowerSoundFileName, volume: 0, positional: false, loops: true))
         node.addAudioPlayer(flameThrowerSound)
     }
     
     private var collectPearlSound: SCNAudioSource!
     
     private func setupCollectPearlSound() {
-        collectPearlSound = SCNAudioSource(name: "collect1.mp3", volume: 0.5)
+        collectPearlSound = SCNAudioSource(name: collectPearlSoundFileName, volume: 0.5)
     }
     
     private var collectFlowerSound: SCNAudioSource!
     
     private func setupCollectFlowerSound() {
-        collectFlowerSound = SCNAudioSource(name: "collect2.mp3")
+        collectFlowerSound = SCNAudioSource(name: collectFlowerSoundFileName)
     }
     
     private var victoryMusic: SCNAudioSource!
     
     private func setupVictoryMusic() {
-         victoryMusic = SCNAudioSource(name: "Music_victory.mp3", volume: 0.5, shouldLoad: false)
+         victoryMusic = SCNAudioSource(name: victoryMusicFileName, volume: 0.5, shouldLoad: false)
     }
     
     // MARK: Camera
