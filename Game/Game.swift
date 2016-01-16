@@ -427,7 +427,7 @@ class Game: NSObject {
 
 extension Game {
     
-    private func resetStates() {
+    private func resetFoxCharacterStates() {
         foxCharacter.replacementPosition = nil
         foxCharacter.maxPenetrationDistance = 0
     }
@@ -489,7 +489,7 @@ extension Game {
 extension Game {
 
     func updateGameAtTime(time: NSTimeInterval) {
-        resetStates()
+        resetFoxCharacterStates()
         resetFlamesTransform()
         adjustTheVolumeOfTheEnemyBasedOnTheDistanceToTheCharacter()
         
