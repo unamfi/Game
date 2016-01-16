@@ -474,28 +474,28 @@ extension Game {
         }
     }
     
-
+    func walkFoxCharacterIntoGround(time: NSTimeInterval) -> SCNNode? {
+        let direction = characterDirection(model.controllerDirection())
+        let groundNode = foxCharacter.walkInDirection(direction, time: time, scene: scene, groundTypeFromMaterial:groundTypeFromMaterial)
+        return groundNode
+    }
     
+    func adjustTheVolumeOfTheEnemyBasedOnTheDistanceToTheCharacter() {
+        let distanceToClosestEnemy = distanceToClosestEnemyOnGame()
+        adjustSoundsVolumesBasedOnDistance(distanceToClosestEnemy)
+    }
 }
 
 extension Game {
 
     func updateGameAtTime(time: NSTimeInterval) {
         resetStates()
-        
-        let controllerDirection = model.controllerDirection()
-        let direction = characterDirection(controllerDirection)
-        
-        let groundNode = foxCharacter.walkInDirection(direction, time: time, scene: scene, groundTypeFromMaterial:groundTypeFromMaterial)
-        if let groundNode = groundNode {
-            updateCameraWithCurrentGround(groundNode)
-        }
-        
         resetFlamesTransform()
+        adjustTheVolumeOfTheEnemyBasedOnTheDistanceToTheCharacter()
         
-        // Adjust the volume of the enemy based on the distance to the character.
-        let distanceToClosestEnemy = distanceToClosestEnemyOnGame()
-        adjustSoundsVolumesBasedOnDistance(distanceToClosestEnemy)
+        if let groundNode = walkFoxCharacterIntoGround(time) {
+            updateCameraWithCurrentGround(groundNode)
+        }     
     }
 }
 
