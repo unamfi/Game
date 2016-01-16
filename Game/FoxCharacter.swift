@@ -10,11 +10,6 @@ import SceneKit
 
 private typealias ParticleEmitter = (node: SCNNode, particleSystem: SCNParticleSystem, birthRate: CGFloat)
 
-enum WalkSpeed : Float {
-    case Normal = 1.0
-    case Fast = 2.3
-}
-
 class FoxCharacter {
     
     var replacementPosition : SCNVector3?
