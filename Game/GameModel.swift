@@ -9,22 +9,6 @@
 import Foundation
 import GameplayKit
 
-class PlayerModel: NSObject, GKGameModelPlayer {
-    var playerId = 0
-}
-
-class CollectedPearlsUpdate : NSObject, GKGameModelUpdate {
-    var value = 0
-}
-
-class CollectedFlowersUpdate : NSObject, GKGameModelUpdate {
-    var value = 0
-}
-
-protocol GameModelDelegate {
-    func didApplyGameModelUpdate(gameModel:GameModel)
-}
-
 class GameModel:NSObject, NSCopying, GKGameModel {
     
     var players : [GKGameModelPlayer]?
