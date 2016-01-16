@@ -10,13 +10,11 @@ import Foundation
 
 class Shader {
     
-    let fileType = "shader"
-    let shaderDirectory = "Shaders"
-    
-    var program : String
+    private let fileType = "shader"
+    private let shaderDirectory = "Shaders"
+    private(set) var program : String
     
     init(name: String) {
-        
         let pathOfGeometryShader = NSBundle.mainBundle().pathForResource(name, ofType: fileType, inDirectory: shaderDirectory)!
         program = try! String(contentsOfFile: pathOfGeometryShader, encoding: NSUTF8StringEncoding)
     }

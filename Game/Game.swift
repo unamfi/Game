@@ -12,7 +12,7 @@ import AVFoundation
 
 class Game: NSObject {
 
-    weak var model : GameModel!
+    private weak var model : GameModel!
 
     init(model : GameModel, scene: SCNScene, pointOfView: SCNNode) {
         super.init()
@@ -25,8 +25,8 @@ class Game: NSObject {
     
     // MARK: Scene
     
-    weak var scene : SCNScene!
-    weak var pointOfView : SCNNode! 
+    private weak var scene : SCNScene!
+    private weak var pointOfView : SCNNode!
     
     func setupAfterSceneAndPointOfViewHaveBeenSet() {
         setupAutomaticCameraPositions()
@@ -68,26 +68,26 @@ class Game: NSObject {
         node.addAudioPlayer(SCNAudioPlayer(source: SCNAudioSource(name: "wind.m4a", volume: 0.3, positional: false, loops: true, shouldStream: true)))
     }
     
-    var flameThrowerSound: SCNAudioPlayer!
+    private var flameThrowerSound: SCNAudioPlayer!
     
     private func setupFlameThrowerSoundOnNode(node : SCNNode) {
         flameThrowerSound = SCNAudioPlayer(source: SCNAudioSource(name: "flamethrower.mp3", volume: 0, positional: false, loops: true))
         node.addAudioPlayer(flameThrowerSound)
     }
     
-    var collectPearlSound: SCNAudioSource!
+    private var collectPearlSound: SCNAudioSource!
     
     private func setupCollectPearlSound() {
         collectPearlSound = SCNAudioSource(name: "collect1.mp3", volume: 0.5)
     }
     
-    var collectFlowerSound: SCNAudioSource!
+    private var collectFlowerSound: SCNAudioSource!
     
     private func setupCollectFlowerSound() {
         collectFlowerSound = SCNAudioSource(name: "collect2.mp3")
     }
     
-    var victoryMusic: SCNAudioSource!
+    private var victoryMusic: SCNAudioSource!
     
     private func setupVictoryMusic() {
          victoryMusic = SCNAudioSource(name: "Music_victory.mp3", volume: 0.5, shouldLoad: false)
@@ -195,7 +195,7 @@ class Game: NSObject {
     }
     
     
-    func updateCameraWithCurrentGround(node: SCNNode) {
+    private func updateCameraWithCurrentGround(node: SCNNode) {
         if model.isWin() {
             return
         }
@@ -274,11 +274,11 @@ class Game: NSObject {
     
     // MARK: Setup nodes
     
-    var flames = [SCNNode]()
-    var enemies = [SCNNode]()
+    private var flames = [SCNNode]()
+    private var enemies = [SCNNode]()
     
-    var grassArea: SCNMaterial!
-    var waterArea: SCNMaterial!
+    private var grassArea: SCNMaterial!
+    private var waterArea: SCNMaterial!
     
     private func setupNodes() {
         // Retrieve various game elements in one traversal
