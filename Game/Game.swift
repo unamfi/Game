@@ -8,6 +8,7 @@
 
 import Foundation
 import SceneKit
+import AVFoundation
 
 class Game: NSObject {
 
@@ -421,6 +422,89 @@ class Game: NSObject {
         stopTheMusic()
         playCongratSound()
         animateTheCameraForever()
+    }
+}
+
+extension Game {
+    
+    private func resetStates() {
+        foxCharacter.replacementPosition = nil
+        foxCharacter.maxPenetrationDistance = 0
+    }
+    
+    private func groundTypeFromMaterial(material: SCNMaterial) -> GroundType {
+        if material == grassArea {
+            return .Grass
+        }
+        if material == waterArea {
+            return .Water
+        }
+        else {
+            return .Rock
+        }
+    }
+    
+    private func resetFlamesTransform() {
+        // Flames are static physics bodies, but they are moved by an action - So we need to tell the physics engine that the transforms did change.
+        for flame in flames {
+            flame.physicsBody!.resetTransform()
+        }
+    }
+    
+    private func distanceToClosestEnemyOnGame() -> Float {
+        var distanceToClosestEnemy = Float.infinity
+        let characterPosition = float3(foxCharacter.node.position)
+        for enemy in enemies {
+            //distance to enemy
+            let enemyTransform = float4x4(enemy.worldTransform)
+            let enemyPosition = float3(enemyTransform[3].x, enemyTransform[3].y, enemyTransform[3].z)
+            let distance = simd.distance(characterPosition, enemyPosition)
+            distanceToClosestEnemy = min(distanceToClosestEnemy, distance)
+        }
+        
+        return distanceToClosestEnemy
+    }
+    
+    private func adjustSoundsVolumesBasedOnDistance(distanceToClosestEnemy: Float) {
+        // Adjust sounds volumes based on distance with the enemy.
+        if !model.isWin() {
+            if let mixer = flameThrowerSound!.audioNode as? AVAudioMixerNode {
+                mixer.volume = 0.3 * max(0, min(1, 1 - ((distanceToClosestEnemy - 1.2) / 1.6)))
+            }
+        }
+    }
+    
+
+    
+}
+
+extension Game {
+
+    func updateGameAtTime(time: NSTimeInterval) {
+        resetStates()
+        
+        let controllerDirection = model.controllerDirection()
+        let direction = characterDirection(controllerDirection)
+        
+        let groundNode = foxCharacter.walkInDirection(direction, time: time, scene: scene, groundTypeFromMaterial:groundTypeFromMaterial)
+        if let groundNode = groundNode {
+            updateCameraWithCurrentGround(groundNode)
+        }
+        
+        resetFlamesTransform()
+        
+        // Adjust the volume of the enemy based on the distance to the character.
+        let distanceToClosestEnemy = distanceToClosestEnemyOnGame()
+        adjustSoundsVolumesBasedOnDistance(distanceToClosestEnemy)
+    }
+}
+
+extension Game {
+    func didSimulatePhysicsOfGameAtTime(time: NSTimeInterval) {
+        // If we hit a wall, position needs to be adjusted
+        if let position = foxCharacter.replacementPosition {
+            foxCharacter.node.position = position
+        }
     }
 }
 

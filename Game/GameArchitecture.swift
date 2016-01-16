@@ -15,7 +15,7 @@ class GameArchitecture {
     
     init(model: GameModel, renderer: SCNSceneRenderer) {
         game = Game(model: model, scene: renderer.scene!, pointOfView: renderer.pointOfView!)
-        sceneRendererDelegate = SceneRendererDelegate(game: game, gameModel: model)
+        sceneRendererDelegate = SceneRendererDelegate(game: game)
         renderer.delegate = sceneRendererDelegate
     }
     
