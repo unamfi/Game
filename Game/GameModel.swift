@@ -9,10 +9,6 @@
 import Foundation
 import GameplayKit
 
-import Foundation
-import GameplayKit
-
-
 class PlayerModel: NSObject, GKGameModelPlayer {
     var playerId = 0
 }
