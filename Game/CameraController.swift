@@ -9,7 +9,7 @@
 import Foundation
 import SceneKit
 
-class CameraManipulator {
+class CameraController {
     
     private var cameraModel : CameraModel!
     private var scene : SCNScene!
