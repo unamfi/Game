@@ -27,6 +27,9 @@ class CameraManipulator {
     }
     
     private func initialize() {
+        
+        setupAutomaticCameraPositions()
+        
         let ALTITUDE = 1.0
         let DISTANCE = 10.0
         
@@ -106,5 +109,59 @@ class CameraManipulator {
             self.cameraXHandle.runAction(SCNAction.rotateToX(CGFloat(-M_PI_4), y: 0, z: 0, duration: 5.0))
         }
     }
+    
+    private var currentGround: SCNNode!
+    private var mainGround: SCNNode!
+    private var groundToCameraPosition = [SCNNode: SCNVector3]()
+    
+    private func setupAutomaticCameraPositions() {
+        let rootNode = scene.rootNode
+        
+        mainGround = rootNode.childNodeWithName("bloc05_collisionMesh_02", recursively: true)
+        
+        groundToCameraPosition[rootNode.childNodeWithName("bloc04_collisionMesh_02", recursively: true)!] = SCNVector3(-0.188683, 4.719608, 0.0)
+        groundToCameraPosition[rootNode.childNodeWithName("bloc03_collisionMesh", recursively: true)!] = SCNVector3(-0.435909, 6.297167, 0.0)
+        groundToCameraPosition[rootNode.childNodeWithName("bloc07_collisionMesh", recursively: true)!] = SCNVector3( -0.333663, 7.868592, 0.0)
+        groundToCameraPosition[rootNode.childNodeWithName("bloc08_collisionMesh", recursively: true)!] = SCNVector3(-0.575011, 8.739003, 0.0)
+        groundToCameraPosition[rootNode.childNodeWithName("bloc06_collisionMesh", recursively: true)!] = SCNVector3( -1.095519, 9.425292, 0.0)
+        groundToCameraPosition[rootNode.childNodeWithName("bloc05_collisionMesh_02", recursively: true)!] = SCNVector3(-0.072051, 8.202264, 0.0)
+        groundToCameraPosition[rootNode.childNodeWithName("bloc05_collisionMesh_01", recursively: true)!] = SCNVector3(-0.072051, 8.202264, 0.0)
+    }
+    
+    func updateCameraWithCurrentGround(groundNode: SCNNode, model: GameModel, foxCharacter :FoxCharacter) {
+        if model.isWin() {
+            return
+        }
+        
+        if currentGround == nil {
+            currentGround = groundNode
+            return
+        }
+        
+        let characterNode = foxCharacter.node
+        updateThePositionOfTheCameraWhenWeMoveToAnotherBlock(characterNode, groundNode: groundNode)
+    }
+    
+    private func updateThePositionOfTheCameraWhenWeMoveToAnotherBlock(characterNode : SCNNode, groundNode: SCNNode) {
+        if groundNode != currentGround {
+            currentGround = groundNode
+            
+            if var position = groundToCameraPosition[groundNode] {
+                if groundNode == mainGround && characterNode.position.x < 2.5 {
+                    position = SCNVector3(-0.098175, 3.926991, 0.0)
+                }
+                
+                let actionY = SCNAction.rotateToX(0, y: CGFloat(position.y), z: 0, duration: 3.0, shortestUnitArc: true)
+                actionY.timingMode = SCNActionTimingMode.EaseInEaseOut
+                
+                let actionX = SCNAction.rotateToX(CGFloat(position.x), y: 0, z: 0, duration: 3.0, shortestUnitArc: true)
+                actionX.timingMode = SCNActionTimingMode.EaseInEaseOut
+                
+                cameraYHandle.runAction(actionY)
+                cameraXHandle.runAction(actionX)
+            }
+        }
+    }
+    
     
 }
