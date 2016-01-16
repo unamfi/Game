@@ -10,6 +10,11 @@ import SceneKit
 
 private typealias ParticleEmitter = (node: SCNNode, particleSystem: SCNParticleSystem, birthRate: CGFloat)
 
+enum WalkSpeed : Float {
+    case Normal = 1.0
+    case Fast = 2.3
+}
+
 class FoxCharacter {
     
     var replacementPosition : SCNVector3?
@@ -247,7 +252,7 @@ class FoxCharacter {
         }
     }
     
-    private var walkSpeed: Float = 1.0 {
+    private var walkSpeed: Float = WalkSpeed.Normal.rawValue {
         didSet {
             // remove current walk animation if any.
             let wasWalking = isWalking
@@ -330,11 +335,11 @@ class FoxCharacter {
     }
     
     private func walkNormally() {
-        walkSpeed = 1.0
+        walkSpeed = WalkSpeed.Normal.rawValue
     }
     
     private func walkFaster() {
-        walkSpeed = 2.3
+        walkSpeed = WalkSpeed.Fast.rawValue
     }
     
     // MARK: Dealing with sound
