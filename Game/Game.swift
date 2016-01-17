@@ -99,6 +99,14 @@ class Game: NSObject {
          victoryMusic = SCNAudioSource(name: victoryMusicFileName, volume: 0.5, shouldLoad: false)
     }
     
+    private func playVictoryMusic() {
+        scene.rootNode.addAudioPlayer(SCNAudioPlayer(source: victoryMusic))
+    }
+    
+    private func stopTheMusic() {
+        scene.rootNode.removeAllAudioPlayers()
+    }
+    
     // MARK: Camera
     
     private var cameraModel = CameraModel()
@@ -288,18 +296,10 @@ class Game: NSObject {
         scene.addParticleSystem(confettiParticleSystem, withTransform: particleSystemPosition)
     }
     
-    private func stopTheMusic() {
-        scene.rootNode.removeAllAudioPlayers()
-    }
-    
-    private func playCongratSound() {
-        scene.rootNode.addAudioPlayer(SCNAudioPlayer(source: victoryMusic))
-    }
-    
     private func showEndAnimation() {
         addConfettis()
         stopTheMusic()
-        playCongratSound()
+        playVictoryMusic()
         cameraController.animateTheCameraForever()
     }
 }
