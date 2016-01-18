@@ -131,7 +131,10 @@ class Game: NSObject {
     }
     
     func characterDirection(controllerDirection : float2) -> float3 {
-        
+        return characterDirectionBasedOnPointOfViewAndControllerDirection(controllerDirection, pointOfView: pointOfView)
+    }
+    
+    func characterDirectionBasedOnPointOfViewAndControllerDirection(controllerDirection: float2, pointOfView: SCNNode?) -> float3 {
         var direction = float3(controllerDirection.x, 0.0, controllerDirection.y)
         
         if let pov = pointOfView {
