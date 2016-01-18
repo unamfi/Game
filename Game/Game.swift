@@ -333,14 +333,14 @@ extension Game {
         }
     }
     
-    private func distanceToClosestEnemyOnGame() -> Float {
+    private func distanceToClosestEnemyOnGameFromNode(node: SCNNode) -> Float {
         var distanceToClosestEnemy = Float.infinity
-        let characterPosition = float3(foxCharacter.node.position)
+        let nodePosition = float3(node.position)
         for enemy in enemies {
             //distance to enemy
             let enemyTransform = float4x4(enemy.worldTransform)
             let enemyPosition = float3(enemyTransform[3].x, enemyTransform[3].y, enemyTransform[3].z)
-            let distance = simd.distance(characterPosition, enemyPosition)
+            let distance = simd.distance(nodePosition, enemyPosition)
             distanceToClosestEnemy = min(distanceToClosestEnemy, distance)
         }
         
@@ -363,7 +363,7 @@ extension Game {
     }
     
     func adjustTheVolumeOfTheEnemyBasedOnTheDistanceToTheCharacter() {
-        let distanceToClosestEnemy = distanceToClosestEnemyOnGame()
+        let distanceToClosestEnemy = distanceToClosestEnemyOnGameFromNode(foxCharacter.node)
         adjustSoundsVolumesBasedOnDistance(distanceToClosestEnemy)
     }
 }
