@@ -354,4 +354,11 @@ class FoxCharacter {
         }
     }
     
+    // MARK: Reset states
+    
+    func resetStates() {
+        replacementPosition = nil
+        maxPenetrationDistance = 0
+    }
+    
 }

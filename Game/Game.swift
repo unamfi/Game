@@ -176,6 +176,18 @@ class Game: NSObject {
     private var grassArea: SCNMaterial!
     private var waterArea: SCNMaterial!
     
+    private func groundTypeFromMaterial(material: SCNMaterial) -> GroundType {
+        if material == grassArea {
+            return .Grass
+        }
+        if material == waterArea {
+            return .Water
+        }
+        else {
+            return .Rock
+        }
+    }
+    
     private func setupNodes() {
         // Retrieve various game elements in one traversal
         var collisionNodes = [SCNNode]()
@@ -308,23 +320,6 @@ class Game: NSObject {
 
 extension Game {
     
-    private func resetFoxCharacterStates() {
-        foxCharacter.replacementPosition = nil
-        foxCharacter.maxPenetrationDistance = 0
-    }
-    
-    private func groundTypeFromMaterial(material: SCNMaterial) -> GroundType {
-        if material == grassArea {
-            return .Grass
-        }
-        if material == waterArea {
-            return .Water
-        }
-        else {
-            return .Rock
-        }
-    }
-    
     private func resetFlamesTransform() {
         // Flames are static physics bodies, but they are moved by an action - So we need to tell the physics engine that the transforms did change.
         for flame in flames {
@@ -361,8 +356,8 @@ extension Game {
         return groundNode
     }
     
-    func adjustTheVolumeOfTheEnemyBasedOnTheDistanceToTheCharacter() {
-        let distanceToClosestEnemy = distanceToClosestEnemyOnGameFromNode(foxCharacter.node)
+    func adjustTheVolumeOfTheEnemyBasedOnTheDistanceToTheNode(node : SCNNode) {
+        let distanceToClosestEnemy = distanceToClosestEnemyOnGameFromNode(node)
         adjustSoundsVolumesBasedOnDistance(distanceToClosestEnemy)
     }
 }
@@ -370,9 +365,9 @@ extension Game {
 extension Game {
 
     func updateGameAtTime(time: NSTimeInterval) {
-        resetFoxCharacterStates()
+        foxCharacter.resetStates()
         resetFlamesTransform()
-        adjustTheVolumeOfTheEnemyBasedOnTheDistanceToTheCharacter()
+        adjustTheVolumeOfTheEnemyBasedOnTheDistanceToTheNode(foxCharacter.node)
         
         if let groundNode = walkFoxCharacterIntoGround(time) {
             cameraController.updateCameraWithCurrentGround(groundNode, model: model, foxCharacter: foxCharacter)
