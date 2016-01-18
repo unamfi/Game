@@ -109,11 +109,10 @@ class Game: NSObject {
     
     // MARK: Camera
     
-    private var cameraModel = CameraModel()
     private var cameraController : CameraController!
     
     func setupCameraController() {
-        cameraController = CameraController(pointOfView: pointOfView, scene: scene, cameraModel: cameraModel)
+        cameraController = CameraController(pointOfView: pointOfView, scene: scene)
     }
     
     func panCamera(direction : float2) {

@@ -11,17 +11,16 @@ import SceneKit
 
 class CameraController {
     
-    private var cameraModel : CameraModel!
+    private var model = CameraModel()
     private var scene : SCNScene!
     private var pointOfView : SCNNode!
     
     // Nodes to manipulate the camera
     private var cameraManipulationNodes : CameraRotationNodes!
     
-    init(pointOfView: SCNNode, scene: SCNScene, cameraModel: CameraModel) {
+    init(pointOfView: SCNNode, scene: SCNScene) {
         self.pointOfView = pointOfView
         self.scene = scene
-        self.cameraModel = cameraModel
         initialize()
     }
     
@@ -32,15 +31,15 @@ class CameraController {
         scene.rootNode.addChildNode(cameraManipulationNodes.cameraYHandle)
         
         // Animate camera on launch and prevent the user from manipulating the camera until the end of the animation.
-        SCNTransaction.animateWithDuration(completionBlock: { self.cameraModel.lockCamera = false }) {
-            self.cameraModel.lockCamera = true
+        SCNTransaction.animateWithDuration(completionBlock: { self.model.lockCamera = false }) {
+            self.model.lockCamera = true
             self.cameraManipulationNodes.animateOnLaunch()
         }
     }
     
     func panCamera(direction : float2) {
         
-        if cameraModel.lockCamera {
+        if model.lockCamera {
             return
         }
         
