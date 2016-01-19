@@ -27,7 +27,7 @@ class PhysicsContactDelegate: NSObject, SCNPhysicsContactDelegate {
     
     func physicsWorld(world: SCNPhysicsWorld, didBeginContact contact: SCNPhysicsContact) {
         contact.match(category: BitmaskCollision) { (matching, other) in
-            self.game.characterNode(other, hitWall: matching, withContact: contact)
+            self.game.foxCharacter.characterNode(other, hitWall: matching, withContact: contact)
         }
         contact.match(category: BitmaskCollectable) { (matching, _) in
             self.game.collectPearl(matching)
@@ -42,7 +42,7 @@ class PhysicsContactDelegate: NSObject, SCNPhysicsContactDelegate {
     
     func physicsWorld(world: SCNPhysicsWorld, didUpdateContact contact: SCNPhysicsContact) {
         contact.match(category: BitmaskCollision) { (matching, other) in
-            self.game.characterNode(other, hitWall: matching, withContact: contact)
+            self.game.foxCharacter.characterNode(other, hitWall: matching, withContact: contact)
         }
     }
     

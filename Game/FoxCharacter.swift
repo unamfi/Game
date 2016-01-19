@@ -362,3 +362,33 @@ class FoxCharacter {
     }
     
 }
+
+extension FoxCharacter {
+    func characterNode(characterNode: SCNNode, hitWall wall: SCNNode, withContact contact: SCNPhysicsContact) {
+        if characterNode.parentNode != node {
+            return
+        }
+        
+        if maxPenetrationDistance > contact.penetrationDistance {
+            return
+        }
+        
+        maxPenetrationDistance = contact.penetrationDistance
+        
+        var characterPosition = float3(node.position)
+        var positionOffset = float3(contact.contactNormal) * Float(contact.penetrationDistance)
+        positionOffset.y = 0
+        characterPosition += positionOffset
+        
+        replacementPosition = SCNVector3(characterPosition)
+    }
+}
+
+extension FoxCharacter {
+    func adjustPosition() {
+        // If we hit a wall, position needs to be adjusted
+        if let position = replacementPosition {
+            node.position = position
+        }
+    }
+}

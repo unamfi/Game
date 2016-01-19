@@ -153,25 +153,6 @@ class Game: NSObject {
         return direction
     }
     
-    func characterNode(characterNode: SCNNode, hitWall wall: SCNNode, withContact contact: SCNPhysicsContact) {
-        if characterNode.parentNode != foxCharacter.node {
-            return
-        }
-        
-        if foxCharacter.maxPenetrationDistance > contact.penetrationDistance {
-            return
-        }
-        
-        foxCharacter.maxPenetrationDistance = contact.penetrationDistance
-        
-        var characterPosition = float3(foxCharacter.node.position)
-        var positionOffset = float3(contact.contactNormal) * Float(contact.penetrationDistance)
-        positionOffset.y = 0
-        characterPosition += positionOffset
-        
-        foxCharacter.replacementPosition = SCNVector3(characterPosition)
-    }
-    
     // MARK: Setup nodes
     
     private var flames = [SCNNode]()
@@ -381,10 +362,7 @@ extension Game {
 
 extension Game {
     func didSimulatePhysicsOfGameAtTime(time: NSTimeInterval) {
-        // If we hit a wall, position needs to be adjusted
-        if let position = foxCharacter.replacementPosition {
-            foxCharacter.node.position = position
-        }
+        foxCharacter.adjustPosition()
     }
 }
 
