@@ -136,7 +136,7 @@ class FoxCharacter {
         }
     }
     
-    func walkInDirection(direction: float3, time: NSTimeInterval, scene: SCNScene, groundTypeFromMaterial: SCNMaterial -> GroundType) -> SCNNode? {
+    func walkIntoGround(direction: float3, time: NSTimeInterval, scene: SCNScene, groundTypeFromMaterial: SCNMaterial -> GroundType) -> SCNNode? {
         // delta time since last update
         if previousUpdateTime == 0.0 {
             previousUpdateTime = time
