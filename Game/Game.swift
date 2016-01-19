@@ -124,9 +124,13 @@ class Game: NSObject {
     let foxCharacter = FoxCharacter()
     
     private func putCharacterNodeOnStartingPoint() {
-        scene.rootNode.addChildNode(foxCharacter.node)
+        putNodeOnStartingPoint(foxCharacter.node)
+    }
+    
+    private func putNodeOnStartingPoint(node: SCNNode) {
+        scene.rootNode.addChildNode(node)
         let startPosition = scene.rootNode.childNodeWithName("startingPoint", recursively: true)!
-        foxCharacter.node.transform = startPosition.transform
+        node.transform = startPosition.transform
     }
     
     func characterDirection(controllerDirection : float2) -> float3 {
