@@ -137,6 +137,15 @@
 		43ECC7DB1C4AD52600C293A5 /* CameraRotationNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ECC7DA1C4AD52600C293A5 /* CameraRotationNodes.swift */; };
 		43ECC7DC1C4AD52600C293A5 /* CameraRotationNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ECC7DA1C4AD52600C293A5 /* CameraRotationNodes.swift */; };
 		43ECC7DD1C4AD52600C293A5 /* CameraRotationNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ECC7DA1C4AD52600C293A5 /* CameraRotationNodes.swift */; };
+		43F6747F1C4FE2B3002DCE74 /* BoxModelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F6747E1C4FE2B3002DCE74 /* BoxModelComponent.swift */; };
+		43F674801C4FE2B3002DCE74 /* BoxModelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F6747E1C4FE2B3002DCE74 /* BoxModelComponent.swift */; };
+		43F674811C4FE2B3002DCE74 /* BoxModelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F6747E1C4FE2B3002DCE74 /* BoxModelComponent.swift */; };
+		43F674831C500660002DCE74 /* SuperMeatBoyEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F674821C500660002DCE74 /* SuperMeatBoyEntity.swift */; };
+		43F674841C500660002DCE74 /* SuperMeatBoyEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F674821C500660002DCE74 /* SuperMeatBoyEntity.swift */; };
+		43F674851C500660002DCE74 /* SuperMeatBoyEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F674821C500660002DCE74 /* SuperMeatBoyEntity.swift */; };
+		43F674871C50077B002DCE74 /* ControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F674861C50077B002DCE74 /* ControlComponent.swift */; };
+		43F674881C50077B002DCE74 /* ControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F674861C50077B002DCE74 /* ControlComponent.swift */; };
+		43F674891C50077B002DCE74 /* ControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F674861C50077B002DCE74 /* ControlComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -261,6 +270,9 @@
 		43ECC7D21C4AAF4500C293A5 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		43ECC7D61C4AB04F00C293A5 /* GameModelDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameModelDelegate.swift; sourceTree = "<group>"; };
 		43ECC7DA1C4AD52600C293A5 /* CameraRotationNodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraRotationNodes.swift; sourceTree = "<group>"; };
+		43F6747E1C4FE2B3002DCE74 /* BoxModelComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxModelComponent.swift; sourceTree = "<group>"; };
+		43F674821C500660002DCE74 /* SuperMeatBoyEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuperMeatBoyEntity.swift; sourceTree = "<group>"; };
+		43F674861C50077B002DCE74 /* ControlComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -485,6 +497,9 @@
 			children = (
 				431A493C1C457EB100E82C7C /* .travis.yml */,
 				4326C78E1C2F0E0F00EA5D9A /* Game.swift */,
+				43F674821C500660002DCE74 /* SuperMeatBoyEntity.swift */,
+				43F6747E1C4FE2B3002DCE74 /* BoxModelComponent.swift */,
+				43F674861C50077B002DCE74 /* ControlComponent.swift */,
 				43ECC7C21C4AA8F800C293A5 /* CameraModel.swift */,
 				43ECC7C61C4AA92800C293A5 /* CameraController.swift */,
 				43ECC7DA1C4AD52600C293A5 /* CameraRotationNodes.swift */,
@@ -894,9 +909,12 @@
 				43ECC7C31C4AA8F800C293A5 /* CameraModel.swift in Sources */,
 				43BA6D691C277C7800FB99E4 /* GameControls.swift in Sources */,
 				43ECC7D71C4AB04F00C293A5 /* GameModelDelegate.swift in Sources */,
+				43F6747F1C4FE2B3002DCE74 /* BoxModelComponent.swift in Sources */,
+				43F674831C500660002DCE74 /* SuperMeatBoyEntity.swift in Sources */,
 				4326C78F1C2F0E0F00EA5D9A /* Game.swift in Sources */,
 				43BA6D6C1C277C7800FB99E4 /* GameView.swift in Sources */,
 				43ECC7C71C4AA92800C293A5 /* CameraController.swift in Sources */,
+				43F674871C50077B002DCE74 /* ControlComponent.swift in Sources */,
 				432C0EBF1C00F1F10077C06B /* AppDelegate.swift in Sources */,
 				436419F91C456D9D00C35667 /* GameArchitecture.swift in Sources */,
 				43ECC7DB1C4AD52600C293A5 /* CameraRotationNodes.swift in Sources */,
@@ -942,9 +960,12 @@
 				43BA6CC31C2691D000FB99E4 /* GameModel.swift in Sources */,
 				43ECC7D81C4AB04F00C293A5 /* GameModelDelegate.swift in Sources */,
 				4326C7901C2F0E0F00EA5D9A /* Game.swift in Sources */,
+				43F674801C4FE2B3002DCE74 /* BoxModelComponent.swift in Sources */,
+				43F674841C500660002DCE74 /* SuperMeatBoyEntity.swift in Sources */,
 				43BA6D761C277C7800FB99E4 /* SCNSIMDOverlay.swift in Sources */,
 				43ECC7C81C4AA92800C293A5 /* CameraController.swift in Sources */,
 				432C0EF21C00F3670077C06B /* AppDelegate.swift in Sources */,
+				43F674881C50077B002DCE74 /* ControlComponent.swift in Sources */,
 				43BA6D6D1C277C7800FB99E4 /* GameView.swift in Sources */,
 				436419FA1C456D9D00C35667 /* GameArchitecture.swift in Sources */,
 				43ECC7DC1C4AD52600C293A5 /* CameraRotationNodes.swift in Sources */,
@@ -990,9 +1011,12 @@
 				43BA6CC41C2691D000FB99E4 /* GameModel.swift in Sources */,
 				43ECC7D91C4AB04F00C293A5 /* GameModelDelegate.swift in Sources */,
 				4326C7911C2F0E0F00EA5D9A /* Game.swift in Sources */,
+				43F674811C4FE2B3002DCE74 /* BoxModelComponent.swift in Sources */,
+				43F674851C500660002DCE74 /* SuperMeatBoyEntity.swift in Sources */,
 				43BA6D771C277C7800FB99E4 /* SCNSIMDOverlay.swift in Sources */,
 				43ECC7C91C4AA92800C293A5 /* CameraController.swift in Sources */,
 				4379D8331C24CC91007EF2C0 /* AppDelegate.swift in Sources */,
+				43F674891C50077B002DCE74 /* ControlComponent.swift in Sources */,
 				43BA6D6E1C277C7800FB99E4 /* GameView.swift in Sources */,
 				436419FB1C456D9D00C35667 /* GameArchitecture.swift in Sources */,
 				43ECC7DD1C4AD52600C293A5 /* CameraRotationNodes.swift in Sources */,
