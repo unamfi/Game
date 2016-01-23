@@ -1,5 +1,5 @@
 ![](https://rawgit.com/JuIioCesar/Game/develop/Game/art.scnassets/RepositoryAssets/GameBanner.png)
-![](https://travis-ci.org/JuIioCesar/Game.svg?branch=develop)
+![](https://travis-ci.org/UNAMMobile/Game.svg?branch=develop)
 ![](https://img.shields.io/badge/release-unreleased-red.svg)
 ![](https://img.shields.io/badge/Carthage-uncompatible-red.svg)
 ![](https://img.shields.io/badge/Cocoapods-uncompatible-red.svg)
