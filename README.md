@@ -33,4 +33,4 @@ Remember to keep it clean and to write unit tests.
 
 ##Slack
 
-Join the [Slack community](https://swift-game.herokuapp.com) and interact with other contributors!
+Join the [Slack community](https://swift-game.herokuapp.com) and interact with other contributors! 
