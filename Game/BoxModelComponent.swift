@@ -12,8 +12,9 @@ import SceneKit
 
 class BoxModelComponent: GKComponent {
     var node : SCNNode!
-    override init() {
+    init(scene: SCNScene) {
         super.init()
         self.node = SCNScene(named: "game.scnassets/box.scn")!.rootNode.childNodes[0]
+        scene.putNodeOnStartingPoint(node)
     }
 }

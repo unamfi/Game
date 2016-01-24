@@ -14,11 +14,9 @@ class ControlComponent: GKComponent {
     
     private let speed = Float(0.000001)
     private var controllerDirection = { () in return float2() }
-    private weak var node : SCNNode!
     
-    init(controllerDirection: ()->float2, node : SCNNode) {
+    init(controllerDirection: ()->float2) {
         super.init()
-        self.node = node
         self.controllerDirection = controllerDirection
     }
     
@@ -27,6 +25,9 @@ class ControlComponent: GKComponent {
     }
     
     private func changePositionWithDeltaTime(seconds: NSTimeInterval) {
+        
+        let node = self.entity!.componentForClass(BoxModelComponent)!.node!
+        
         let direction = float3(controllerDirection().x,0.0,controllerDirection().y)
         let deltaTime = Float(seconds)
         let deltaX = deltaTime * speed

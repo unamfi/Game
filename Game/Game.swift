@@ -36,16 +36,15 @@ class Game: NSObject {
         putCharacterNodeOnStartingPoint()
         setupPhysicsContactDelegate()
         setupCameraController()
-        setupSuperMeatBoyComponentManager()
+        setupSuperMeatBoy()
     }
     
     // MARK: Setup Super MeatBoy
     
-    var superMeatBoy = SuperMeatBoyEntity()
-    var superMeatBoyComponentManager : ComponentManager!
+    var superMeatBoy : SuperMeatBoy!
     
-    private func setupSuperMeatBoyComponentManager() {
-        superMeatBoyComponentManager = ComponentManager(superMeatBoyEntity: superMeatBoy, gameModel: model, scene: scene)
+    private func setupSuperMeatBoy() {
+        superMeatBoy = SuperMeatBoy(gameModel: model, scene: scene)
     }
     
     // MARK: Physics contact delegate
@@ -349,7 +348,7 @@ extension Game {
 
     func updateGameAtTime(time: NSTimeInterval) {
         
-        superMeatBoy.updateWithDeltaTime(time)
+        superMeatBoy.entity.updateWithDeltaTime(time)
         
         foxCharacter.resetStates()
         resetFlamesTransform()
