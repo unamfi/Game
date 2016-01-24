@@ -12,8 +12,9 @@ import SceneKit
 
 class ControlComponent: GKComponent {
     
-    private var controllerDirection = { () in return float2()}
-    private weak var node : SCNNode?
+    private let speed = Float(0.000001)
+    private var controllerDirection = { () in return float2() }
+    private weak var node : SCNNode!
     
     init(controllerDirection: ()->float2, node : SCNNode) {
         super.init()
@@ -22,6 +23,15 @@ class ControlComponent: GKComponent {
     }
     
     override func updateWithDeltaTime(seconds: NSTimeInterval) {
-
+        changePositionWithDeltaTime(seconds)
     }
+    
+    private func changePositionWithDeltaTime(seconds: NSTimeInterval) {
+        let direction = float3(controllerDirection().x,0.0,controllerDirection().y)
+        let deltaTime = Float(seconds)
+        let deltaX = deltaTime * speed
+        let position = float3(node.position)
+        node.position = SCNVector3(position + direction * deltaX)
+    }
+
 }
