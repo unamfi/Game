@@ -56,6 +56,16 @@ extension SCNAudioSource {
     }
 }
 
+extension SCNScene {
+    func putNodeOnStartingPoint(node: SCNNode) {
+        let startPositionNode = self.rootNode.childNodeWithName("startingPoint", recursively: true)
+        self.rootNode.addChildNode(node)
+        if let startPositionNode = startPositionNode {
+              node.transform = startPositionNode.transform
+        }
+    }
+}
+
 // MARK: SpriteKit
 
 extension SKSpriteNode {

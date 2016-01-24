@@ -36,27 +36,16 @@ class Game: NSObject {
         putCharacterNodeOnStartingPoint()
         setupPhysicsContactDelegate()
         setupCameraController()
-        setupSuperMeatBoy()
+        setupSuperMeatBoyComponentManager()
     }
     
     // MARK: Setup Super MeatBoy
     
     var superMeatBoy = SuperMeatBoyEntity()
+    var superMeatBoyComponentManager : ComponentManager!
     
-    func setupSuperMeatBoy() {
-        setSuperMeatBoyBoxComponents()
-        putSuperMeatBoyBoxOnStartingPoint()
-    }
-    
-    func setSuperMeatBoyBoxComponents() {
-        let boxModelComponent = BoxModelComponent()
-        superMeatBoy.addComponent(boxModelComponent)
-        superMeatBoy.addComponent(ControlComponent(controllerDirection: model.controllerDirection, node: boxModelComponent.node))
-    }
-    
-    func putSuperMeatBoyBoxOnStartingPoint() {
-        let superMeatBoyNode = superMeatBoy.componentForClass(BoxModelComponent)?.node
-        self.putNodeOnStartingPoint(superMeatBoyNode!)
+    private func setupSuperMeatBoyComponentManager() {
+        superMeatBoyComponentManager = ComponentManager(superMeatBoyEntity: superMeatBoy, gameModel: model, scene: scene)
     }
     
     // MARK: Physics contact delegate
@@ -145,13 +134,7 @@ class Game: NSObject {
     let foxCharacter = FoxCharacter()
     
     private func putCharacterNodeOnStartingPoint() {
-        putNodeOnStartingPoint(foxCharacter.node)
-    }
-    
-    private func putNodeOnStartingPoint(node: SCNNode) {
-        scene.rootNode.addChildNode(node)
-        let startPosition = scene.rootNode.childNodeWithName("startingPoint", recursively: true)!
-        node.transform = startPosition.transform
+        scene.putNodeOnStartingPoint(foxCharacter.node)
     }
     
     func characterDirection(controllerDirection : float2) -> float3 {

@@ -27,6 +27,9 @@
 		432C0F141C00F3670077C06B /* iOSGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432C0F131C00F3670077C06B /* iOSGameUITests.swift */; };
 		432C0F1F1C00F48A0077C06B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 43DA68DC1BFE795A00BED1B0 /* art.scnassets */; };
 		432C0F221C00F6EC0077C06B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 43DA68DC1BFE795A00BED1B0 /* art.scnassets */; };
+		433198E01C54733F00450832 /* ComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433198DF1C54733F00450832 /* ComponentManager.swift */; };
+		433198E11C54733F00450832 /* ComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433198DF1C54733F00450832 /* ComponentManager.swift */; };
+		433198E21C54733F00450832 /* ComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433198DF1C54733F00450832 /* ComponentManager.swift */; };
 		435AC3AA1C2D9D1E006D0F0B /* SceneRendererDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435AC3A91C2D9D1E006D0F0B /* SceneRendererDelegate.swift */; };
 		435AC3AB1C2D9D1E006D0F0B /* SceneRendererDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435AC3A91C2D9D1E006D0F0B /* SceneRendererDelegate.swift */; };
 		435AC3AC1C2D9D1E006D0F0B /* SceneRendererDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435AC3A91C2D9D1E006D0F0B /* SceneRendererDelegate.swift */; };
@@ -219,6 +222,7 @@
 		432C0F0F1C00F3670077C06B /* iOSGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		432C0F131C00F3670077C06B /* iOSGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSGameUITests.swift; sourceTree = "<group>"; };
 		432C0F151C00F3670077C06B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		433198DF1C54733F00450832 /* ComponentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentManager.swift; sourceTree = "<group>"; };
 		435AC3A91C2D9D1E006D0F0B /* SceneRendererDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneRendererDelegate.swift; sourceTree = "<group>"; };
 		436419F81C456D9D00C35667 /* GameArchitecture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameArchitecture.swift; sourceTree = "<group>"; };
 		43686B631C48638600EB07B9 /* Shader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shader.swift; sourceTree = "<group>"; };
@@ -498,6 +502,7 @@
 				431A493C1C457EB100E82C7C /* .travis.yml */,
 				4326C78E1C2F0E0F00EA5D9A /* Game.swift */,
 				43F674821C500660002DCE74 /* SuperMeatBoyEntity.swift */,
+				433198DF1C54733F00450832 /* ComponentManager.swift */,
 				43F6747E1C4FE2B3002DCE74 /* BoxModelComponent.swift */,
 				43F674861C50077B002DCE74 /* ControlComponent.swift */,
 				43ECC7C21C4AA8F800C293A5 /* CameraModel.swift */,
@@ -911,6 +916,7 @@
 				43ECC7D71C4AB04F00C293A5 /* GameModelDelegate.swift in Sources */,
 				43F6747F1C4FE2B3002DCE74 /* BoxModelComponent.swift in Sources */,
 				43F674831C500660002DCE74 /* SuperMeatBoyEntity.swift in Sources */,
+				433198E01C54733F00450832 /* ComponentManager.swift in Sources */,
 				4326C78F1C2F0E0F00EA5D9A /* Game.swift in Sources */,
 				43BA6D6C1C277C7800FB99E4 /* GameView.swift in Sources */,
 				43ECC7C71C4AA92800C293A5 /* CameraController.swift in Sources */,
@@ -962,6 +968,7 @@
 				4326C7901C2F0E0F00EA5D9A /* Game.swift in Sources */,
 				43F674801C4FE2B3002DCE74 /* BoxModelComponent.swift in Sources */,
 				43F674841C500660002DCE74 /* SuperMeatBoyEntity.swift in Sources */,
+				433198E11C54733F00450832 /* ComponentManager.swift in Sources */,
 				43BA6D761C277C7800FB99E4 /* SCNSIMDOverlay.swift in Sources */,
 				43ECC7C81C4AA92800C293A5 /* CameraController.swift in Sources */,
 				432C0EF21C00F3670077C06B /* AppDelegate.swift in Sources */,
@@ -1013,6 +1020,7 @@
 				4326C7911C2F0E0F00EA5D9A /* Game.swift in Sources */,
 				43F674811C4FE2B3002DCE74 /* BoxModelComponent.swift in Sources */,
 				43F674851C500660002DCE74 /* SuperMeatBoyEntity.swift in Sources */,
+				433198E21C54733F00450832 /* ComponentManager.swift in Sources */,
 				43BA6D771C277C7800FB99E4 /* SCNSIMDOverlay.swift in Sources */,
 				43ECC7C91C4AA92800C293A5 /* CameraController.swift in Sources */,
 				4379D8331C24CC91007EF2C0 /* AppDelegate.swift in Sources */,
