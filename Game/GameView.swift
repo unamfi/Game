@@ -18,6 +18,7 @@ class GameView: SCNView {
         setupScene(model)
         setThisClassAsGameModelDelegate(model)
         setupGameArchitecture(model)
+        showsStatistics = true
     }
     
     func setupScene(model: GameModel) {
@@ -175,6 +176,7 @@ class GameView: SCNView {
     var eventsDelegate: KeyboardAndMouseEventsDelegate?
     
     override func mouseDown(theEvent: NSEvent) {
+        super.mouseDown(theEvent)
         guard let eventsDelegate = eventsDelegate where eventsDelegate.mouseDown(self, theEvent: theEvent) else {
             super.mouseDown(theEvent)
             return
@@ -189,6 +191,7 @@ class GameView: SCNView {
     }
     
     override func mouseUp(theEvent: NSEvent) {
+        super.mouseUp(theEvent)
         guard let eventsDelegate = eventsDelegate where eventsDelegate.mouseUp(self, theEvent: theEvent) else {
             super.mouseUp(theEvent)
             return
