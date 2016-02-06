@@ -33,7 +33,10 @@ class Game: NSObject {
         setupNodes()
         initializeCollectFlowerParticleSystem()
         initializeConfettiParticleSystem()
-        putCharacterNodeOnStartingPoint()
+        let shouldPutFoxCharacter = false
+        if shouldPutFoxCharacter {
+            putCharacterNodeOnStartingPoint()
+        }
         setupPhysicsContactDelegate()
         setupCameraController()
         setupSuperMeatBoy()

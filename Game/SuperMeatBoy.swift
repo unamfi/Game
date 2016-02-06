@@ -14,7 +14,9 @@ class SuperMeatBoy {
     let entity = GKEntity()
     
     init(gameModel : GameModel, scene: SCNScene) {
-        entity.addComponent(BoxModelComponent(scene: scene))
+        entity.addComponent(NodeComponent())
+        entity.addComponent(CollissionComponent())
+        entity.addComponent(PlayerComponent(scene: scene))
         entity.addComponent(ControlComponent(controllerDirection: gameModel.controllerDirection))
     }
     
